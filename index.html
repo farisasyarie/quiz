@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soal Soal Asesmen</title>
+    <title>Soal Asesmen SMAN 3 Kuala Kapuas</title>
     <style>
         /* CSS Reset Dasar */
         * {
@@ -13,9 +13,10 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f6f8;
-            color: #333;
+            /* Menggunakan font sistem bawaan agar mirip aplikasi native */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #fafafa;
+            color: #262626;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -24,67 +25,118 @@
 
         .container {
             background-color: #ffffff;
-            padding: 40px 30px;
-            border-radius: 8px;
-            border: 1px solid #e1e4e8; /* Flat border tanpa shadow tebal */
             width: 100%;
             max-width: 400px;
+            border: 1px solid #dbdbdb;
+            border-radius: 4px;
+            overflow: hidden;
+            /* Jika diakses lewat HP, hapus border */
+            @media (max-width: 450px) {
+                border: none;
+                border-radius: 0;
+                background-color: #fafafa;
+            }
+        }
+
+        /* Bagian Profil / Header ala Instagram */
+        .profile-header {
             text-align: center;
+            padding: 30px 20px 20px;
+            background-color: #ffffff;
         }
 
-        .container h1 {
-            font-size: 24px;
+        .profile-pic {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #efefef;
+            border: 1px solid #dbdbdb;
+            margin: 0 auto 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+        }
+
+        .profile-header h1 {
+            font-size: 16px;
             font-weight: 600;
-            margin-bottom: 10px;
-            color: #1a1a1a;
+            color: #262626;
+            margin-bottom: 5px;
         }
 
-        .container p {
+        .profile-header p {
             font-size: 14px;
-            color: #666;
-            margin-bottom: 30px;
+            color: #8e8e8e;
         }
 
-        /* Gaya untuk navigasi tombol flat */
+        /* Bagian List Menu (IG Settings Style) */
         .nav-links {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            background-color: #ffffff;
+            border-top: 1px solid #dbdbdb;
+            border-bottom: 1px solid #dbdbdb;
         }
 
         .nav-links a {
-            display: block;
-            padding: 14px 20px;
-            background-color: #2B1B70; /* Warna utama solid (flat) */
-            color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background-color: #ffffff;
+            color: #262626;
             text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            border-radius: 6px;
-            transition: background-color 0.2s ease, transform 0.1s ease;
+            font-size: 15px;
+            transition: background-color 0.2s ease;
         }
 
-        .nav-links a:hover {
-            background-color: #3c2a91; /* Sedikit lebih terang saat di-hover */
+        /* Garis pemisah antar menu */
+        .nav-links a:not(:last-child) {
+            border-bottom: 1px solid #efefef;
         }
 
+        .nav-links a:hover, 
         .nav-links a:active {
-            transform: scale(0.98); /* Efek klik sederhana */
+            background-color: #fafafa;
+        }
+
+        /* Teks panah kanan */
+        .chevron {
+            color: #8e8e8e;
+            font-size: 14px;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Tingkatan</h1>
-        <p>Silakan pilih halaman yang ingin diakses:</p>
+        <!-- Header -->
+        <div class="profile-header">
+            <!-- Ikon placeholder (bisa diganti tag <img> logo sekolah/profil) -->
+            <div class="profile-pic">📝</div>
+            <h1>Tingkatan Kelas</h1>
+        </div>
         
+        <!-- Menu Navigasi -->
         <div class="nav-links">
-            <!-- Ganti href dengan nama file HTML tujuan Anda -->
-            <a href="http://portfolio.farisasyarie.com/quiz/mapel/KKA-X.html">Materi Pelajaran</a>
-            <a href="http://portfolio.farisasyarie.com/quiz/mapel/INF-X.html">Latihan Soal</a>
-            <a href="http://portfolio.farisasyarie.com/quiz/mapel/INF-XI.html">Rekap Penilaian</a>
-            <a href="http://portfolio.farisasyarie.com/quiz/mapel/INF-XII.html">Tentang</a>
+            <a href="http://portfolio.farisasyarie.com/quiz/mapel/KKA-X.html">
+                <span>Koding & KA X</span>
+                <span class="chevron">❯</span>
+            </a>
+            <a href="http://portfolio.farisasyarie.com/quiz/mapel/INF-X.html">
+                <span>Informatika X</span>
+                <span class="chevron">❯</span>
+            </a>
+            <a href="http://portfolio.farisasyarie.com/quiz/mapel/INF-XI.html">
+                <span>Informatika XI</span>
+                <span class="chevron">❯</span>
+            </a>
+            <a href="http://portfolio.farisasyarie.com/quiz/mapel/INF-XII.html">
+                <span>Informatika XII</span>
+                <span class="chevron">❯</span>
+            </a>
         </div>
     </div>
 
