@@ -184,7 +184,7 @@ C. Mencari sumber asli untuk memverifikasi lisensi dan persetujuan privasi
 D. Menjual data tersebut ke perusahaan farmasi
 E. Mengunduh dan menyimpan di server lokal tanpa diproses
 ANS: C
-
+ALASAN: Data medis bersifat sangat sensitif (PII - Personally Identifiable Information). Meski tersebar secara publik, penggunaannya tanpa izin melanggar etika dan regulasi privasi (seperti UU PDP/GDPR). Sumber dan lisensi (consent) harus diverifikasi secara legal.
 2. Pemerintah merilis data kemiskinan dengan format PDF. Budi menggunakan teknik scraping untuk mengekstraknya. Mengapa tindakan Budi ini kurang optimal secara komputasional dibandingkan menggunakan API?
 A. PDF lebih rentan virus daripada API
 B. Scraping melanggar hak cipta pemerintah
@@ -192,7 +192,7 @@ C. API memberikan data terstruktur (JSON/CSV) yang siap diolah
 D. API membutuhkan biaya langganan yang mahal
 E. Scraping membuat komputer cepat rusak
 ANS: C
-
+ALASAN: PDF dirancang untuk presentasi visual manusia, bukan untuk dibaca mesin (machine-readable). Mengekstrak teks dari PDF rentan terhadap kesalahan format. API menyediakan data secara langsung dalam struktur yang rapi (seperti JSON/CSV) sehingga komputasi jauh lebih efisien.
 3. Sebuah situs web e-commerce memiliki file robots.txt yang diatur 'Disallow: /harga'. Jika seorang kompetitor tetap melakukan web scraping pada halaman harga, pelanggaran apa yang terjadi?
 A. Pelanggaran privasi UU PDP
 B. Pelanggaran etika akses data otomatis (web scraping)
@@ -200,7 +200,7 @@ C. Pelanggaran hak cipta desain web
 D. Pelanggaran lisensi Creative Commons
 E. Tidak ada pelanggaran, internet adalah ruang publik
 ANS: B
-
+ALASAN: File `robots.txt` adalah standar protokol internet di mana pemilik situs mendeklarasikan bagian web mana yang dilarang dirayapi (crawling) oleh bot. Mengabaikannya merupakan pelanggaran etika serius dalam praktik akuisisi data otomatis.
 4. Lisensi CC-BY-NC-SA pada sebuah dataset gambar berarti...
 A. Bebas digunakan untuk komersial asalkan menyebutkan sumber
 B. Hanya boleh digunakan untuk proyek non-komersial, wajib atribusi, dan turunan dilisensikan sama
@@ -208,7 +208,7 @@ C. Data sepenuhnya milik publik (Public Domain)
 D. Harus membayar royalti sebelum digunakan
 E. Hanya boleh dilihat, tidak boleh diunduh
 ANS: B
-
+ALASAN: Kepanjangan dari lisensinya: BY (wajib Atribusi/menyebutkan sumber), NC (Non-Commercial/tidak boleh dikomersialkan), dan SA (Share-Alike/karya turunannya wajib menggunakan lisensi yang sama persis).
 5. Saat melakukan Data Cleaning pada data sensus, ditemukan 15% data umur bernilai 'null'. Jika data yang bernilai null langsung dihapus, dampak analitis terburuknya adalah...
 A. Ukuran file menjadi lebih kecil
 B. Mempercepat proses komputasi komputer
@@ -216,7 +216,7 @@ C. Terjadi bias demografi jika yang tidak mengisi umur berasal dari kelompok ter
 D. Menghasilkan model regresi yang lebih akurat
 E. Tidak ada dampak yang signifikan
 ANS: C
-
+ALASAN: Menghapus data secara acak (Listwise Deletion) berbahaya jika nilai yang kosong ternyata berpola (Missing Not at Random). Misalnya, jika yang enggan mengisi umur mayoritas adalah lansia, maka menghapusnya akan membuat analisis populasi menjadi bias/miring.
 6. Anda menemukan dataset dengan format tanggal yang bervariasi (DD/MM/YY dan MM/DD/YY). Langkah pertama yang paling krusial sebelum melakukan analisis deret waktu adalah...
 A. Menghapus semua baris yang memuat tanggal
 B. Melakukan standarisasi format menggunakan script otomatis
@@ -224,7 +224,7 @@ C. Mengubah tanggal menjadi teks biasa (String)
 D. Mencetak data ke kertas untuk diverifikasi manual
 E. Menyimpan data di Cloud
 ANS: B
-
+ALASAN: Analisis deret waktu (Time Series) mutlak membutuhkan data kronologis yang konsisten. Data tanggal yang formatnya campur aduk akan dibaca salah oleh komputer (misal: 10/11/22 bisa dibaca 10 November atau 11 Oktober). Harus distandarisasi terlebih dahulu.
 7. Kredibilitas suatu sumber data terbuka (Open Data) paling baik dievaluasi melalui...
 A. Jumlah ukuran file yang diunduh (MB/GB)
 B. Desain grafis situs web penyedianya
@@ -232,7 +232,7 @@ C. Adanya dokumentasi asal-usul (provenance) dan metodologi pengumpulan
 D. Banyaknya iklan pada portal tersebut
 E. Jumlah baris data (rows) dalam tabel
 ANS: C
-
+ALASAN: Data yang kredibel harus transparan (Data Provenance). Artinya, terdapat dokumentasi (metadata) yang jelas mengenai siapa yang mengumpulkan, instrumen/metode apa yang dipakai, kapan waktu pengambilan, dan apa tujuan pengumpulannya.
 8. Dalam konsep Big Data, kecepatan perubahan data dari waktu ke waktu disebut sebagai...
 A. Volume
 B. Variety
@@ -240,7 +240,7 @@ C. Velocity
 D. Veracity
 E. Value
 ANS: C
-
+ALASAN: Karakteristik "3V" Big Data adalah Volume (ukuran/skala data), Variety (keberagaman format data), dan Velocity (kecepatan data baru diproduksi, diproses, dan diubah, misalnya data streaming sensor atau sosial media secara real-time).
 9. Satu Data Indonesia merupakan inisiatif pemerintah untuk...
 A. Membatasi akses masyarakat terhadap internet
 B. Menjual data penduduk ke luar negeri
@@ -248,7 +248,7 @@ C. Menyatukan dan menstandarisasi tata kelola data pemerintah agar terpadu dan t
 D. Membuat media sosial lokal
 E. Menghapus data-data lama di kementerian
 ANS: C
-
+ALASAN: Perpres Satu Data Indonesia (SDI) adalah kebijakan tata kelola data pemerintah yang bertujuan untuk menghasilkan data yang akurat, mutakhir, terpadu, dan dapat dipertanggungjawabkan, serta mudah diakses dan dibagipakaikan antar instansi pusat dan daerah.
 10. Penggunaan Application Programming Interface (API) publik secara legal biasanya dibatasi oleh 'Rate Limit'. Tujuan utama pembatasan ini secara teknis adalah...
 A. Mencegah pengguna membagikan data ke orang lain
 B. Menghemat kapasitas penyimpanan di hardisk pengguna
@@ -256,7 +256,7 @@ C. Mencegah beban berlebih pada server penyedia data (DDoS/Overload)
 D. Memaksa pengguna untuk membayar lebih mahal
 E. Mengenkripsi data secara acak
 ANS: C
-
+ALASAN: Rate Limit membatasi jumlah request/permintaan yang bisa dilakukan oleh pengguna dalam jangka waktu tertentu (misal: 100 request/menit). Ini dilakukan untuk menjaga kestabilan server penyedia data agar tidak down atau kewalahan melayani lonjakan lalu lintas otomatis.
 11. Manakah dari berikut ini yang BUKAN merupakan contoh format file Open Data yang baik untuk diolah komputer (machine-readable)?
 A. CSV
 B. JSON
@@ -264,7 +264,7 @@ C. XML
 D. PDF hasil scan gambar
 E. XLSX
 ANS: D
-
+ALASAN: PDF (terlebih hasil pindai/scan berupa gambar biner) bukan format terstruktur. Mesin/komputer tidak dapat membaca dan mengurai elemen datanya secara langsung tanpa bantuan algoritma kompleks (seperti OCR), sehingga menjadikannya format yang sangat buruk untuk Open Data komputasional.
 12. Jika sebuah portal berita mempublikasikan data hasil polling Twitter sebagai representasi opini seluruh rakyat Indonesia, mengapa data ini bias secara metodologi?
 A. Twitter mudah di-hack
 B. Hanya mewakili demografi pengguna Twitter yang mengikuti polling tersebut
@@ -272,7 +272,7 @@ C. Format data Twitter tidak bisa diekspor ke Excel
 D. Jumlah karakternya dibatasi 280 huruf
 E. Tidak memiliki lisensi Creative Commons
 ANS: B
-
+ALASAN: Polling sosial media tidak menggunakan teknik *random sampling* yang benar. Sampel yang terkumpul bias karena terpengaruh oleh demografi audiens pemilik akun, algoritma sosial media, dan ketersediaan akses internet, sehingga secara statistik tidak bisa mewakili total seluruh populasi negara.
 13. Apa perbedaan mendasar antara Data Terbuka (Open Data) dan Data Pribadi (Personal Data)?
 A. Data terbuka berbayar, data pribadi gratis
 B. Data terbuka boleh diakses, dimodifikasi, dan dibagikan siapa saja; data pribadi dilindungi hukum privasi
@@ -280,7 +280,7 @@ C. Data terbuka selalu berformat CSV, data pribadi PDF
 D. Data terbuka hanya milik pemerintah, data pribadi milik swasta
 E. Tidak ada perbedaan
 ANS: B
-
+ALASAN: Open Data berpedoman pada asas kebebasan akses publik. Sebaliknya, Data Pribadi terkait hak asasi dan privasi individu yang ketat diatur oleh undang-undang, sehingga kepemilikan dan penggunaannya tidak boleh dieksploitasi sembarangan tanpa persetujuan subjek.
 14. Seorang siswa mempublikasikan dataset curah hujan hasil pengukuran alat pribadinya dengan lisensi CC0 (Public Domain). Ini berarti...
 A. Siswa tetap menuntut royalti jika digunakan
 B. Data tidak boleh diubah oleh siapapun
@@ -288,7 +288,7 @@ C. Siapa saja bebas menggunakan, mengubah, dan membagikan tanpa perlu izin atau 
 D. Siswa berhak mencabut akses sewaktu-waktu
 E. Data tersebut ilegal
 ANS: C
-
+ALASAN: Lisensi CC0 (Creative Commons Zero) setara dengan penyerahan hak ke ranah publik (Public Domain). Pencipta melepaskan seluruh hak ciptanya di seluruh dunia, sehingga siapa pun dapat mengeksploitasinya tanpa syarat lisensi apa pun (bahkan tanpa harus menyebutkan nama pembuat aslinya).
 15. Proses 'Data Provenance' sangat penting dalam pengambilan keputusan bisnis karena...
 A. Membuat tampilan grafik lebih menarik
 B. Memastikan data berasal dari sumber yang terpercaya dan tidak dimanipulasi di tengah jalan
@@ -296,7 +296,7 @@ C. Mengurangi ukuran file database
 D. Mengubah data menjadi kode biner
 E. Mempercepat proses download di internet
 ANS: B
-
+ALASAN: Data Provenance (asal-usul data) ibarat rantai lacak balak (audit trail). Ini memverifikasi riwayat lengkap suatu dataset (dari mana asalnya, siapa yang memodifikasinya, dan algoritma apa yang mengolahnya), sehingga integritas dan kebenaran data terjamin sebelum digunakan untuk keputusan krusial bisnis.
 16. Mengapa membersihkan data (Data Cleaning) memakan waktu paling lama dalam siklus analisis data?
 A. Karena komputer lambat membaca teks
 B. Karena analis sering lupa menyimpan file
@@ -304,7 +304,7 @@ C. Karena data dunia nyata sering kotor, inkonsisten, duplikat, dan memiliki nil
 D. Karena harus menunggu persetujuan pemerintah
 E. Karena butuh koneksi internet yang super cepat
 ANS: C
-
+ALASAN: Analis sering mengalokasikan 60-80% waktunya untuk tahap *Data Wrangling/Cleaning*. Data dari sistem nyata (sensor, form input manusia) penuh dengan tipe data yang salah ketik, duplikasi, outlier absurd, dan kolom kosong (missing values) yang perlu dinormalisasi per barisnya agar model AI tidak ikut "belajar" hal yang salah ("Garbage In, Garbage Out").
 17. Berikut ini yang termasuk praktik Web Scraping yang etis adalah...
 A. Melakukan request ribuan kali per detik hingga server lambat
 B. Mengabaikan file robots.txt
@@ -312,7 +312,7 @@ C. Menjual kembali data yang memiliki lisensi CC-NC
 D. Memberikan jeda (delay) antar request dan menghormati robots.txt
 E. Mengambil data kartu kredit dari situs yang tidak aman
 ANS: D
-
+ALASAN: Etika scraping mencakup penghormatan pada aturan server pemilik. Ini dilakukan dengan membaca batasan di `robots.txt` dan mengimplementasikan *rate limiting* atau *delay* secara mandiri pada program scraper (misalnya 1-3 detik antar halaman) agar tidak membebani dan merugikan server penyedia layanan.
 18. Kaggle adalah salah satu repositori publik terpopuler. Fungsi utama platform seperti Kaggle bagi ilmuwan data adalah...
 A. Membeli hardware komputer
 B. Bermain game online
@@ -320,7 +320,7 @@ C. Mencari dataset, berbagi kode, dan berkolaborasi dalam proyek pemodelan
 D. Menyimpan foto pribadi
 E. Menulis dokumen Word
 ANS: C
-
+ALASAN: Kaggle adalah platform daring (online) komunitas Data Science. Platform ini memfasilitasi pertukaran dataset publik yang masif secara global, menyediakan ruang untuk menerbitkan/menjalankan kode Jupyter Notebook secara online (Kaggle Kernels), dan mengadakan kompetisi *Machine Learning*.
 19. Dalam UU Perlindungan Data Pribadi, yang dimaksud dengan 'Persetujuan Eksplisit' (Explicit Consent) saat mengumpulkan data pengguna adalah...
 A. Pengguna tidak membaca tapi mencentang kotak secara otomatis
 B. Data diambil diam-diam saat pengguna membuka aplikasi
@@ -328,7 +328,7 @@ C. Pengguna diberikan informasi jelas tentang tujuan penggunaan data dan secara 
 D. Pengguna harus membayar untuk melindungi datanya
 E. Data diambil dari perangkat teman pengguna
 ANS: C
-
+ALASAN: Hukum PDP mengharuskan bahwa persetujuan (Consent) tidak boleh dipaksa, tidak boleh samar, dan tidak boleh 'opt-in' secara default (tercentang otomatis). Pengguna harus diberi tahu secara gamblang dan transparan untuk apa datanya diambil, dan mereka harus melakukan tindakan afirmatif dan sadar (seperti menekan tombol setuju).
 20. Jika sebuah aplikasi meminta akses ke lokasi GPS Anda secara real-time untuk fitur kalkulator biasa, prinsip tata kelola data apa yang dilanggar?
 A. Data Minimization (pengumpulan data seperlunya sesuai fungsi)
 B. Data Visualization
@@ -336,7 +336,7 @@ C. Data Provenance
 D. Data Velocity
 E. Data Scraping
 ANS: A
-
+ALASAN: Prinsip "Data Minimization" (Minimalisasi Data) mengharuskan pengembang aplikasi hanya boleh mengumpulkan, memproses, dan menyimpan data pribadi sekecil mungkin, yang benar-benar relevan dan diperlukan secara absolut untuk memfasilitasi fungsi utama aplikasinya (sebuah aplikasi kalkulator lokal sama sekali tidak relevan dengan lokasi satelit fisik penggunanya).
 21. Saat menangani outlier (pencilan) ekstrem pada dataset pendapatan penduduk, pendekatan statistik yang paling tepat agar rata-rata tidak terdistorsi adalah...
 A. Menggunakan nilai Mean (Rata-rata)
 B. Menggunakan nilai Median (Nilai Tengah)
@@ -344,7 +344,7 @@ C. Menghapus semua data yang di bawah rata-rata
 D. Menduplikasi data yang nilainya kecil
 E. Mengubah semua data menjadi angka 0
 ANS: B
-
+ALASAN: Outlier (pencilan ekstrem) sangat menarik nilai ukur Mean (rata-rata), sehingga nilainya menjadi tidak representatif. Penggunaan Median sangat dianjurkan pada distribusi yang condong/miring (skewed distribution) karena nilai tengah berfokus pada urutan letak data sehingga kebal (robust) terhadap tarikan nominal dari angka yang super-ekstrem di ujung distribusi.
 22. Penggunaan lisensi CC-BY-ND melarang pengguna untuk...
 A. Menjual dataset
 B. Menyebutkan nama pembuat
@@ -352,7 +352,7 @@ C. Mendistribusikan dataset
 D. Membuat turunan atau modifikasi dari dataset tersebut
 E. Membagikan untuk keperluan pendidikan
 ANS: D
-
+ALASAN: Lisensi CC (Creative Commons) ND adalah kependekan dari "No-Derivatives". Anda bebas mengunduh, mendistribusikan ulang, bahkan mengomersialkannya (selama memberikan Atribusi/BY kepada pembuatnya), TAPI Anda mutlak dilarang memodifikasi, mengubah susunannya, atau mencampurkannya untuk menghasilkan karya/database turunan baru dari karya aslinya.
 23. Dalam proses akuisisi data otomatis, jika server penyedia data tidak memiliki API, solusi pemrograman komputasional yang bisa dilakukan adalah...
 A. Memasukkan data manual satu per satu
 B. Mengirim surat fisik ke penyedia data
@@ -360,7 +360,7 @@ C. Membangun program Web Scraper untuk mengekstrak elemen HTML
 D. Menghapus proyek analisis data
 E. Meretas database penyedia
 ANS: C
-
+ALASAN: Ketika penyedia tidak mengekspos API publik namun data tersebut terpampang di halaman situs (contoh HTML), kita dapat memprogram algoritma (Web Scraper) yang mensimulasikan penelusuran browser manusia untuk mengambil, membongkar (parsing), dan mengekstrak tag-tag HTML (misal menggunakan modul seperti BeautifulSoup atau Puppeteer) ke dalam tabel terstruktur secara otomatis.
 24. Manakah karakteristik utama dari data berformat JSON yang membuatnya populer untuk API?
 A. Berisi gambar resolusi tinggi
 B. Terstruktur menggunakan format key-value yang ringan dan mudah dibaca manusia serta mesin
@@ -368,7 +368,7 @@ C. Hanya bisa dibuka di Microsoft Excel
 D. Mampu menyimpan virus komputer secara otomatis
 E. Dienskripsi dengan sandi tingkat militer
 ANS: B
-
+ALASAN: JSON (JavaScript Object Notation) adalah standar hierarki transfer teks di internet modern. Popularitasnya didorong oleh bobot ukuran teksnya yang luar biasa ringan, format "Key-Value" yang seragam dan rapi (misal: "nama": "Andi"), dan sifatnya yang bahasa-independen sehingga sangat mudah di-parse oleh algoritma mesin (bot) sekaligus mudah dibaca oleh mata pengembang (manusia) tanpa perlu peranti lunak khusus.
 25. Sebuah portal Open Data pemerintah tidak pernah diperbarui selama 5 tahun terakhir. Kriteria kredibilitas apa yang gagal dipenuhi?
 A. Format data
 B. Aksesibilitas
@@ -376,7 +376,7 @@ C. Kebaruan waktu (Timeliness / Currency)
 D. Desain antarmuka
 E. Harga data
 ANS: C
-
+ALASAN: Data publik memiliki usia pakai/kedaluwarsa. Data kependudukan, inflasi, atau cuaca yang sudah mandek selama 5 tahun tidak memiliki relevansi lagi untuk pengambilan keputusan saat ini. Hal ini secara fatal melanggar kriteria *Currency* atau *Timeliness* (Kemutakhiran) dalam manajemen kualitas basis data (Data Quality Assessment).
 26. Apa risiko utama menggunakan dataset yang tidak seimbang (imbalanced data) untuk prediksi, misalnya 99% data sehat dan 1% data sakit?
 A. Komputer akan hang
 B. Model akan cenderung selalu memprediksi 'sehat' sehingga gagal mendeteksi yang 'sakit'
@@ -384,7 +384,7 @@ C. Ukuran file menjadi tidak stabil
 D. Data tidak bisa divisualisasikan
 E. Model akan memprediksi 100% sakit
 ANS: B
-
+ALASAN: Algoritma *Machine Learning* yang naif akan berusaha mengejar tingkat akurasi (Accuracy) setinggi mungkin. Menghadapi kelas imbalanced ekstrem 99:1, cara paling malas dan instan bagi mesin untuk mendapat akurasi 99% adalah dengan terus memprediksi kelas mayoritas (sehat). Akibatnya, model ini akan buta total dan akan secara brutal gagal mendeteksi satu kelas minoritas yang justru esensial (orang yang sakit).
 27. Dalam pengenalan ekosistem digital, yang dimaksud dengan jejak digital pasif adalah...
 A. Status yang sengaja diposting pengguna
 B. Komentar di blog
@@ -392,7 +392,7 @@ C. Data lokasi dan alamat IP yang terekam sistem tanpa interaksi sadar pengguna
 D. Email yang dikirim
 E. Video yang diunggah
 ANS: C
-
+ALASAN: Jejak digital pasif (Passive Digital Footprint) merujuk pada rekam jejak metadata tak terlihat yang tertinggal di internet sebagai efek samping penelusuran (seperti alamat IP statis perangkat, informasi jenis browser (User-Agent), riwayat kuki (cookies) yang diam-diam melacak perpindahan halaman, hingga kordinat sinyal tanpa disadari). Hal ini kontras dengan jejak aktif (status sosmed, komentar forum) yang dipublikasikan secara sadar.
 28. Ketika mengunduh dataset secara manual, penting untuk menyimpan 'metadata'. Apa itu metadata?
 A. Data tentang virus dalam file
 B. Data yang menjelaskan informasi tentang data tersebut (seperti sumber, tanggal, deskripsi kolom)
@@ -400,7 +400,7 @@ C. Data gambar dari penulis
 D. Program untuk membaca data
 E. Password untuk membuka file
 ANS: B
-
+ALASAN: Secara terminologi, metadata adalah "data mengenai data". File CSV hanya memuat kolom baris angka-angka mentah. Metadata (sering berwujud file Readme terpisah) memuat keterangan vital pendukungnya: siapa pengumpul datanya, apa definsi setiap kolom, kode singkatan apa yang berlaku (contoh: 1 untuk pria, 2 untuk wanita), dan unit pengukuran yang dipakai agar analis memahami konteks angka yang diolah.
 29. Mendeteksi bias pada dataset evaluasi kinerja karyawan yang hanya berisi data karyawan pria akan menyebabkan AI menjadi...
 A. Sangat akurat untuk semua gender
 B. Mampu memperbaiki kelemahannya sendiri
@@ -408,7 +408,7 @@ C. Diskriminatif karena tidak mengenali pola kinerja karyawan wanita (Bias Keter
 D. Berjalan lebih lambat
 E. Memiliki nilai visualisasi yang tinggi
 ANS: C
-
+ALASAN: Data latih adalah panduan belajar eksklusif sebuah AI. Jika dataset pelatihan kehilangan representasi (Bias Keterwakilan/Representation Bias) dari kelompok tertentu (seperti gender wanita), model prediksi tersebut tidak akan memiliki wawasan matematis atas pola/ciri kelompok tersebut. Hal ini akan melahirkan prediksi sistemik diskriminatif (mismatch/misklasifikasi yang tidak setara) dalam dunia nyata, merugikan kelompok minoritas atau tidak terwakili.
 30. Proyek kurasi katalog data mengharuskan validasi lisensi. Mengapa mencampur data CC-BY-NC dan data Proprietary untuk dijual sebagai satu produk adalah pelanggaran?
 A. Karena data CC-BY-NC bebas dijual
 B. Karena data Proprietary (Berhak Cipta Penuh) tidak boleh digabung dengan apapun
@@ -416,7 +416,7 @@ C. Karena lisensi CC-BY-NC secara tegas melarang penggunaan komersial (dijual)
 D. Karena format file pasti berbeda
 E. Karena kurasi data tidak diizinkan hukum
 ANS: C
-
+ALASAN: Klausa (NC / Non-Commercial) pada lisensi terbuka Creative Commons bersifat mutlak melarang segala wujud komersialisasi langsung (seperti menjual produk, monetisasi berbayar, hingga menyisipkannya pada produk komersial tertutup yang diperjualbelikan). Memaketkan data gratisan CC-BY-NC ke dalam database komersil tertutup merupakan pelanggaran hak kekayaan cipta turunan secara pidana.
 31. Aktivitas 'Unplugged' (tanpa komputer) dalam analisis data sering menggunakan kartu klasifikasi. Tujuannya adalah...
 A. Menghemat biaya listrik sekolah
 B. Melatih nalar logika penyaringan dan pengelompokan data sebelum diterapkan di perangkat lunak
@@ -424,7 +424,7 @@ C. Menghindari radiasi layar monitor
 D. Menggantikan fungsi RAM
 E. Agar bisa dibawa pulang
 ANS: B
-
+ALASAN: Konsep CS Unplugged (Computational Thinking tanpa komputer) dirancang untuk memisahkan fokus otak (beban kognitif) dari keruwetan aturan sintaks pemrograman teknis. Menitikberatkan siswa untuk murni melatih logika komputasional tingkat tinggi: bagaimana mendefinisikan kriteria (Filter), metode algoritma urutan (Sorting), serta mengabstraksikan klasifikasi data (Pattern Recognition) secara visual, fisik, dan berurutan sebelum menyentuh perangkat elektronik.
 32. Dalam spreadsheet, terdapat fungsi agregasi. Fungsi apa yang paling tepat untuk menghitung jumlah transaksi unik (bukan nilai transaksinya) pada kolom nama pelanggan?
 A. SUM
 B. AVERAGE
@@ -432,7 +432,7 @@ C. COUNT / COUNTA
 D. MEDIAN
 E. MIN
 ANS: C
-
+ALASAN: SUM digunakan menjumlahkan akumulasi nilai angka numerik. AVERAGE mencari rata-rata ukur matematis. Sedangkan untuk operasi mencacah berapa *kali/jumlah baris kemunculan* (entitas unik) sebuah transaksi (frekuensi data) pada sel berisi teks ataupun angka, kita harus memakai fungsi cacah yakni COUNT (untuk angka sel utuh) atau perluasannya COUNTA (jika sel yang dihitung termasuk berwujud huruf/teks string seperti 'Nama Pelanggan').
 33. Anda memiliki data pergerakan harga saham harian selama 1 tahun. Visualisasi terbaik untuk menunjukkan tren naik-turun seiring waktu adalah...
 A. Pie Chart
 B. Bar Chart
@@ -440,7 +440,7 @@ C. Line Chart (Grafik Garis)
 D. Scatter Plot
 E. Tree Map
 ANS: C
-
+ALASAN: Setiap tipe grafik melayani satu fungsi logis fundamental. *Line Chart* (Grafik Garis/Kurva) menyambungkan plot poin-poin yang sejajar dengan sumbu absis kontinu yang merepresentasikan sumbu X sebagai perjalanan/deret waktu (Time-Series) yang urut secara temporal. Metode sambungan kontinyu sangat tajam memvisualisasikan gradien kemiringan (slopes/trends), kecepatan kurva pergerakan (rates of change), dan pola pergerakan periode naik/turun dalam jangka waktu panjang.
 34. Pada sebuah grafik batang yang dimuat di koran, sumbu Y (jumlah) dimulai dari angka 50, bukan 0, sehingga perbedaan antar batang terlihat sangat ekstrem. Ini adalah contoh...
 A. Exploratory Data Analysis
 B. Penyesatan visual (Misleading Visualization)
@@ -448,7 +448,7 @@ C. Standarisasi grafik internasional
 D. Visualisasi paling efektif
 E. Data Cleaning
 ANS: B
-
+ALASAN: Skala nol (Zero Baseline) pada Bar Chart secara universal adalah pakem wajib. Pemotongan poros Y yang dimulai secara sembarangan di angka 50 menyebabkan batang senilai 52 terlihat berlipat-lipat kali lipat ukuran menjulang sangat tinggi secara visual komparatif dibandingkan batang bernilai 51 (karena basis skala 0 sengaja disembunyikan/dipotong). Manipulasi skala grafis (Truncated Graph) ini adalah penipuan/penyesatan interpretasi data (*Misleading Visualization*) demi menciptakan narasi ekstrem dramatis.
 35. Exploratory Data Analysis (EDA) dilakukan sebelum membuat model prediksi. Tujuan utama langkah ini adalah...
 A. Membuat desain antarmuka aplikasi
 B. Menemukan pola, anomali, tren, dan menguji hipotesis secara awal pada data
@@ -456,7 +456,7 @@ C. Mengenkripsi data pelanggan
 D. Menghapus semua file lama
 E. Mengubah data teks menjadi gambar
 ANS: B
-
+ALASAN: EDA (Eksplorasi Data Analitik) adalah proses detektif di mana saintis data membedah mentahan data melalui peringkasan statistik dan plot visualisasi ringan. Langkah diagnostik hulu ini digunakan menyingkap struktur tersembunyi variabel, mengenali anomali (Outliers ekstrim), meneliti relasi antar parameter sebelum berandai menyusun hipotesis dan memastikan kelayakan data tersebut sebelum dialirkan membebani server Machine Learning (model prediksi analitis yang kompleks).
 36. Dalam matriks keputusan pembelian laptop, Bobot CPU adalah 5, RAM 4, dan Baterai 3. Laptop X mendapat nilai CPU 8, RAM 7, Baterai 9. Total skor tertimbangnya adalah...
 A. 24
 B. 95 (40 + 28 + 27)
@@ -464,7 +464,7 @@ C. 40
 D. 27
 E. 84
 ANS: B
-
+ALASAN: Konsep sistem pendukung keputusan *Weighted Scoring Model* (Matriks Pembobotan). Kita mengalikan (dot product) *Bobot Kriteria* skala kepentingan dengan masing-masing *Skor Evaluasi* realisasi kandidat. CPU: (5*8) = 40. RAM: (4*7) = 28. Baterai (3*9) = 27. Total agregat skor rasional kalkulasi akhir Laptop X: 40+28+27 = 95.
 37. Regresi linier sederhana berusaha menarik 'trendline' di antara titik-titik data (Scatter Plot). Garis tersebut merepresentasikan...
 A. Jarak terjauh antar titik
 B. Garis yang meminimalkan total error (jarak) dari semua titik ke garis tersebut
@@ -472,7 +472,7 @@ C. Garis acak yang menghubungkan awal dan akhir data
 D. Garis melingkar yang mengelilingi data
 E. Batas bawah data
 ANS: B
-
+ALASAN: Trendline di algoritma regresi merupakan wujud geometris Metode Kuadrat Terkecil (Ordinary Least Squares/OLS). Algoritma menghitung optimasi persamaan garis lurus mutlak di antara titik awan (Scatter) sehingga kumulatif selisih selisih deviasi vertikal antara tiap titik data nyata (aktual) terhadap tinggi garis tren (prediksi), dikuadratkan hingga mencapai minimum/terkecil jarak ralat totalnya.
 38. Jika Anda melihat Scatter Plot (Diagram Pencar) yang titik-titiknya membentuk garis lurus miring dari kiri bawah ke kanan atas, ini menunjukkan...
 A. Korelasi negatif kuat
 B. Tidak ada korelasi
@@ -480,7 +480,7 @@ C. Korelasi positif kuat
 D. Terjadi error pada dataset
 E. Data bersifat kategorial
 ANS: C
-
+ALASAN: Kemiringan (Gradient/Slope) sebaran awan Scatter Plot mendefinisikan relasi matematis kedua sumbu. Pola menanjak linear/proporsional rapi dari sudut Kiri-Bawah naik lurus mengarah ke Kanan-Atas bermakna peningkatan konstan nilai sumbu X selalu paralel koresponden dengan meningkatnya nilai sumbu Y. Hal ini diidentifikasikan sebagai Korelasi Positif Kuat (korelasi r Pearson mendekati nominal +1).
 39. Penggunaan algoritma Decision Tree (Pohon Keputusan) pada klasifikasi sangat populer karena...
 A. Sangat rumit dan susah dibaca
 B. Meniru cara komputer memproses biner
@@ -488,7 +488,7 @@ C. Alur keputusannya sangat transparan dan mudah dipahami manusia (If-Then rules
 D. Selalu memberikan akurasi 100%
 E. Tidak memerlukan data historis
 ANS: C
-
+ALASAN: Model prediktif Algoritma Decision Tree populer secara spesifik karena kapabilitas transparansi mekanismenya (Interpretability/Explainability / model "White Box"). Struktur deduksi algoritmanya tergambar visual murni sebagai bagan hierarki aturan logika Boolean bersyarat "IF-THEN" berantai yang linear dari akar hingga ujung daun layaknya *flowchart*, yang mana proses menalar keputusan cabangnya dapat dimengerti dan diaudit secara harfiah oleh orang awam maupun ahli forensik domain bisnis.
 40. Dalam mengevaluasi prediksi spam email, 'False Positive' terjadi ketika...
 A. Email spam masuk ke folder inbox
 B. Email spam masuk ke folder spam (benar)
@@ -496,7 +496,7 @@ C. Email penting/valid salah ditandai sebagai spam
 D. Sistem gagal memuat email
 E. Email tidak memiliki lampiran
 ANS: C
-
+ALASAN: Pada Confusion Matrix (Matriks Kebingungan Klasifikasi), terminologi *"Positive"* menunjuk target/label yang sedang diincar deteksi sistem (yaitu memvonis label bahwa itu *Spam*), sedangkan *"False"* bermakna prediksi mesin tsb nyata-nyatanya fatal salah di dunia realitasnya (email itu aslinya email penting valid, bukan spam). Jadi False Positive = Sistem salah memvonis/menandai "Spam (Positive)" pada email yang nyatanya bukan.
 41. Mana yang lebih berisiko bagi sistem deteksi kanker otomatis: False Positive atau False Negative?
 A. False Positive, karena pasien panik
 B. False Negative, karena pasien sakit dibilang sehat sehingga tidak dirawat dan bisa fatal
@@ -504,7 +504,7 @@ C. Keduanya sama sekali tidak berisiko
 D. False Positive, karena biayanya mahal
 E. Tergantung ukuran komputer yang dipakai
 ANS: B
-
+ALASAN: Analisis evaluasi risiko prediksi: False Negative = Sistem gagal (False) memvonis 'Tidak Sakit/Negative', padahal nyatanya ada sel mematikan karsinoma di pasien (Meleset Fatal Type II Error). Konsekuensi logis dari meleset ini amat berbahaya; karena sistem mendelegasikan pasien pulang teranggap sehat, pasien tidak mendapati pertolongan kuratif kritis pada stadium awal dan kanker diam diam menggerogoti organnya.
 42. Anda melakukan prediksi (forecasting) menggunakan Regresi Linier. Data historis suhu ruangan dari jam 6 pagi hingga 12 siang naik secara linier. Memprediksi bahwa jam 12 malam suhu akan mencapai 100 derajat celcius merupakan kesalahan yang disebut...
 A. Interpolasi yang baik
 B. Ekstrapolasi buta tanpa mempertimbangkan konteks dunia nyata
@@ -512,7 +512,7 @@ C. Korelasi negatif
 D. Data Cleaning
 E. Underfitting
 ANS: B
-
+ALASAN: Ekstrapolasi (memproyeksikan persamaan regresi matematik ditarik lurus terlalu jauh buta di luaran batas jangkauan observasi sebaran data pelatihan historisnya). Prediksi jam 12 malam 100 derajat itu hanyalah mesin hitung-hitungan rumus konstan bodoh yang tak memperhitungkan variabel di luar angka yang masuk, layaknya tidak menyadari fakta empiris alam semesta/konteks (matahari telah terbenam sehingga tidak ada lagi pasokan penambahan suhu linear).
 43. Metrik yang paling sering digunakan untuk mengukur kesalahan pada regresi (jarak prediksi dengan nilai asli) adalah...
 A. Akurasi (Accuracy)
 B. F1-Score
@@ -520,7 +520,7 @@ C. Mean Squared Error (MSE) / Root Mean Squared Error (RMSE)
 D. Confusion Matrix
 E. Precision
 ANS: C
-
+ALASAN: Task *Regresi* menuntut sistem memprediksi variabel angka yang kontinu nominal harganya tak terbatas/skala. Tingkat error evaluasinya dihitung dari selisih/jarak kuadrat (residuals distance) agregat agregat antara *prediksi output angka modelnya* berbanding *angka realitas yang ditargetkannya*. Mean Squared Error (MSE) dan akarnya RMSE menghukum tebakan penyimpangan ekstrem. Sedangkan akurasi, f1, precision dipakai khusus diskrit untuk label prediksi *Klasifikasi*.
 44. K-Nearest Neighbors (KNN) mengklasifikasikan data baru dengan cara...
 A. Menarik garis lurus di tengah
 B. Memeriksa mayoritas kategori dari sejumlah 'K' tetangga terdekatnya berdasarkan jarak fitur
@@ -528,7 +528,7 @@ C. Membangun pohon keputusan
 D. Memisahkan data menjadi file PDF
 E. Menjumlahkan semua nilainya
 ANS: B
-
+ALASAN: KNN bertindak komputasi dengan strategi pengelompokan yang paling pragmatis/pemalas algoritmanya (Lazy Learner). Objek titik data baru akan diplot ke dalam ruang matriks kordinat, lalu komputer menghitung *Jarak Geometrik terpendeknya* (seperti Euclidean distance formula) ke sejumlah K (contoh K=5) titik-titik di sebelahnya, lantas menebak takdir identitas data titik tak beridentitas itu cukup dengan meniru/melakukan *pemungutan suara demokrasi label terbanyak/mayoritas/voting (majority vote)* dari para lima tetangga sekitarnya.
 45. Dalam 'Data Storytelling', elemen visual (grafik) dipadukan dengan narasi untuk...
 A. Membuat file presentasi menjadi lebih besar
 B. Menyembunyikan data yang salah
@@ -536,7 +536,7 @@ C. Mengomunikasikan wawasan dan rekomendasi agar audiens mudah memahami konteks 
 D. Membuat program komputer baru
 E. Menghapus outlier
 ANS: C
-
+ALASAN: Visualisasi diagram hanyalah gambar warna warni; ia tak bisa berbicara sendiri. *Data Storytelling* (Narasi Penceritaan Data) menyinergikan grafik teknis keras diiringi kepiawaian bertutur secara naratif kronologis kontekstual, demi mentranslasikan fenomena gumpalan kordinat angka rumit, mengkristalkan esensi pesannya secara verbal menjadi argumen persuasi wawasan bisnis strategis yang dapat diresonansikan/dicerna pemangku dewan eksekutif tanpa kerutan di dahi.
 46. Pengambilan keputusan berdasar intuisi semata seringkali bias. Pendekatan Data-Driven Decision Making (DDDM) mengurangi bias dengan cara...
 A. Menggunakan nilai acak
 B. Mendasarkan keputusan pada bukti historis dan probabilitas kuantitatif matematis
@@ -544,7 +544,7 @@ C. Mengikuti pendapat orang paling tua
 D. Hanya menggunakan data dari media sosial
 E. Menunggu instruksi pemerintah
 ANS: B
-
+ALASAN: DDDM (Data-Driven Decision Making) merupakan pergantian revolusioner paradigma manajemen organisasi usang ("menebak/Feeling insting"). Mengukuhkan argumen murni bersandar di atas bukti angka metrik nyata yang terkalkulasi logis probabilitas statistik empirisnya, secara terverifikasi meruntuhkan subjektivitas cacat emosional manusia dalam mencetuskan kebijakan strategis korporasi.
 47. Box Plot (Diagram Kotak Garis) sangat efektif digunakan khusus untuk visualisasi...
 A. Koneksi jaringan komputer
 B. Penyebaran data, letak median, kuartil, dan mendeteksi outlier (pencilan)
@@ -552,7 +552,7 @@ C. Lokasi geografis jalan raya
 D. Perbandingan total penjualan per bulan
 E. Pergerakan persentase secara melingkar
 ANS: B
-
+ALASAN: Diagram Kotak Garis (Box & Whisker Plot) meringkas persebaran distribusi 5-Summary statistik deskriptif dalam sekali pandang kompak: Nilai Minimum, Kuartil bawah (Q1 25%), Titik Berat Garis Tengah (Median Q2), Kuartil atas (Q3 75%), dan Nilai Maksimum (Batas Interquartile Range IQR) serta secara lugas memetakan elemen bintik-bintik *outlier pencilan ekstrem* di luaran jangkauan garis sungut ekornya.
 48. Ketika melakukan EDA, diketahui variabel A (jumlah penjaga pantai) berbanding lurus dengan variabel B (jumlah orang tenggelam). Menyimpulkan penjaga pantai menyebabkan orang tenggelam adalah kesalahan...
 A. Menyamakan Korelasi dengan Kausalitas (Sebab-Akibat)
 B. Overfitting model
@@ -560,7 +560,7 @@ C. Kesalahan visualisasi Bar Chart
 D. Menghapus missing value
 E. Mengabaikan lisensi data
 ANS: A
-
+ALASAN: Fenomena klasik "Korelasi Tidak Menyiratkan Kausalitas". Angka korelasi tinggi secara statistik (grafiknya serentak meroket beriringan) tak sama sekali menjamin adanya hukum sebab-akibat antar dua paramater (Variabel Penjaga Pantai). Ada kehadiran "Variabel Laten/Perancu" siluman tak tertulis yang mendalangi kejadian dua paramater statistik (C: Musim Panas Terik; Musim ini mendongkrak beribu orang berenang membanjiri pantai sehingga risiko korban musibah melambung, sekaligus memaksa rekrutmen masal dinas paramedis pantai).
 49. Dalam sebuah proyek klasifikasi bunga, komputer menganalisis ciri kelopak dan benang sari. Ciri-ciri tersebut dalam machine learning disebut...
 A. Label
 B. Target
@@ -568,7 +568,7 @@ C. Fitur (Features / Atribut)
 D. Class
 E. Output
 ANS: C
-
+ALASAN: Terminologi leksikon dasar kecerdasan komputasi (*Machine Learning*): Variabel observasi independen yang dikuantifikasi/diukur yang diberikan sebagai bahan input agar komputer mesin berlatih menelaah dan mencari polanya (ex: ukuran tinggi, lebar, rasio benang sari) dirujuk dengan tegas sebagai *Features / Atribut* (dimensi kolom prediktor). (Sedangkan Label adalah nama target jawaban/nama taksonomi bunganya).
 50. Apa fungsi dari 'Weight' (Bobot) dalam Matriks Keputusan?
 A. Menentukan warna tabel
 B. Menentukan parameter mana yang prioritasnya lebih krusial/penting dalam perhitungan akhir
@@ -576,7 +576,7 @@ C. Menghapus parameter yang jelek
 D. Mengukur berat file komputer
 E. Tidak memiliki fungsi spesifik
 ANS: B
-
+ALASAN: Matriks Pengambilan Keputusan Multikriteria meyakini bahwa tak semua syarat diciptakan sama rata. Konstanta "Weight/Bobot" adalah pengganda kuantifikasi prioritas mutlak; parameter wajib dominan (Kesehatan Prosesor Bobot:5) akan melempar nilai evaluasi lebih berat mendominasi skoring, membayangi syarat sepele (Warna Casing Bobot:1), agar skor persentase matematis merepresentasikan kalkulasi hierarki urgensi realitas subjektif perusahaan.
 51. Pie Chart paling ideal digunakan saat...
 A. Melihat perubahan harga saham dari waktu ke waktu
 B. Menunjukkan komposisi atau proporsi bagian dari suatu keseluruhan (100%)
@@ -584,7 +584,7 @@ C. Menunjukkan korelasi antara dua variabel independen
 D. Mendeteksi pencilan ekstrim
 E. Menggambar pohon struktur data
 ANS: B
-
+ALASAN: Karakteristik fungsional Pie Chart (Grafik Lingkaran/Donat Pie) secara eksklusif optimal jika dan hanya jika sumbu peruntukannya mengiris komposisi statis pecahan persentase komparatif yang menjumlahkan satu agregat total populasi semesta secara paripurna (Satu bundaran penuh senilai 100%), (contoh: proporsi alokasi kursi senat fraksi pemilu negara).
 52. Seorang siswa memprediksi penjualan kantin akan melonjak tajam saat libur sekolah karena grafiknya menanjak terus sebelum libur. Asumsi ini salah karena mengabaikan...
 A. Algoritma sorting
 B. Konteks domain masalah (tidak ada siswa di sekolah saat libur)
@@ -592,7 +592,7 @@ C. Kapasitas server komputer
 D. Format file CSV
 E. Lisensi Creative Commons
 ANS: B
-
+ALASAN: Analisis statistik dan prediksi AI buta terhadap nalar logika. Trend regresi akan meledakkan prediksi terus meroket tajam tak terbatas saat menjelang musim liburan. Siswa tersebut lalai tak menginjeksi Konteks Pengetahuan Domain Realitas (Domain Knowledge/Sistem Bisnis Aktual): pada hari libur, populasi pembeli pelanggan fisik (siswa) di kantin gedung sekolah nol absolut, parameter statistik tumpul tanpa dikawal nalar kaidah domain dunia.
 53. Sebuah algoritma memisahkan pelanggan menjadi segmen 'Premium' dan 'Reguler' tanpa pernah diberi contoh label sebelumnya. Metode pengelompokan ini disebut...
 A. Supervised Learning
 B. Unsupervised Learning (Clustering)
@@ -600,7 +600,7 @@ C. Regresi
 D. Data Cleaning
 E. Data Scraping
 ANS: B
-
+ALASAN: Mesin memisahkan, menyusun dan menemukan kluster segmen rahasia dalam gerombolan kelompok entitas liar yang polos (tidak pernah ditandai, tidak pernah diajari dari guru dengan kunci jawaban berlabel masa lampau/Target Variabel tak eksis). Pendekatan otonom penemuan pola ini merujuk ke payung besar "Pembelajaran Komputer Tak Terbimbing" (*Unsupervised Machine Learning/K-Means Clustering*).
 54. Mengapa penting memisahkan data menjadi 'Data Latih' (Training Data) dan 'Data Uji' (Testing Data)?
 A. Agar komputernya tidak terlalu panas
 B. Untuk mencegah Overfitting; menguji apakah model mengenali pola atau sekadar menghafal data latih
@@ -608,7 +608,7 @@ C. Agar file-nya bisa dikirim lewat email
 D. Karena aturan UU PDP
 E. Agar grafiknya lebih berwarna
 ANS: B
-
+ALASAN: Mesin yang terlalu pintar mengalkulasi di laboratorium (Hafalan Data Latih 100%) rentan amblas kinerjanya saat diadu ujian sesungguhnya di lapangan produksi. Pemisahan Data (Split Train/Test Validation 80/20 proportion) memaksa evaluasi mengasingkan sebagian data sebagai rahasia mutlak. Jika mesin tuntas membuktikan ia sanggup menjawab dan menggeneralisasi tebakan Data Uji Baru (yang ia belum pernah lihat di rahim latihannya), ia dinyatakan waras dan handal tak terkena wabah sindrom Menghafal *Overfitting*.
 55. Anda melihat kolom 'Gaji' memiliki rentang 3 juta hingga 1 Miliar. Menggunakan rata-rata (Mean) untuk mewakili gaji mayoritas adalah kesalahan karena...
 A. Gaji tidak boleh dihitung komputer
 B. Mean sangat sensitif (tertarik) oleh nilai outlier ekstrem (1 Miliar), sehingga gagal merepresentasikan nilai umum
@@ -616,7 +616,7 @@ C. Mean hanya bisa menghitung angka negatif
 D. Median akan memberikan hasil yang lebih tinggi
 E. Spreadsheet tidak bisa menghitung angka triliunan
 ANS: B
-
+ALASAN: Gaji populasi senantiasa tersusun "Right-Skewed" asimetris (mayoritas pegawai pabrik di cluster 3-6 Juta menumpuk padat), dan minoritas kecil CEO raksasa dengan pendapatan nominal langit yang abnormalitas deviasinya menjulang jauh. (Misal: rata rata aritmetika antara sejuta buruh miskin dengan 1 sultan miliarder, akan menghitung bahwa "rata-rata seluruh buruh miskin berharta seratus juta"). Penghitungan *Mean* terdistorsi ekstrem ini berbohong fatal dalam merepresentasikan kesejahteraan masyarakat mayoritas awam. (Solusi ideal: Nilai Median/Tengah/Q2 kebal pergeseran ekstrem).
 56. Bentuk evaluasi 'Confusion Matrix' digunakan dalam klasifikasi untuk melihat...
 A. Matriks transformasi gambar
 B. Rincian deteksi True Positive, True Negative, False Positive, False Negative
@@ -624,7 +624,7 @@ C. Kecepatan loading program
 D. Total baris dan kolom database
 E. Kesalahan pengetikan program
 ANS: B
-
+ALASAN: Confusion Matrix/Matriks Galat Klasifikasi dideretkan dengan struktur Tabular Silang 2x2. Matriks ini membongkar rincian komposisi anatomi "dosa/meleset tebakan mesin" menjadi 4 belahan kuadran evaluasi spesifik: (Benar Memprediksi Benar TP, Benar Memprediksi Salah TN, Keliru Menganggap Benar FP, Keliru Menganggap Salah FN) demi diagnosis kedalaman letak kepincangan model secara lebih rinci dari sekadar "Akurasi" kosong.
 57. Seorang analis memvisualisasikan data sensus pada peta interaktif. Ini adalah aplikasi dari...
 A. Geospatial Data Visualization
 B. Algoritma Greedy
@@ -632,7 +632,7 @@ C. Linked List
 D. Creative Commons
 E. Web Scraping
 ANS: A
-
+ALASAN: Geospatial Visualization (Sistem Pemetaan Visual Topologi Kordinat). Kordinat lintang/bujur sensus, kodepos, warna degradasi choropleth kepadatan, divisualisasikan melampir ke atas grafis relief/vektor peta topografi dunia geografis 2 Dimensi. (Dashboard Peta Poligon interaktif tsb dimanfaatkan untuk investigasi epidemologi spasial).
 58. Dalam analisis prediksi, 'Noise' merujuk pada...
 A. Suara kipas komputer yang berisik
 B. Data yang mengandung pola utama
@@ -640,7 +640,7 @@ C. Variabilitas acak atau data kotor yang mengganggu deteksi pola asli
 D. Speaker komputer yang error
 E. Kecepatan download data
 ANS: C
-
+ALASAN: Terminologi *Noise* (Rau/Desah) bermakna sampah acak penyimpangan statistik alam liar tanpa signifikansi kausal, salah ketik ejaan (Tiypos), keburaman fluktuasi eror mesin tak berarti yang merancukan signal tersembunyi (Sinyal/Tren Pola), sehingga menyebabkan distraksi kalkulasi pada sensor pelatihan sistem Artificial Intelligence.
 59. Proyek Mini 'Data Storytelling' paling dinilai kesuksesannya dari...
 A. Seberapa rumit algoritma yang dipakai
 B. Tingkat pemahaman audiens terhadap wawasan dan keputusan akhir dari narasi data yang disajikan
@@ -648,7 +648,7 @@ C. Jumlah baris kode yang diketik
 D. Harga dataset yang dibeli
 E. Kecepatan mengetik presentasi
 ANS: B
-
+ALASAN: Metrik suksesi sejati *Data Storytelling Presentation* adalah pemantik aksi (Impact Driven). Laporan dashboard teknis yang dipenuhi kordinat pamer algoritma yang kelewat angkuh tak akan berarti andai kata CEO bingung melongo. Suksesi bercerita data (Narasi) direalisasikan murni jika para Direksi awam audiens sontak terang benderang menyadari wawasan (Aha Moment!), mengerti duduk resiko bisnis urgensinya, lalu berujung mantap membulatkan instruksi Keputusan Resolusi Bisnis strategisnya pada detik perayaan tepuk tangan penutup.
 60. Pernyataan manakah yang paling akurat tentang pengolahan data untuk prediksi?
 A. Prediksi selalu benar 100% jika datanya banyak
 B. Prediksi berbasis data adalah peramalan probabilistik, memiliki margin error, dan bukan ramalan mutlak
@@ -656,7 +656,7 @@ C. Prediksi hanya berlaku untuk perusahaan teknologi
 D. Komputer lebih tahu masa depan daripada hukum fisika
 E. Data selalu menghasilkan keputusan tunggal
 ANS: B
-
+ALASAN: Fondasi epistomologi Kecerdasan Buatan dan *Machine Learning Predictive*: Seluruh sistem meramal berbasis matematika probabilistik (menghitung tren historis ekstrapolasi rentan asumsi ketidakpastian chaos dunia di masa lampau), sehingga *Wajib* menyisipkan *Interval Margin Of Error* (Batas Toleransi Meleset Kesalahan). Analitik komputasi tak ubahnya navigasi perkiraan cuaca bukan nujum bola sihir jaminan kepastian gaib (Mutlak).
 61. Struktur data Array bersifat statis, artinya...
 A. Hanya bisa diisi angka ganjil
 B. Ukurannya tetap (fixed) setelah dideklarasikan di memori, tidak bisa memanjang/menyusut otomatis
@@ -664,7 +664,7 @@ C. Data yang disimpan tidak boleh dihapus selamanya
 D. Mampu menyortir data otomatis
 E. Strukturnya menyerupai pohon
 ANS: B
-
+ALASAN: Karakter arsitektural dari struktur *Array Sederhana* bawaan di dalam memori keping RAM (seperti bahasa C). Program memerintahkan memesan porsi kavling barisan memori statis blok panjang bersebelahan (Contiguous/Fixed Allocation) di depan; yang panjang kapasitas maksimal perbatasan index slot ukurannya terkunci semenjak ia lahir saat kompilasi dieksekusi, tak elastis disusutkan merentang memanjang dinamis fleksibel di tengah-tengah iterasi waktu *runtime*.
 62. Fitur 'Undo' pada perangkat lunak pengolah kata menyimpan riwayat ketikan secara LIFO (Last In, First Out). Struktur data yang memodelkan ini adalah...
 A. Queue
 B. Tree
@@ -672,7 +672,7 @@ C. Graph
 D. Stack
 E. Linked List
 ANS: D
-
+ALASAN: Fitur Undo (Batal Aksi CTRL+Z) bekerja di poros tumpukan tunggal: riwayat perintah paling mutakhir (Last In) yang di-Push direkam di ujung atas memori. Lantas eksekusi Pop pemanggilan undo memuntahkan bongkahan perintah terkini dari tumpukan paling atas (First Out), yang dengan mutlak mengkarakterisasi sistem model struktur *Stack* (Tumpukan).
 63. Pada antrean loket stasiun, orang yang pertama datang akan dilayani pertama (FIFO). Struktur data untuk kasus ini adalah...
 A. Stack
 B. Queue
@@ -680,7 +680,7 @@ C. Binary Tree
 D. Heap
 E. Graph
 ANS: B
-
+ALASAN: Struktur sistem loket tata perlakuan adil linear "Siapa yang Pertama Tiba di Depan Lini" (First-In / Enqueue Rear), dialah juga yang berhak mendapatkan penyelesaian terdepan dan lekas keluar pamit (First-Out / Dequeue Front). Konsep antrian antrean mengular kronologis ini dimodelkan oleh logika struktur *Queue* (Antrean Linier).
 64. Kelemahan utama dari Array dibandingkan Linked List adalah...
 A. Array butuh alamat memori yang bersebelahan (contiguous), sedangkan Linked List fleksibel menunjuk elemen di mana saja via pointer
 B. Array lebih lambat dalam membaca elemen pada indeks tertentu (random access)
@@ -688,7 +688,7 @@ C. Array hanya menyimpan teks
 D. Linked list menghemat memori
 E. Array mudah disusupi virus
 ANS: A
-
+ALASAN: Array menuntut pemesanan gerbong memori raksasa tak patah yang sejajar bersebelahan rapat tak henti (Contiguous Block Memory). Jika RAM berlubang fragmentasi (berhamburan kapasitas kosong tapi acak tercerai berai di gang terpisah), Array Raksasa akan gagal memesan lahan kompilasi (*OutOfMemoryError*). *Linked List* menang karena per node-nya merdeka menclok menempati ceruk memori tercecer di seantero manapun bermodalkan sekadar untaian *Alamat Pointer Rantai* (Fleksibel).
 65. Dalam Linked List (Senarai Berantai), setiap elemen/node berisi data dan...
 A. Password
 B. Gambar visual
@@ -696,7 +696,7 @@ C. Pointer (referensi) yang menunjuk alamat memori node berikutnya
 D. Kapasitas maksimum
 E. Nilai Root
 ANS: C
-
+ALASAN: Desain anatomi sebuah bungkusan "Node" primitif dasar dalam struktur data komputasi list dinamis secara fungsional tersusun oleh setidaknya dua kamar ruang memori: satu petak untuk "Nilai Muatan Inti Angka Data/Payload" dan disebelahnya petak untuk "Pointer Alamat Reference Memori" rantai penaut pelacak koordinat tetangga Node suksesor (Gerbong gerbong rantai pengait Pointer).
 66. Sistem IGD di rumah sakit memanggil pasien bukan berdasarkan kedatangan, tetapi berdasarkan tingkat keparahan penyakit. Struktur data yang paling ideal memodelkan ini adalah...
 A. Stack
 B. Circular Queue
@@ -704,7 +704,7 @@ C. Priority Queue
 D. Linked List
 E. Array Multidimensi
 ANS: C
-
+ALASAN: Implementasi Antrean Normal (Queue Biasa / FIFO) akan fatal dan merenggut nyawa bagi pasien yang terkapar Sekarat Kritis namun celakanya tiba di urutan loket antrian pendaftaran ke-372. Sistem antrian di mana susunannya selalu dirombak menyisip dan dieksekusi pemanggilannya semata dikte oleh Nilai Gawat Darurat (Prioritas Kritis / Nilai Bobot Tertinggi Triage) tak peduli urutan tiket, dimodelkan oleh *Priority Queue (Antrean Berprioritas)* yang bersandar pada pergeseran *Heap Sort/Max Heap Tree*.
 67. Struktur folder di sistem operasi Windows/Linux paling tepat direpresentasikan menggunakan struktur data...
 A. Stack
 B. Queue
@@ -712,7 +712,7 @@ C. Graph Berarah
 D. Tree (Pohon)
 E. Matriks
 ANS: D
-
+ALASAN: Arsitektur File Sistem hirarkis (seperti direktori Folder C:\Windows\System32) di semua Operasi Sistem. Bermula tunggal dari bonggol Drive Induk Terluar Puncak (Root Directory), lalu merekah membelah menaungi ranting-ranting Sub-Folder Anak (Children Nodes/Sub-Directories), bercabang lagi tak berujung mengular piramida ke bawah berhilir dengan dokumen file sebagai Dedaun Mati Ujung (Leaves), adalah aplikasi murni representasi struktur navigasi graf asiklik *Tree* (Pohon Hierarki).
 68. Dalam anatomi 'Tree', elemen yang paling atas dan tidak memiliki Parent (Induk) disebut...
 A. Leaf (Daun)
 B. Edge
@@ -720,7 +720,7 @@ C. Root (Akar)
 D. Branch
 E. Child
 ANS: C
-
+ALASAN: Secara terminologi konvensi terbalik *Tree Data Structure* (Grafik Asiklik), Pangkal simpul absolut teratas pertama, titik pangkal yang melahirkan hirarki genealogi seluruh percabangan anak keturunan generasi trah semesta pohon yang ke bawah, dan merupakan satu-satunya titik di semesta graf yang Tak Memiliki Tetua Moyang Induk Leluhur (*Parent/In-Degree=0*), dinamakan *Root* (Akar / Node Induk Ke Nol).
 69. Kelebihan utama dari Binary Search Tree (BST) dibandingkan Linked List adalah...
 A. Tampilannya lebih bagus
 B. Waktu pencarian data menjadi logaritmik O(log n) karena mengeliminasi setengah opsi tiap langkah (bila pohon seimbang)
@@ -728,7 +728,7 @@ C. Tidak memakan memori komputer
 D. Menyimpan data suara lebih jernih
 E. Lebih mudah diprogram secara linear
 ANS: B
-
+ALASAN: Logika arsitektur BST (kiri kerdil, kanan besar) berfungsi persis dengan buku kamus pencarian belah dua (Binary Search). Ketimbang Linked list konvensional lamban primitif linier O(N) yang harus mengais satu-per-satu pintu gerbong, *Binary Search Tree Seimbang* meretas penelusuran sangat efisien super eksponensial di kompleksitas Waktu O(Log n) dengan instan mendiskon, membuang separuh belahan semesta sisa ranting keliru setiap ia bergeser menurun lapis generasi di persimpangan.
 70. Cara penelusuran (traversal) Tree di mana node dievaluasi dengan urutan: Kiri - Akar - Kanan (Left - Root - Right) disebut...
 A. Pre-order
 B. In-order
@@ -736,7 +736,7 @@ C. Post-order
 D. Level-order
 E. Reverse-order
 ANS: B
-
+ALASAN: Traversal algoritmik klasik struktur biner pencabangan: Ranting/Sub-Pohon Paling Kiri Ditelusuri hingga habis - Singgah Kunjungi Titik Induk Akar (Root Diri Sendiri) - Baru Merambat menjelajah ke Sub-Pohon Ranting Kanan (*Left-Self-Right*). (Catatan: jika diimplementasikan pada Binary Search Tree, urutan *In-Order Traversal* ajaibnya selalu akan menghasilkan cetakan deret beruntun baris daftar output *Angka Angka yang Tepat Terurut Secara Sort Ascending* (Berurutan dari kecil merayap bertahap membesar).
 71. Jika Anda ingin menghitung total ukuran file dalam sebuah direktori beserta seluruh subdirektorinya dari bawah ke atas, traversal Tree yang paling cocok adalah...
 A. Pre-order
 B. In-order
@@ -744,7 +744,7 @@ C. Post-order
 D. Linear Search
 E. Breadth-First
 ANS: C
-
+ALASAN: Logika penganggaran total ukuran partisi memori folder: Mesin Mustahil dapat menghitung bobot Folder Induk tanpa menelusuri rampung kedalaman, memanen bobot komulatif total dari Folder-Folder Anakan Cicitnya jauh di dasar terujung. Urutan ini (Anak Kiri Dikunjungi-Anak Kanan Dihabiskan-Baru Menjajah Rekapitulasi Menyerahkan Hasil Kepada Akar Diri Sendiri) adalah rumusan traversal bottom-up berjenjang hierarki algoritma rekursi *Post-Order* (Left-Right-Self/Root).
 72. Sebuah jaringan pertemanan di Facebook dapat direpresentasikan sebagai graf tak-berarah (undirected graph), artinya...
 A. Arah koneksi hanya sepihak
 B. Jika A berteman dengan B, maka B pasti berteman dengan A
@@ -752,7 +752,7 @@ C. Teman tidak bisa dihapus
 D. Jaringan tidak bisa meluas
 E. Semua user saling berteman
 ANS: B
-
+ALASAN: Logika sistem algoritma relasi Facebook Mutlak simetris resiprokal/Timbal Balik (*Undirected Graph/Graf Tak Berarah*). Tidak dimungkinkan jalinan sepihak (Koneksi panah dua arah otomatis). Status "Teman" berarti simpul A bertautan setara lurus dengan B. Berbeda ekstrem secara asimetris hirarkis pada Graf Follower Pengikut *Berarah/Directed* Instagram/Twitter (Di mana A bisa sekedar berstatus menyimak "Follower/Mengikuti" si B (A->B), tanpa dibalas ikuti (Followback/B->A).
 73. Jika aplikasi Google Maps mencari rute terpendek antar kota, struktur data spasial yang digunakan adalah...
 A. Stack Terbalik
 B. Graph Berbobot (Weighted Graph), di mana bobotnya adalah jarak/waktu antar simpul
@@ -760,7 +760,7 @@ C. Linked list dua arah
 D. Binary Tree
 E. Queue berprioritas
 ANS: B
-
+ALASAN: Pemodelan jaringan infrastruktur Jalan Raya Kota Dunia di atas RAM diwakili topologi Jaring Laba/Graph. Dan demi memecahkan optimasi algoritma pelacakan Dijkstra jarak tempuh terpendek, masing masing garis hubung (Ruas Jalan / *Edges*) Wajib dititipkan Angka Nominal Skalar Biaya (Panjang Kilo Meter KM Tol, Atau Jam Waktu Kemacetan) pada tali perantaranya (*Weighted Edges/Graph Berbobot Nilai*).
 74. Representasi graf menggunakan Adjacency Matrix (Matriks Ketetanggaan) kurang efisien dalam penggunaan memori jika...
 A. Graf sangat padat (Dense)
 B. Graf memiliki banyak sisi (Edge)
@@ -768,7 +768,7 @@ C. Graf sangat jarang (Sparse), sehingga matriks didominasi oleh angka 0 (kosong
 D. Simpulnya kurang dari 10
 E. Matriksnya berukuran kecil
 ANS: C
-
+ALASAN: Matriks 2D (Tabel V x V baris kolom). Jika ada 1 Juta titik simpul orang Facebook dunia di mana satu orang rata-rata sekedar berteman kenal 30 orang saja, deklarasi matriknya butuh memesan 1 Juta x 1 Juta (1 Triliun Sel Grid RAM Kordinat). 99.999% grid ruang triliunan raksasa tersebut mubazir diisi sia sia oleh lumbung "0/False/Kosong/Tidak Saling Kenal" (*Sparse Graph / Graf Renggang Lengang*), menguras alokasi tumpukan memori super boros (Space Complexity ekstrim O(V^2)).
 75. Pada penelusuran Graf, strategi mencari tahu tetangga terdekat secara melebar lapis demi lapis sebelum masuk ke kedalaman disebut...
 A. Depth-First Search (DFS)
 B. Breadth-First Search (BFS)
@@ -776,7 +776,7 @@ C. Binary Search
 D. Linear Search
 E. Interpolation Search
 ANS: B
-
+ALASAN: Pencarian Ekstraksi BFS (Pencarian Merambat Berdasarkan Lebar Lapisan Gelombang Air / *Breadth-First*). Mengetok memindai merata menyapu bersih tuntas memeriksa identitas seantero seluruh daftar kawan lingkar 1 ring terdekat persis selangkah berbatasan langsung (Radius Layer Tetangga Radius Lapisan Tetangga Pertama N1), sebelum mengestafetkan lompat ekspansi menyeberang menginspeksi menjajah tetangga di radius luaran Lingkar Ring-2 secara meluas.
 76. Algoritma DFS (Depth-First Search) dalam implementasinya paling sering dibantu oleh struktur data dasar berupa...
 A. Queue
 B. Linked List
@@ -784,7 +784,7 @@ C. Stack (Bisa rekursif yang menggunakan Call Stack)
 D. Hash Table
 E. Binary Search Tree
 ANS: C
-
+ALASAN: *Depth-First Search (DFS) / Menyelam Ke Lorong Palung Ujung Terdalam Buntu*: Mengedepankan eksplorasi satu benang merayap sejauh terujung kedalaman buta, lantas jika buntu terpojok menabrak dinding, ia terpaksa wajib mundur berbalik satu langkah tapak ke belakangan persimpangan (*Backtracking*). Dinamika memutar arah mundur satu per satu tapak terlahir LIFO (Tapak Terakhir Disentuh, Jadi yang Pertama Ditarik Keluar). Mekanisme ini identik dengan Arsitektur *Stack* (Bawaan fungsi *Call Stack Pointer Rekursif Komputer*).
 77. Di sebuah Graph berarah (Directed Graph) pengikut Twitter, simpul A menunjuk ke B. Ini berarti...
 A. B mengikuti A
 B. A dan B saling mengikuti
@@ -792,7 +792,7 @@ C. A mengikuti B
 D. A memblokir B
 E. Keduanya bukan teman
 ANS: C
-
+ALASAN: Pada graf Directed Network (Jaringan Berarah Asimetris), arah ekor panah dan ujung mata tombaknya (A -> B / Arc Tali Berarah) merepresentasikan secara lugas aliran (Followers / Mengikuti). Simpul Pangkal Ekor "A" (Pihak Yang Meminta Langganan Follow / Source Asal) mengarahkan panahnya ke Ujung Target Penerima "B" (Pihak Akun Artis Idol yang Disoroti/Disimak Si A). Kesimpulan harfiahnya A memantau dan mengikuti lini masa Si B.
 78. Anda merancang aplikasi riwayat web browser. Ketika tombol Back ditekan, halaman sebelumnya muncul. Ketika tombol Forward ditekan, halaman selanjutnya muncul (jika ada). Desain optimal menggunakan...
 A. Satu Queue
 B. Dua Stack (Satu untuk Back, Satu untuk Forward)
@@ -800,7 +800,7 @@ C. Graph Lengkap
 D. Priority Queue
 E. Hash Map
 ANS: B
-
+ALASAN: Navigasi Riwayat Penjelajah Internet menuntut 2 kontainer LIFO. Tab riwayat masa lampau (Stack Tumpukan "Back" Riwayat Mundur Masa Lalu). Saat di Back, riwayat URL tsb tercabut pop dipindahkan ditransmisikan melayang ke tab Tumpukan LIFO cadangan "Forward/Masa Depan", memungkinkan pengguna berselancar bolak balik *Undo-Redo Linear* merunut lorong URL yang telah disinggahinya.
 79. Menemukan 'sesuatu' yang bisa berupa benda, angka, atau konsep dalam suatu ruang pencarian terstruktur disebut...
 A. Sorting
 B. Searching
@@ -808,7 +808,7 @@ C. Traversing
 D. Mapping
 E. Hashing
 ANS: B
-
+ALASAN: Klasifikasi domain algoritmik dari sebuah Problem (*The Problem Of Searching / Algoritma Pencarian Pelacakan*). Permintaan masalah (Query Key/Kunci) untuk diinvestigasi di sebuah Koleksi Alam Himpunan Dataset berstruktur, lantas mengevaluasi status apakah entitas kunci target eksis (ditemukan) atau tidak (nihil), seraya melaporkan di titik baris koordinat index ke berapa persisnya sasaran itu bermukim jika ia dijumpai.
 80. Dalam struktur ADT (Abstract Data Type), fokus utamanya adalah pada...
 A. Bahasa pemrograman spesifik yang dipakai
 B. Bagaimana memori perangkat keras disolder
@@ -816,7 +816,7 @@ C. Spesifikasi operasi dan perilaku logika data tanpa mempedulikan detail teknis
 D. Warna antarmuka program
 E. Sistem operasi komputer
 ANS: C
-
+ALASAN: ADT (Tipe Struktur Abstrak) mengusung filosofi *Enkapsulasi Kotak Hitam (Black Box)* teori matematis murni. Sebuah Stack ADT hanya wajib ditaati "Berperilaku sebagai Tumpukan, memiliki prosedur spesifik konvensi semantik: *Push*, *Pop*, *Top*, IsEmpty()". Tak peduli bahasa pengkodeannya apakah menggunakan pondasi perakitan Array di dalam C++, mengait kancing simpul gerbong Linked List di Python, ADT hanyalah kontrak silabus wacana antarmuka abstrak logika murni dan melupakan teknikal dapur sintaksis bawahnya.
 81. Jika Anda memasukkan urutan angka terurut (1, 2, 3, 4, 5) ke dalam Binary Search Tree kosong tanpa sistem penyeimbang, bentuk pohonnya akan menjadi...
 A. Pohon seimbang sempurna
 B. Pohon yang hanya tumbuh ke satu sisi (menyerupai Linked List)
@@ -824,7 +824,7 @@ C. Akar berada di tengah (angka 3)
 D. Pohon bercabang tiga
 E. Tidak bisa terbentuk
 ANS: B
-
+ALASAN: Penyakit kronis bawaan kodrat mutlak Binary Search Tree (BST Polos Naif non-AVL/RedBlack). Menyuntikkan umpan input masukan (Insertion) serangkaian rentetan data angka yang sialnya "Sudah Tersortir Rapi Menanjak Linear" ke Akar akan menghasilkan bencana komputasi: Pohon yang terus membelok membesar liar tumbuh jangkung berat condong merana ekstrim di ruas Sayap Kanan (Unbalanced Right-Skewed Degenerate Tree), sehingga anatomi piramidanya rubuh runtuh menjelma sekadar senarai untaian lurus garis panjang bak Linked-List biasa.
 82. Apa dampak bentuk pohon tak seimbang (menyerupai garis lurus) pada performa pencarian di BST?
 A. Sangat cepat, kompleksitas O(1)
 B. Kecepatan menurun menjadi O(n) seperti mencari di Array biasa
@@ -832,7 +832,7 @@ C. Komputer mengalami crash
 D. Data otomatis terhapus
 E. Tidak ada pengaruh
 ANS: B
-
+ALASAN: Esensi kesaktian kecepatan BST bergantung pada tinggi kerendahan piramida (Tinggi Geometris H = Log N), demi membelah rute separuhnya. Keruntuhan pohon yang menjelma dahan garis panjang (Degenerate) menghancurkan garansi kecepatan logaritmiknya (Kehilangan diskon belah dua) menggerus performa kembali primitif memaksa *Time Complexity* melambat drastis kembali anjlok terseret ke O(N) linier seperti pejalan kaki pengais satu per satu.
 83. Anda merancang sistem Undo-Redo untuk aplikasi grafis 3D yang sangat memakan memori. Tantangan dari implementasi Stack murni untuk hal ini adalah...
 A. Stack akan meluap (Memory Leak / Stack Overflow) jika riwayat aksi tidak dibatasi kapasitasnya
 B. Stack menolak menyimpan gambar 3D
@@ -840,7 +840,7 @@ C. Aksi Redo akan terhapus otomatis
 D. Stack mengubah gambar menjadi teks
 E. Stack bergerak terlalu cepat
 ANS: A
-
+ALASAN: Data gambar/render matriks poligon 3D (CAD/Photoshop) berbobot monster Gigabyte. Menyimpan setiap ketukan kuas murni (Snapshot State Mutlak) ditumpuk tanpa ampun direkam bertindih lapis ke Tumpukan (Stack Histori), secara drastis akan mengeruk melampaui rawa ambang limit kapasitas maksimal alokasi Memory RAM fisikal dalam hitungan kilat, meniscayakan bom waktu ledakan *Memory Leak / Out of Memory System Crash/Stack Overflow Exception* yang meng-hang-kan komputer. (Perlu algoritma proteksi Drop Bottom / Batas Riwayat Max 50 Aksi).
 84. Sebuah web crawler berpindah dari satu tautan web ke tautan lain. Struktur data mendasar dari arsitektur tautan internet World Wide Web adalah...
 A. Binary Tree
 B. Stack
@@ -848,7 +848,7 @@ C. Queue
 D. Directed Graph (Graf Berarah)
 E. Undirected Graph
 ANS: D
-
+ALASAN: Anatomi World Wide Web (Internet Raksasa Tautan Link Hypertext antar Website/Google PageRank). Terbentuk atas simpul simpul miliaran Dokumen Laman Web. Dan untaian benang talinya dipilin merajut dengan Hyperlink (URL Anchor A HREF). Sifat alami Hyperlink adalah asimetris searah (Domain A mensisipkan URL klik ke Situs B / Boleh Jadi Situs B tak pernah tahu atau peduli membalikkan tautan ke A). Oleh sebab itu, internet adalah belantara rimba liar Jaringan Simpul Graf Raksasa Beraliran Satu Arah (Directed Web Graph).
 85. Di graf jaringan komputer berbobot, jika sebuah kabel optik putus, sistem akan meng-update struktur logis dengan cara...
 A. Menghapus simpul komputer tersebut
 B. Menghapus sisi (edge) yang bersangkutan dan menghitung ulang rute di graf
@@ -856,7 +856,7 @@ C. Menutup paksa semua aplikasi pengguna
 D. Mengubah graf menjadi tree
 E. Memindahkan akar ke cabang baru
 ANS: B
-
+ALASAN: Dinamika Adaptif *Routing Jaringan (OSPF/BGP Router Topology)*. Putusnya sambungan kabel fisik tidak otomatis melenyapkan bangunan server kotanya (Menghapus Titik/Vertex/Simpul Komputer Keliru). Kejadian putus jembatan direpresentasikan komputasi graf melalui prosedur logis: Mencoret men-delete memutus garis "Edge/Sisi Tali Bobot" penghubung spesifiknya di Adjacency Matrix, diiringi protokol algoritma pelacakan Dijkstra secara *real-time* banting stir sigap merekonstruksi penemuan kalibrasi rute jalur terpendek (Shortest Path) alternatif darurat jalur baru.
 86. Struktur pohon (Tree) didefinisikan sebagai graf terhubung tanpa...
 A. Simpul (Vertex)
 B. Sisi (Edge)
@@ -864,7 +864,7 @@ C. Siklus (Cycle/Looping yang tertutup)
 D. Akar
 E. Cabang
 ANS: C
-
+ALASAN: Definisi fundamental matematis Aksioma Teori Graf (Tree Graph Theory) yang paling absolut: Struktur hirarki (Pohon) pada hakekat genetikanya tak lain adalah sekadar turunan spesial graf yang dijamin harus senantiasa (Connected/Menyatu Penuh semua sisinya terhubung) dan diwajibkan secara tegas Tanpa Putaran Lingkaran Sirkuit Sirkulasi (*Acyclic/Tiada Gelang Siklus/Loop Tertutup Memutar*).
 87. Pada Adjacency List (Daftar Ketetanggaan), setiap simpul graf menyimpan...
 A. Matriks 2D seluruh graf
 B. Alamat IP root server
@@ -872,7 +872,7 @@ C. Sebuah daftar/senarai berisi simpul-simpul yang terhubung langsung dengannya
 D. Kata sandi graf
 E. Nilai kedalaman pohon
 ANS: C
-
+ALASAN: *Adjacency List (Daftar Ketetanggaan)* adalah kompromi hemat memori pengarsipan Graf Jaringan. Berbeda dari matriks bujur sangkar renggang boros raksasa, representasi *Array Of Lists/Array of Linked List* ini merampingkan gudang RAM dengan efisien. Indeks Array Simpul A murni dikhususkan cukup sekadar merajut untaian pita senarai pendek daftar kawan (Tetangga/Neighbours List) yang memang nyata-nyatanya tersambung terikat garis tali langsung di sekeliling dengannya saja, memangkas kebutuhan rekam jejak angka nol fiktif mubazir.
 88. Anda diminta mendesain struktur untuk Game Catur. Status papan dan seluruh kemungkinan langkah ke depan divisualisasikan dalam pikiran komputer sebagai...
 A. Stack
 B. Queue
@@ -880,7 +880,7 @@ C. Game Tree (Pohon Keadaan Permainan)
 D. Linked List Sederhana
 E. Circular Array
 ANS: C
-
+ALASAN: Paradigma perancangan Algoritma Mesin Permainan Papan Logika Beruntun (Catur, Tic-Tac-Toe, Go). Semesta keadaan papan (Board State) dan konsekuensi prediksi rantai miliaran kombinasi rentetan langkah ke depan bidak, diproyeksikan, dimekarkan secara percabangan rekursif berjalin kompleks menelurkan dahan alternatif langkah tak hingga, menyerupai ledakan struktur *Decision Tree / Game State Search Tree (Pohon Status Permainan Minimax / Alpha Beta Pruning)* di ranah Artificial Intelligence konvensional peramalan langkah.
 89. Dalam antrean printer kantor, lima dokumen dikirim. Dokumen direktur harus selalu dicetak pertama meski dikirim terakhir. Implementasi ini menggunakan...
 A. Stack
 B. Priority Queue berdasarkan atribut jabatan pengirim
@@ -888,7 +888,7 @@ C. Adjacency Matrix
 D. Binary Search Tree
 E. Linked list dua arah
 ANS: B
-
+ALASAN: Struktur pengelolahan penyela urutan interupsi (Job Scheduling Interruption System). Antrian pencetakan cetak (*Print Spooler*) primitif yang antre mengekor berpegang erat di prinsip murni Queue (FIFO) bakal hancur digugat. Solusinya menanamkan Struktur Tumpukan Prioritas Berlapis Lapis (*Priority Queue/Max Heap*). Kertas dokumen (Packet) diimbuhi di-tag (dibubuhi stiker atribut bobot *Priority Tag Jabatan VVIP*); struktur tumpukan otomatis mendongkrak bergegas menyortir meroketkan gerbong sang Direktur menyodok menyela menggeser barisan semut tumpukan depan puncak (Front-Pop).
 90. Menentukan struktur data yang tepat sebelum menulis kode (Proyek TP 3) krusial karena...
 A. Memenuhi syarat lulus ujian
 B. Struktur data yang salah akan membuat algoritma berjalan lambat dan memori boros, seberapapun canggih algoritmanya
@@ -896,7 +896,7 @@ C. Komputer hanya bisa menerima satu jenis data
 D. Mencegah serangan hacker otomatis
 E. Semua bahasa pemrograman tidak memiliki struktur bawaan
 ANS: B
-
+ALASAN: Filosofi Linus Torvalds dan Bapak Ilmu Komputer "Data Structures + Algorithms = Programs" - *Niklaus Wirth*. Pondasi arsitektur data (*Structural Design Schema*) adalah cetak biru mutlak fondasi. Memaksakan menancapkan Algoritma Pintar nan Mutakhir berkecepatan dewa di atas rawa lumpur fondasi cetakan Struktur Penyimpanan wadah keranjang bolong yang keliru naif (Missmatched Data Structure), akan otomatis mengutuk membelenggu performa cekik eksekusinya melambat ke titik degradasi fatal kelumpuhan *Time/Space Complexity* asimtotik yang berujung kesia siaan absolut.
 91. Notasi Big-O (O-Besar) dalam analisis algoritma digunakan untuk menyatakan...
 A. Seberapa banyak baris kode yang ditulis
 B. Batas atas pertumbuhan waktu eksekusi (atau memori) algoritma seiring bertambah besarnya jumlah input (n)
@@ -904,7 +904,7 @@ C. Harga software di pasaran
 D. Berapa lama waktu kompilasi dalam detik pasti
 E. Ukuran resolusi layar program
 ANS: B
-
+ALASAN: Big-O Notation (Asymptotic Upper Bound / Notasi Batas Atas Asimtotik). Alat tukar ukur matematis standar internasional untuk menganalisis, membuktikan, membandingkan Skalabilitas/Kesehatan Daya Tahan Algoritma. Bukan detik absolut (karena mesin processor PC berbedabeda kencangnya), melainkan pemodelan rasio "Percepatan Kurva Gejala Pelambatan Eksekusi Laju Fungsi" (Time Complexity) saat disiksa dihujam oleh lonjakan ledakan jumlah semesta Masukan Data / Skala Vektor *Size of N* yang meledak mendekati Tak Hingga / Infinity.
 92. Sebuah algoritma memeriksa elemen dalam array satu per satu dari awal sampai akhir. Kompleksitas waktunya adalah...
 A. O(1)
 B. O(log n)
@@ -912,7 +912,7 @@ C. O(n)
 D. O(n^2)
 E. O(n!)
 ANS: C
-
+ALASAN: Linear Search Traversal (Penelusuran Linier Beruntun) = (1 Iterasi For Loop/While Tunggal). Jika beban gerbong N ada Sepuluh (10) buah, algoritma terpaksa mengetuk 10 gerbong pintu. Jika muatan N meroket meraksasa menjadi Satu Juta (1 Juta), mesin naif ini terpaksa mengerang harus menyisir mengetuk berurutan (Looping) Satu Juta kali Pintu murni linear paralel. Beban derita sejalan lurus tak putus sama persis paralel setara ekuivalen N (Tingkat Kompleksitas Bertumbuh Lurus Skala Linier / Orde O(N)).
 93. Algoritma pencarian Binary Search membelah ruang pencarian menjadi setengah di tiap langkah. Kompleksitas waktunya direpresentasikan dengan...
 A. O(1)
 B. O(log n)
@@ -920,7 +920,7 @@ C. O(n)
 D. O(n log n)
 E. O(n^2)
 ANS: B
-
+ALASAN: Kemukjizatan Pemisahan Pecah Belah (Binary Search Halving / Divide And Conquer). Di setiap titik ayunan siklusnya (Pembagian Interval Tengah Mid), ruang populasi tersangka langsung dipangkas ditebas dipotong diskon separuh 50%. (Cth Log2 (1000) ~ 10 Langkah) = Semesta 1000 tebakan dicukur ludes dipangkas tuntas hanya dalam genggaman mungil 10 tapak geseran lompatan iterasi. Perbandingan diskon efisiensi kurva kelambatan terkompresi fantastis ini dimodelkan sebagai Kompleksitas Logaritmik (Basis 2) nan Mulus: O(Log N).
 94. Algoritma bersarang (nested loop ganda), di mana loop dalam berjalan n kali untuk tiap iterasi loop luar n kali, memiliki kompleksitas waktu...
 A. O(1)
 B. O(log n)
@@ -928,15 +928,15 @@ C. O(n)
 D. O(n log n)
 E. O(n^2)
 ANS: E
-
+ALASAN: Perulangan Matriks Kalang Bersarang Ganda Tertumpuk (Double Nested Loops - Iterasi Cincin Ganda I dan J). Struktur ini memforsir eksekusi repetisi permutasi kordinat 2D kuadrat. Jika ada N=10 gerbong masuk; Mesin harus menyiksa berputar putaran roda I (10 kali), di mana persis di tiap satu roda I itu berputar menderita roda anakan J (10 kali juga). Total siksaan roda bergerigi giling kalkulasi (10 * 10 = 100 Operasi / N * N ). Ledakan Beban Kelambatan Eksponensial berlipat ganda dimensi dua ini (Contoh pada Bubble Sort) disebut Kurva Waktu Kuadratik / O(N^2).
 95. Strategi algoritma 'Brute Force' (Exhaustive Search) berarti...
 A. Mengubah kode mesin menjadi biner
 B. Mencoba dan mengevaluasi seluruh kemungkinan solusi secara naif sampai jawaban ditemukan
-C. Memecah masalah menjadi dua
+C. Membagi masalah menjadi dua
 D. Menyimpan nilai di cache
 E. Hanya menebak satu kali
 ANS: B
-
+ALASAN: Pendekatan Brute Force (Tenaga Brutal Buta Hantam Kromo / Exhaustive Search Pencarian Naif Komprehensif Tak Kenal Lelah). Filosofi pemecahan otak udang minim taktik strategi. Terlahir memaksa mengandalkan dan memforsir memerah otot kecepatan murni GHz kasar CPU prosesor komputer untuk mendobrak, menderetkan merakit menelanjangi satu persatu triliunan jutaan semesta kemungkinan kombinasi tebakan solusi ruang masalah secuil pun tanpa terlewat, demi menyisir satu jarum kunci celah jawaban benar empiris secara mutlak tak terbantahkan.
 96. Mengapa Brute Force tidak digunakan untuk meretas password sepanjang 20 karakter acak?
 A. Karena ilegal
 B. Karena waktu eksekusinya akan bertumbuh secara eksponensial dan memakan jutaan tahun bagi superkomputer sekalipun
@@ -944,7 +944,7 @@ C. Karena karakter acak tidak bisa dibaca komputer
 D. Karena komputer akan meledak
 E. Karena algoritma Greedy lebih baik untuk password
 ANS: B
-
+ALASAN: Batas Tembok Hukum Ketakterpecahkan Matematika (Combinatorial Explosion/Ledakan Kombinasi Kompleksitas). Password (20 Karakter Alfanumerik Spesial ~70 Huruf). Deret peluang rahasia kombinasi meroket 70 Pangkat 20 Peluang Semesta. Meskipun komputer raksasa miliaran tebakan sedetik meretas (Orde O(A^N) / Orde Faktorial Kompleksitas Eksponensial). Jumlah iterasi tebakannya (Exhaustive) menyaingi butir pasir tata surya alam semesta, memforsir penantian kiamat usia alam semesta jutaan abad tahun detik membusuknya usia matahari hingga dapat meretas sukses kunci ujungnya.
 97. Algoritma Greedy (Serakah) bekerja dengan prinsip...
 A. Mengambil pilihan paling optimal secara global (seluruhnya)
 B. Mengambil pilihan terbaik/maksimal pada momen tersebut (local optimum) dengan harapan menghasilkan solusi total terbaik
@@ -952,7 +952,7 @@ C. Membagi masalah menjadi kecil-kecil
 D. Menyimpan hasil ke dalam memori matriks
 E. Mundur ke langkah sebelumnya jika gagal
 ANS: B
-
+ALASAN: *Heuristic Greedy Principle* (Prinsip Nafsu Sesat Pandangan Rabun Dekat Mata Kuda / Keserakahan Semu sesaat). Strategi memanjat perbukitan mengambil serampangan (mengaplok) mencomot pundi cuan nilai imbalan maksimum ganjaran/beban minimum tercepat terlezat tertinggi terbaik terpampang terdekat langsung detik persimpangan persis di depan hidung langkah matanya saat itu juga (Local Optimum Step Heuristic), dan bersikap tamak buta menolak mempertimbangkan konsekuensi rantai efek kerugian berjangka ke masa depan langkahnya; dengan iman naif merajut kumpulan keping kemenangan kecil instan bakal mengantarkannya pada kemengan kumulatif klimaks tertinggi bukit (Global Optimum).
 98. Dalam masalah penukaran koin koin 1, 3, 4, sistem diminta menukar nilai 6 dengan koin sesedikit mungkin. Jika algoritma Greedy yang dipakai, koin apa yang akan dihasilkan?
 A. Tiga koin: 4, 1, 1 (karena Greedy langsung mengambil koin terbesar 4 lebih dulu)
 B. Dua koin: 3, 3
@@ -960,7 +960,7 @@ C. Enam koin: 1, 1, 1, 1, 1, 1
 D. Satu koin 6
 E. Mesin akan error
 ANS: A
-
+ALASAN: Penyakit cacat bawaan keserakahan Greedy rabun di Coin Change Problem *Non-Kanonikal/Custom*. Target T=6 (Nilai Tertinggi di dompet: Koin 4, 3, 1). Mata Kuda serakah instan Greedy (Local Heuristik Optimum) di ambang pintu loket otomatis silau meraup nominal Koin Tertinggi Meraksasa berangka [4]. Sisa 6-4=2. Sialnya dompet tak punya koin (2). Greedy menyiksa diri sisa terpaksa mengecer repot mengais eceran remah receh koin [1] sebanyak dua lembar koin untuk menambalnya lunas. Jawaban Naif Greedy: Menyetor 3 Keping [4], [1], [1].
 99. Melanjutkan soal di atas, solusi paling optimal (sesedikit mungkin koin) untuk nilai 6 adalah 3, 3. Fakta bahwa Greedy menghasilkan solusi 4, 1, 1 membuktikan bahwa...
 A. Greedy selalu menghasilkan error
 B. Greedy sangat lambat
@@ -968,7 +968,7 @@ C. Strategi Greedy tidak selalu menghasilkan solusi global optimal pada kasus te
 D. Koin 4 tidak valid digunakan
 E. Komputer salah menghitung
 ANS: C
-
+ALASAN: Cacat Kepicikan Bukti Sanggahan Refutasi Bawaan Greedy (Sub-Optimal Global Failure Heuristic). Logika waras jernih akal sehat manusia (Algoritma Pencarian Global) akan mudah cemerlang melihat dan meramu merobek 2 Keping Receh Seragam Bertenaga Ekuivalen Kembar Koin [3] & [3] untuk lunas instan paripurna setara 6 (Hemat hanya 2 Koin). Menyingkap mengutuk tabir fatal cacat kutukan Greedy yang tersesat terjebak rawa (Local Optima Trap/Ilusi puncak bukit menipu) sehingga acap kali tersungkur gagal membongkar (Global Optimum) dalam parameter alam masalah sistem tumpang tindih kompleks (Non-Canonical/Non Matroid Problem).
 100. Merge Sort merupakan algoritma pengurutan yang membelah array hingga ukuran 1, lalu menggabungkannya secara terurut. Paradigma algoritma ini disebut...
 A. Greedy
 B. Backtracking
@@ -976,7 +976,7 @@ C. Dynamic Programming
 D. Divide and Conquer (Pecah dan Taklukkan)
 E. Brute Force
 ANS: D
-
+ALASAN: *The Master Paradigm (Pecah Belah Dan Jajah / Divide and Conquer - D&C)*. Filosofi Jendral Romawi Klasik (Julius Caesar). Takluk tak tergerus menghadapi Raksasa Pasukan Batalion Sort Array 1 Juta Acak. Algoritma (Merge Sort / Quick Sort) berayun tenang pedang jendral (Divide/Pecah) menebas Rombongan barisan menjadi 2 keping kemah 500 Ribu, dipecah belah terbelah kecil meremuk remuk butiran baris sel tunggal elemen terkecil, dan dengan mudah meremukkan menundukkan menyortir prajurit tunggal terisolir yang tersesat (Conquer/Taklukkan), dan dirajut disulam merajut resleting digabungkan pelan kembali menyatu berbaris rapi (Combine/Gabung Ulang Tuntas O(N Log N)).
 101. Perbedaan utama Divide and Conquer (D&C) dan Dynamic Programming (DP) adalah pada sifat sub-masalahnya. DP sangat efektif jika...
 A. Sub-masalahnya independen dan tidak tumpang tindih (seperti Merge Sort)
 B. Sub-masalahnya saling tumpang tindih (Overlapping Subproblems) sehingga DP perlu menyimpannya di memori agar tidak dihitung ulang
@@ -984,7 +984,7 @@ C. Masalah tidak bisa dipecah
 D. Masalahnya berupa pencarian gambar
 E. Tidak ada bedanya
 ANS: B
-
+ALASAN: Epistemologi Perbedaan Silsilah (D&C vs DP). Merge Sort (D&C Murni) membelah pasukan array sisi kiri KOTA A dan kanan KOTA B yang asing tak berkaitan saling merdeka terpisah murni sama sekali tak mencampuri satu sama lain bersilangan (Disjoint Independent Subproblems). Sebaliknya (DP - Programasi Dinamik / Algoritma Kaya Raya Berkelimpahan Memori) Diciptakan khusyuk mutlak menyembuhkan luka cacat pohon rekursif persendian akar dahan di mana (Banyak Ranting Kasus Pecahan Cabang Persimpangannya Bersilangan Menghitung Kasus Cabang Dahan Anak Sub-Masalah Kloning Kembar Bayangan Yang Sama Persis Berulang Kali Merayap Bertindih Berkali kali (Overlapping Subproblems)).
 102. Teknik menyimpan hasil sub-masalah yang sudah dihitung pada Dynamic Programming disebut...
 A. Sorting
 B. Searching
@@ -992,7 +992,7 @@ C. Memoization / Tabulation
 D. Pruning
 E. Backtracking
 ANS: C
-
+ALASAN: Resep Emas Elixir Jantung Kesaktian *Dynamic Programming Optimization* (Optimalisasi Memo-Memori Penyimpanan Catatan Kunci Contekan Tabel). Tabulasi (*Bottom Up Tabel Dinamis Array Cache Cache 2D*) maupun Memoization (*Top Down Rekursif Hashmap Buku Catatan Memo*). Merupakan teknik menghemat keringat otak CPU: "Mesin Berikrar Sumpah Tidak Akan Pernah Mengerjakan Menguras Energi Mengalikan Hal Hitungan Cabang Berliku Rumit Susah Yang Sudah Pernah Ditemukannya Sebelumnya, Cukup Mendongak Ke Buku Saku Kamus Contekan Rekam Jejak Jawaban Hasil Masa Lalu yang Sudah Tersimpan Aman Laci Memori Array".
 103. Anda menulis rekursif deret Fibonacci sederhana: F(n) = F(n-1) + F(n-2). Jika dihitung untuk n=50, komputer hang. Ini terjadi karena...
 A. Deret fibonacci tidak memiliki batas
 B. Fungsi memanggil dirinya sendiri terlalu dalam secara eksponensial tanpa menyimpan hitungan yang berulang
@@ -1000,7 +1000,7 @@ C. Memori RAM rusak fisik
 D. Tidak menggunakan bahasa Python
 E. Pangkatnya selalu negatif
 ANS: B
-
+ALASAN: Kiamat Pohon Tragedi Badai Bencana *Naive Recursive Overlapping Branch Explosion* (Akar Kutukan Fibonacci Polos). Akar pemanggilan berantai F(50) akan melahirkan membelah mitosis F(49) dan F(48). Lantas Si anak F(49) beranak cucu lagi gila-gilaan menduplikasi berteriak F(48) dan F(47) . (Tengok! Pohon terinfeksi Menghitung Cabang F(48) Berulang Kali sia sia miliaran percabangan terkloning tumpang tindih mengutuk menyedot rakus eksponensial O(2^N)). Komputer remuk digilas siksaan Triliunan percabangan tak berujung (Solusi Wajib: Sembuhkan suntik DP Memoization!).
 104. Strategi algoritma Backtracking (Runut Balik) sangat efisien menyelesaikan Labirin (Maze) karena ia memiliki teknik 'Pruning'. Apa itu Pruning?
 A. Memangkas jalur/cabang yang sudah jelas buntu sehingga tidak perlu diteruskan evaluasinya
 B. Menebang pohon
@@ -1008,7 +1008,7 @@ C. Menghapus hasil perhitungan akhir
 D. Meningkatkan kecepatan prosesor GPU
 E. Membuka seluruh kemungkinan secara serentak
 ANS: A
-
+ALASAN: Kekuatan Pisau Bedah Pembunuh Backtracking Labyrinth (Pruning / Bounding Function / Fungsi Pemangkas Tebas Ranting Dahan Pohon Solusi). Beda Jauh Bagaikan Bumi Langit Dengan Kekonyolan *Brute Force Naif* yang membabi buta membongkar mendobrak ujung jalanan buntu Tembok Neraka Labirin hingga mati terkuras; Sang Backtracking disisipi otak cerdas mata elang penelusur: (Begitu Ia mengintip merasakan selangkah di mukanya adalah Syarat Solusi Buntu Mengarah ke Tabrakan / Tembok Jalan Tol Buntu), ia sontak memotong (Prune) mundur tak sudi meneruskan menjarah memeriksa menyiksa diri menelusuri ranting masa depan di belahan lorong kegelapan itu.
 105. Persoalan N-Queens (menempatkan N ratu di papan catur tanpa saling serang) paling logis diselesaikan dengan algoritma...
 A. Greedy
 B. Backtracking
@@ -1016,7 +1016,7 @@ C. Divide and Conquer
 D. Hashing
 E. Linear Search
 ANS: B
-
+ALASAN: Legenda Kasus Catur 8-Ratu Paradoks Teka-Teki State Space Search: Peletakan Ratu tak bersinggungan Silang Menyilang. Paradigma Runut Mundur *Backtracking* (Uji Coba Trial-Error Mundur Langkah Logis Bergaransi Cerdas). Meletakkan ratu demi ratu di gerbong grid catur; Dan sewaktu terjebak mampet mendapati nasib peletakan Ratu terakhir menyentuh garis panah merah darah bentrok serangan maut diagonal dengan Ratu senior masa lalunya; Langkah mundur diayun ke belakang (Backtrack Undo Catur), menggeser mengusir Ratu terdahulu ke sarang ceruk grid petak sebelahnya meramu tuntas merajut peluang taktik kemungkinan hingga paripurna tembus berdamai merdeka.
 106. Seorang kurir (Travelling Salesperson) harus mengunjungi 10 kota. Solusi Brute Force membutuhkan 10! (faktorial) perhitungan. Jika kota ditambah 1 menjadi 11 kota, kompleksitas waktunya akan...
 A. Bertambah 1
 B. Bertambah 10
@@ -1024,7 +1024,7 @@ C. Dikali 11 dari total waktu sebelumnya (pertumbuhan faktorial luar biasa cepat
 D. Menjadi lebih cepat
 E. Tetap sama
 ANS: C
-
+ALASAN: Bencana Kiamat Skalabilitas Grafik Maut Kelambatan Permutasi Faktorial (Time Complexity Curve O(N!)). Problem TSP (Rombongan Sales Kurir Logistik Dunia). Menambah hanya sekedar (SATU) 1 Biji Simpul Kota Destinasi baru ke Dalam Rute Perjalanan Peta (Dari 10 Kota menjadi 11 Kota Destinasi); Bukan berakibat menunda komputasi terlambat 1 Detik / Penambahan Kecil Linier, melainkan menyiksa Prosesor MENGALIKAN LIPAT GANDA Total Kombinasi Perhitungan Keseluruhan Silang Menyilang Lampau Terdahulunya Dikali Angka Faktorial Barunya (Lipat 11 Kali Lipat Derita Total Lebih Menderita Kelambanan Tsunami Beban Komputasinya).
 107. Dalam algoritma 0/1 Knapsack (Masalah Ransel), ada benda yang tidak bisa dipotong. Jika kita menggunakan algoritma Greedy berdasarkan 'nilai tertinggi per kg', solusi tidak optimal. Strategi yang dijamin selalu optimal untuk kasus ini adalah...
 A. Brute Force saja
 B. Dynamic Programming
@@ -1032,7 +1032,7 @@ C. Divide and Conquer
 D. Linear Search
 E. Bubble Sort
 ANS: B
-
+ALASAN: Masalah Maling Keterbatasan Ransel Curi Benda Klasik Komputasi (0/1 Knapsack / Utuh Tidak Boleh Dipotong Rasio). (Contoh: Tv Emas vs Radio). Algoritma Greedy Keserakahan Pecahan Desimal Gagal Total dan Buta Hancur lebur Tersesat Menghadapi Kategori Utuh Tak Terpotong. Hanya (Dynamic Programming / Tabel Array 2 Dimensi Kapasitas vs Barang Teroptimasi Memori), yang sanggup merajut membandingkan kombinasi simpanan sub problem silang menyilang secara presisi sempurna menghasilkan kompilasi kepastian tebakan Global Optimum Ransel Tertinggi Murni Mutlak.
 108. Kompleksitas O(1) atau Waktu Konstan berarti...
 A. Waktu eksekusi butuh 1 detik
 B. Waktu eksekusi bertambah 1 detik setiap data bertambah
@@ -1040,7 +1040,7 @@ C. Waktu eksekusi algoritma sama sekali tidak terpengaruh oleh seberapa besar uk
 D. Hanya bisa memproses 1 data
 E. Error terjadi 1 kali
 ANS: C
-
+ALASAN: Orde Tatanan Ilahi Singgasana Kasta Tertinggi Tercepat Pemrograman Kompleksitas Ruang / Waktu Komputasi: *The Constant Time Asymptotic Order O(1) Bintang Surgawi*. Grafik garisnya datar tenang tak bergeming statis datar lurus rata horizontal mulus. Entah array disuntikkan disiksa dicekoki diumpani populasi data (1 Data Secuil Butir Debu) ataupun menggunung disuntik (Triliunan Baris Big Data Tsunami Bintang Samudra Raya); Algoritma (Contoh: Mengintip Akses Elemen Array Pertama Index [0] Paling Depan), akan tetap tegar selesai dijamah dieksekusi secara kilat dalam tempo ketukan ritme sekejap mikro-detik langkah yang mutlak 100% konsisten stabil sama cepatnya.
 109. Menghitung efisiensi (Trade-off) antar algoritma artinya kita mempertimbangkan keseimbangan antara...
 A. Harga komputer dan harga listrik
 B. Waktu eksekusi (Time) dan ruang memori yang terpakai (Space)
@@ -1048,7 +1048,7 @@ C. Desain grafis dan animasi
 D. Jumlah programmer dan manajer
 E. Besar file asal dan ukuran font
 ANS: B
-
+ALASAN: Teori Keseimbangan Tumbal Barter Tumbal Komputasi (The Grand Algorithm Trade-Off). Tak pernah terlahir sistem ajaib (Peluru Perak/Silver Bullet) utopia tanpa dosa; Pemrograman Algoritma Ilmu Komputer selalu dihantui terbelenggu tarik tambang pengorbanan barter hukum kutukan Alam Komputasi: (Mengejar Dewa *Kecepatan Kilat/Time Complexity Execution* Seringkali Melacurkan Mengorbankan Merampas Membuang Menghamburkan Mensyaratkan Tuntutan Pembengkakan Kapasitas Muatan Blok Keping RAM *Konsumsi Ruang/Space Memory Complexity* yang super jumbo ekstrim fantastis mahal merana dan begitu pula sebaliknya ironinya).
 110. Algoritma A selesai dalam O(n), namun memakan RAM 5GB. Algoritma B selesai dalam O(n^2), namun memakan RAM 1MB. Memilih A atau B disebut sebagai...
 A. Pemborosan
 B. Sistem Crash
@@ -1056,7 +1056,7 @@ C. Trade-off memori vs kecepatan sesuai limitasi server/lingkungan
 D. Pelanggaran Etika
 E. Overfitting
 ANS: C
-
+ALASAN: Manifestasi Puncak Kearifan Seni Filsafat Profesi (Software Engineering Architect / Arsitek Perangkat Lunak Master). (Trade Off Memory VS Speed Time Limitation Restrains Tawar Menawar Kompromi Tumbal Sistem Lingkungan Operasional). Tiada jawaban algoritma teringkas absolut: (Jika sistem dirancang terpasang tertanam untuk Robot Chip IoT / Jam Tangan Pintar Smartwatch ber-RAM Kerdil Menyedihkan 2 MB; Algoritma "A" yang Kencang Kilat memakan RAM 5GB akan meledakkan sistem *Memory Out Of Limit Error*), (Sebaliknya Pada Mega Server Cluster Google Cloud Terkaya Memori RAM Bergigabyte Tiada Henti Melimpah Ruah Berlimpah Susu; Menggunakan Algoritma Kura Kura "B" Kelambatan O(N^2) demi menghemat 1MB RAM adalah Lelucon Kekonyolan Ironi Tragedi Kemubaziran Bodoh yang Memalukan Akal Sehat Rekayasa Software).
 111. Fraksional Knapsack Problem adalah masalah ransel di mana benda (misal: tepung, emas pasir) boleh dipotong secara rasional. Strategi mana yang paling efisien dan dijamin optimal untuk jenis masalah rasional ini?
 A. Dynamic Programming
 B. Backtracking
@@ -1064,7 +1064,7 @@ C. Greedy Algorithm (berdasar rasio nilai per bobot)
 D. Depth-First Search
 E. Brute Force
 ANS: C
-
+ALASAN: Karena benda berupa emas pasir atau tepung boleh dipotong dalam satuan berat yang lebih kecil (Continuous/Fractional), algoritma Greedy sangat cocok dan dipastikan menemukan hasil paling mutlak efisien 100%. Logikanya sederhana dan masuk akal: kita hanya perlu mencari dan menyortir "Barang mana yang nilai harganya per kilogram (Rasio Value/Bobot) paling mahal?". Lalu Greedy bertindak memasukkan benda paling berharga itu duluan sebanyak mungkin ke dalam ransel sampai ransel tersebut robek atau tersisa kapasitas kosong pecahan kerdil untuk ditambal oleh pasir recehan barang ranking di bawahnya. Tidak butuh perhitungan tabel silang memori lamban layaknya Dynamic Programming.
 112. Sebuah algoritma dijamin akan mengeksekusi iterasi persis sebanyak n*log(n) operasi matematika independen. Ini masuk ke dalam kategori...
 A. Logaritmik Kuadrat
 B. Log-Linear / Quasilinear Time
@@ -1072,7 +1072,7 @@ C. Eksponensial
 D. Konstan
 E. Faktorial
 ANS: B
-
+ALASAN: Secara terminologi matematis ilmu algoritma komputer (Algorithm Complexity Classes/Notasi Big O): Kompleksitas kombinasi persilangan hasil perkalian antara pertumbuhan kelas murni sejajar garis Linear O(N) disilangkan digandengkan dikalikan dengan diskon kelengkungan kurva murni pemangkasan membelah kelas Logaritmik O(Log N) -- yang biasanya menjadi ciri khas waktu kelajuan operasi kecepatan standar wajib bagi para algoritma raksasa penakluk pengurut tingkat dewa kasta atas seperti Divide And Conquer Master (*Merge Sort*, dan batas kecepatan rata rata *Quicksort*). Kelas kurva perkalian kecepatan hibrida gabungan O(N * Log N) ini secara literatur referensi dunia disebut dan dinobatkan dengan gelar *Linearithmic / Quasilinear / Log-Linear Time Complexity Growth Rate*.
 113. Studi kasus 'Pemilihan Rute Terpendek Logistik' pada Proyek Akhir (Pertemuan 37) mengharuskan sintesis 4 TP. Struktur data mutlak yang memodelkan jalannya adalah...
 A. Array 1 Dimensi
 B. Linked List
@@ -1080,7 +1080,7 @@ C. Graf
 D. Stack
 E. Binary Tree Tak Seimbang
 ANS: C
-
+ALASAN: Masalah pencarian jarak rute jaringan jalan raya spasial dunia (Network / Peta Navigasi Titik Persimpangan Lokasi Antar Silang Kota Permukiman Dan Provinsi) secara fundamental harfiah tata hukum alam arsitektural matematika Mustahil dan Tidak Bisa dipetakan, direkam, dirakit dan disimulasikan komputasinya menggunakan susunan linear kaku (Array) maupun relasi pohon hirarki kaku (Tree), karena jalanan memiliki percabangan bolak balik, simpul bundaran tertutup, dan siklus sirkuit jalan putar balik (Cycles). Struktur relasional kompleks seperti ini semata mata murni adalah yurisdiksi jajahan takluk domain eksklusif pemodelan murni Struktur Data Topologi Jaringan *Graf (Graph)* Titik Simpul/Vertex Kordinat dengan garis Tali Penghubung Biaya/Bobot Weighted Edges.
 114. Dalam evaluasi algoritma, 'Worst-case Scenario' (Kasus Terburuk) merepresentasikan...
 A. Waktu pencarian saat datanya tidak ada atau berada di elemen paling terakhir/terdalam
 B. Waktu algoritma dijalankan saat mati lampu
@@ -1088,7 +1088,7 @@ C. Waktu tercepat karena datanya ada di indeks 0
 D. Kondisi CPU yang kepanasan
 E. Program error saat dikompilasi
 ANS: A
-
+ALASAN: Logika Pengujian Keandalan Tahan Banting Evaluasi Analisis Skenario Ekstrem Notasi Big O (Asymptotic Algorithm Worst Case Bound). Ilmuwan komputer dan *Software Engineer* tidak pernah tertarik menilai menyanjung algoritma berpatokan pada performa skenario keberuntungan mujur terbaiknya (*Best Case* seperti menemukan barang pas kebetulan hoki jatuh beruntung ada di keranjang rak baris susunan terdepan indeks 0 di detik mili-pertama). Jaminan mutu jaminan standar terpercaya SLA algoritma ditentukan secara fundamental dari seberapa menderita algoritma itu mengerang hancur merangkak terseret tertatih kelelahan, dan berapa detik maksimum limit kelambanan yang ditanggung dipukul dirasakan jika sang Mesin Komputer terpaksa berhadapan dengan *Ujian Kutukan Skenario Terburuk Ekstrem* (Misalnya Disuruh mencari target yang disembunyikan di letak pojok index lubang dimensi paling terdalam terjauh terakhir mentok array populasi semesta N yang miliaran atau pencarian jarum di jerami di mana datanya memang aslinya tidak pernah ada sama sekali).
 115. Mencari sebuah nama dalam buku telepon manual setebal 1000 halaman yang sudah terurut abjad dengan cara membelah dua halaman terus menerus mengaplikasikan paradigma...
 A. Greedy
 B. Dynamic Programming
@@ -1096,7 +1096,7 @@ C. Divide and Conquer (Binary Search)
 D. Backtracking
 E. Brute Force
 ANS: C
-
+ALASAN: Ilustrasi pedagogis klasik analogi manusiawi paling legendaris mengenai algoritma Binary Search (Seni Pencarian Belah Dua Biner Logaritmik O(Log N) Paradigma Pemecahan Masalah Induk Divide & Conquer). Dihadapkan pada tumpukan himpunan populasi masalah yang kebetulan sudah terjamin berurutan alfabetis rapi tatanan abjad Sorting A-Z. Manusia cerdas/Sistem Komputer tidak akan membuka halaman satu demi satu linear merayap seperti orang gila lamban (*Linear Search/Brute Force Naive O(N)*), melainkan akan langsung menyabet pisau membelah membuka menyobek persis belahan buku telepon tersebut menjadi (Dua Belahan Paruh Setengah Kiri dan Setengah Kanan), lantas membuang ludes menyortir mengeliminasi tumpukan salah (Mendiskon Paruh Area Kesalahan 50% populasi) dalam waktu sepersekian mikro-detik sekejap kedipan mata di setiap satu irisan siklus lompatannya (Divide N/2).
 116. Jika Anda diminta men-sortir (mengurutkan) daftar siswa berdasarkan nilai secara acak murni sampai urutannya benar (BogoSort), pendekatan konyol ini merepresentasikan batas ekstrem dari kebodohan...
 A. Divide and Conquer
 B. Brute Force murni dan acak (O(n!))
@@ -1104,7 +1104,7 @@ C. Greedy optimis
 D. Dynamic Programming
 E. Backtracking terpandu
 ANS: B
-
+ALASAN: Guyonan parodi kelakar humor legenda kaum programmer algoritma (*BogoSort / Monkey Sorting / Permutation Sorting*). Mengilustrasikan batas kebodohan keluguan keputusasaan paling naif primitif dari paradigma Kekuatan Buta Tulah (*Brute Force Exhaustive Exhausted Random Guessing Algorithm*). Di mana mesin memegang setumpuk 100 lembar kertas acak, lantas algoritma kerjanya murni sekadar melemparkan/menaburkan tumpukan lembaran tersebut hancur berantakan ke udara, menjumput memungut meraupnya kembali dari lantai secara serampangan acak murni, berharap berdoa mengharapkan keberuntungan kosmik probabilitas faktorial astronomis jatuh urut rapi sendirinya (1/N! Peluang), lantas mengecek apakah beruntung, jika masih gagal terbalik tak urut, ia kembali melemparkannya merusaknya berkali kali mengulang tanpa pola (Exhaustive Randomization Worst Sorting O(N!)).
 117. Pendekatan pemecahan masalah (Problem Solving) komputasional di Kurikulum Merdeka difokuskan agar siswa tidak hanya pandai *coding*, tetapi juga mampu...
 A. Menghafal sintaks bahasa C
 B. Membeli perangkat lunak berbayar
@@ -1112,7 +1112,7 @@ C. Menganalisis, merancang struktur, membuktikan efisiensi logis solusi, dan men
 D. Menghindari pelajaran matematika
 E. Mengeksploitasi data pribadi
 ANS: C
-
+ALASAN: Paradigma pedagogi literasi filosofis pendidikan Informatika modern (Bukan Sekadar Kuli Coding Mesin Ketik Tukang Programmer Code Monkey). Esensi Hakikat capaian pembelajaran Kurikulum Merdeka (Computational Thinking And Analytical Problem Solving) menuntut elevasi kognitif High Order Thinking Skills (HOTS). Mencetak arsitek kreator pola pikir manusia yang kebal ancaman otomasi sintaks robot AI; yakni kematangan intuisi desain rekayasa kebijaksanaan berpikir level tinggi: Kecakapan Kritis Membedah, Merancang Model Abstraksi Model Dunia Nyata Ke Kerangka Struktur Algoritma, Dan Mempertanggungjawabkan Mengajukan Pembuktian Analisis Justifikasi Validitas Kesiapan Benturan Efisiensi Kompleksitas Waktu Skalabilitas Arsitektur Rancangan Komputasinya (Argumentasi Kritis Intelektual Ilmiah Logis).
 118. Justifikasi efisiensi dalam Proyek Akhir TP 4 mengharuskan siswa untuk...
 A. Bicara panjang lebar
 B. Mengklaim program mereka tercepat
@@ -1120,7 +1120,7 @@ C. Menyajikan argumen matematis berdasarkan notasi Big-O, memori yang dipakai, d
 D. Membuat antarmuka web tercantik
 E. Menulis kode paling pendek di dunia
 ANS: C
-
+ALASAN: Sintesis puncak menara gading Asesmen Rubrik Formatif Penilaian Proyek Akhir (Pembuktian Analisis Evaluatif TP4 Berpikir Komputasional Tingkat Tinggi). Siswa dinyatakan menguasai materi jika ia tidak sekadar mempresentasikan aplikasi yang berhasil menyala (berjalan/working code) semata; Namun secara akademis sains mampu mendeduksi, menelanjangi menjustifikasi keputusannya secara gamblang ilmiah mempertahankan dalil Tesis argumennya di depan penguji: Menyebutkan (Deklarasi) pilihan Notasi Matematika Batas Asimtotik (Big-O Time Complexity), Menelusuri pertarungan trade-off (Alokasi Boros/Hemat Space RAM Complexity Limitnya), Serta men-sertifikasi garansi keandalan daya ledak tahan banting kodenya jika dilempar benturan pada hantaman Skalabilitas Ledakan Data Input Jutaan Array dalam Ujian Kasus Ekstrem Parah Skenario Kiamat (Worst-Case Analysis Bounds).
 119. Konsep 'Local Optimum' dalam strategi Greedy dapat dianalogikan dalam kehidupan nyata seperti...
 A. Menghemat uang Rp50.000 hari ini untuk belanja tidak penting, tanpa memikirkan tidak bisa bayar SPP bulan depan
 B. Menabung untuk masa tua
@@ -1128,7 +1128,7 @@ C. Mengerjakan tugas dari yang termudah secara bersamaan
 D. Menghafal rute jalan raya
 E. Mencatat semua kemungkinan masa depan
 ANS: A
-
+ALASAN: Paradigma Metafora Kehidupan Heuristik Kepicikan Greedy (Kemenangan Kecil Cacat Sesat Jangka Pendek Menipu Kebutaan Efek Berantai Strategi Masa Depan - *Local Optimum Illusion Trap / Jebakan Optimum Kemenangan Sesaat Lokal*). Analogi paling jernih: Seseorang meraup mengambil keuntungan cuan kepuasan kenikmatan finansial maksimum (Local Maxima Benefit) persis di detik persimpangan waktu langkah hidungnya hari ini (Menenggak habis berfoya belanja diskon cuci gudang menghemat untung Rp50 Ribu Rupiah recehan seketika), namun karena langkah keputusan rabun dekat rakusnya itu mematikan rantai percabangan simpanan saldo dompet besarnya ludes terikat habis, mengakibatkannya nyungsep amblas tertimpa bencana gagal mengejar target Puncak Kemenangan Tujuan Hakiki Terbesarnya di masa depan (Global Optimum Goal: Lunas Bayar Tagihan Hutang Cicilan Pendidikan SPP Puluhan Juta Bulan Depannya Berantakan).
 120. Analisis komparatif alternatif solusi algoritma (Pertemuan 36) bertujuan...
 A. Agar program sulit diretas hacker
 B. Membuktikan tidak ada program yang sempurna, masing-masing algoritma unggul dalam skenario struktur data, pola input, atau limit hardware yang berbeda
@@ -1136,6 +1136,7 @@ C. Menggugurkan program siswa lain
 D. Menyatukan semua struktur data
 E. Menyamarkan ukuran file akhir
 ANS: B
+ALASAN: Doktrin Kebijaksanaan Suci Mahkota Ilmu Komputer (The No Free Lunch Theorem In Algorithms Search And Optimization / Teorema Tak Ada Makan Siang Gratis Kesempurnaan Absolut). Penugasan Komparatif (Evaluasi Perbandingan Lintas Paradigma: DFS vs BFS, DP vs Greedy, Array vs Linked List). Tujuannya membunuh dogma buta siswa: "Tidak Pernah Ada Algoritma Malaikat Dewa yang Menang Tak Terkalahkan Sempurna Merajai Merajai Membabat Habis Seluruh Situasi Masalah Muka Bumi". Setiap kode algoritma menderita cacat hukum keseimbangan (Trade-Off). (Algoritma A mungkin menjuarai turnamen Skalabilitas RAM Server, namun menangis melambat di Kecepatan Waktu CPU, Algoritma B juara lari ekstrim secepat kilat (Hashmap O(1)) tapi hancur lebur boros membengkakkan melahap seluruh alokasi tumpukan memori RAM (Space Complexity Overload). Pemilihan algoritma di Industri adalah Seni Pertempuran Mencocokkan Strategi yang Tepat Sasaran pada Kontur Medan Perang Limitasi Skenario Mesin Hardware yang dihadapinya saat itu juga secara Bijaksana.
     </script>
 
     <!-- Quiz Logic -->
@@ -1157,42 +1158,44 @@ ANS: B
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i];
                 const trimmed = line.trim();
-                
                 if (!trimmed) continue;
-                // Ignore lines that look like page headers/footers if any exist
-                if (trimmed.match(/^\[Page \d+\]$/)) continue;
 
-                // Match question number like "1. Text..."
+                if (trimmed.startsWith('Bab ') || trimmed.startsWith('Soal HOTS')) continue;
+
                 const qMatch = line.match(/^(\d+)\.\s+(.*)/);
-                
                 if (qMatch) {
                     if (currentQ) questions.push(currentQ);
                     currentQ = {
                         num: qMatch[1],
                         text: qMatch[2],
                         options: {},
-                        ans: ''
+                        ans: '',
+                        alasan: ''
                     };
                     currentOpt = null;
                 } else if (line.match(/^[A-E]\.\s+/)) {
-                    // Match option like "A. Text..."
                     const opt = trimmed.substring(0, 1);
-                    const optText = trimmed.substring(2).trim();
+                    const optText = trimmed.substring(2).trim().replace(/^\./, '').trim();
                     if (currentQ) {
                         currentQ.options[opt] = optText;
                         currentOpt = opt;
                     }
                 } else if (trimmed.startsWith('ANS:')) {
-                    // Match answer like "ANS: C"
                     if (currentQ) {
                         currentQ.ans = trimmed.replace('ANS:', '').trim();
                     }
                     currentOpt = null;
+                } else if (trimmed.startsWith('ALASAN:')) {
+                    if (currentQ) {
+                        currentQ.alasan = trimmed.replace('ALASAN:', '').trim();
+                    }
+                    currentOpt = null;
                 } else {
-                    // Multiline support for question text or option text
                     if (currentQ) {
                         if (currentOpt) {
                             currentQ.options[currentOpt] += '\n' + line;
+                        } else if (currentQ.alasan) {
+                            currentQ.alasan += '\n' + line;
                         } else {
                             currentQ.text += '\n' + line;
                         }
@@ -1237,9 +1240,10 @@ ANS: B
         }
 
         function startQuiz() {
+            questions = []; // reset array to avoid duplicate if restarted
             parseRawData();
             if (questions.length === 0) {
-                alert("Data soal gagal dimuat! Periksa format teks data.");
+                alert("Data soal gagal dimuat!");
                 return;
             }
             setupScreen.classList.add('hidden');
@@ -1273,7 +1277,7 @@ ANS: B
             // Set Question Text
             questionContainer.innerHTML = `
                 <h3 class="text-xl font-semibold text-gray-800 flex items-start">
-                    <span class="mr-3 text-teal-600 bg-white shadow-sm w-8 h-8 rounded-full flex items-center justify-center shrink-0 border border-teal-100">${q.num}</span>
+                    <span class="mr-3 text-indigo-600 bg-white shadow-sm w-8 h-8 rounded-full flex items-center justify-center shrink-0 border border-indigo-100">${q.num}</span>
                     <span class="question-text font-medium leading-relaxed pt-1">${escapeHtml(q.text)}</span>
                 </h3>
             `;
@@ -1287,10 +1291,10 @@ ANS: B
                     <label class="option-label flex items-start p-4 border-2 border-gray-100 bg-white rounded-xl w-full ${disabled ? 'disabled cursor-not-allowed opacity-75' : ''}">
                         <input type="radio" name="question${index}" value="${key}" ${isSelected} ${disabled} class="hidden" onchange="selectOption('${key}')">
                         <div class="option-box flex-shrink-0 w-6 h-6 border-2 border-gray-300 rounded-full flex justify-center items-center mr-4 mt-0.5 transition-colors bg-white">
-                            <div class="w-3 h-3 bg-teal-600 rounded-full opacity-0 transition-opacity"></div>
+                            <div class="w-3 h-3 bg-indigo-600 rounded-full opacity-0 transition-opacity"></div>
                         </div>
                         <div class="flex-grow flex items-start">
-                            <span class="font-bold mr-2 text-teal-600">${key}.</span>
+                            <span class="font-bold mr-2 text-indigo-600">${key}.</span>
                             <span class="text-gray-700 question-text mt-0">${escapeHtml(val)}</span>
                         </div>
                     </label>
@@ -1298,43 +1302,33 @@ ANS: B
                 optionsContainer.insertAdjacentHTML('beforeend', optionHtml);
             }
             
-            // Update UI if already checked
-            if (hasChecked) {
-                updateSelectedUI();
-                showExplanation();
-                if (index === questions.length - 1) {
-                    nextBtn.classList.add('hidden');
-                    submitBtn.classList.remove('hidden');
-                } else {
-                    nextBtn.classList.remove('hidden');
-                    submitBtn.classList.add('hidden');
-                }
-            } else {
+            // Atur Navigasi: Tombol "Selanjutnya" & "Selesai" SELALU DITAMPILKAN
+            if (index === questions.length - 1) {
                 nextBtn.classList.add('hidden');
-                submitBtn.classList.add('hidden');
-            }
-
-            prevBtn.disabled = index === 0;
-        }
-
-        // Logic Instan: Function dipanggil otomatis SAAT KLIK Opsi
-        function selectOption(key) {
-            // Jika sudah terjawab dan dicek, abaikan klik lanjutan
-            if (userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].checked) return;
-            
-            // Simpan jawaban & tandai sudah dicek secara instan
-            userAnswers[currentQuestionIndex] = { val: key, checked: true };
-            
-            // Update tampilan UI pilihan dan tampilkan penjelasan
-            updateSelectedUI();
-            showExplanation();
-            
-            // Tampilkan tombol navigasi yang sesuai
-            if (currentQuestionIndex === questions.length - 1) {
                 submitBtn.classList.remove('hidden');
             } else {
                 nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
             }
+            prevBtn.disabled = index === 0;
+
+            // Jika soal ini sudah pernah dijawab, tunjukkan kembali jawabannya
+            if (hasChecked) {
+                updateSelectedUI();
+                showExplanation();
+            }
+        }
+
+        // Function dipanggil otomatis SAAT KLIK opsi
+        function selectOption(key) {
+            // Jika sudah terjawab, abaikan klik
+            if (userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].checked) return;
+            
+            // Simpan jawaban & tandai
+            userAnswers[currentQuestionIndex] = { val: key, checked: true };
+            
+            updateSelectedUI();
+            showExplanation();
             
             // Nonaktifkan klik opsi lain
             const radios = optionsContainer.querySelectorAll('input[type="radio"]');
@@ -1348,26 +1342,27 @@ ANS: B
             const userAns = userAnswers[currentQuestionIndex]?.val;
             const isCorrect = userAns === q.ans;
             
-            explanationContainer.classList.remove('hidden');
+            // Menentukan Alasan. Jika tidak ada property q.alasan, gunakan teks asli opsi yang benar.
+            const alasanText = q.alasan ? escapeHtml(q.alasan) : `Jawaban yang benar adalah ${q.ans} yaitu "${escapeHtml(q.options[q.ans])}".`;
             
-            // Force reflow to trigger animation
-            void explanationContainer.offsetWidth;
+            explanationContainer.classList.remove('hidden');
+            void explanationContainer.offsetWidth; // Trigger reflow
             explanationContainer.classList.add('animate-slide-down');
 
             if (isCorrect) {
                 explanationContainer.className = 'mb-8 p-5 bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl shadow-sm animate-slide-down';
                 explanationTitle.innerHTML = `<div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3"><i class="fas fa-check"></i></div> <span class="text-green-800 text-xl">Tepat Sekali!</span>`;
                 explanationText.innerHTML = `
-                    <div class="mb-2"><span class="font-bold text-gray-600">Jawaban Benar:</span> <span class="font-black text-green-600">${q.ans}</span></div>
-                    <div class="text-gray-700 question-text font-medium">${escapeHtml(q.options[q.ans])}</div>
+                    <div class="mb-2"><span class="font-bold text-gray-600">Kunci Jawaban:</span> <span class="font-black text-green-600">${q.ans}</span></div>
+                    <div class="mt-3 pt-3 border-t border-green-200 text-gray-700 question-text font-medium"><span class="font-bold text-gray-800">Alasan:</span> <br>${alasanText}</div>
                 `;
             } else {
                 explanationContainer.className = 'mb-8 p-5 bg-gradient-to-br from-red-50 to-red-100 border border-red-200 rounded-xl shadow-sm animate-slide-down';
                 explanationTitle.innerHTML = `<div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3"><i class="fas fa-times"></i></div> <span class="text-red-800 text-xl">Kurang Tepat</span>`;
                 explanationText.innerHTML = `
                     <div class="mb-2"><span class="font-bold text-gray-600">Jawaban Anda:</span> <span class="font-bold text-red-500">${userAns || '-'}</span></div>
-                    <div class="mb-2"><span class="font-bold text-gray-600">Kunci Jawaban yang Benar:</span> <span class="font-black text-green-600">${q.ans}</span></div>
-                    <div class="text-gray-700 question-text font-medium pt-2 border-t border-red-100 mt-2">${escapeHtml(q.options[q.ans])}</div>
+                    <div class="mb-2"><span class="font-bold text-gray-600">Kunci Jawaban:</span> <span class="font-black text-green-600">${q.ans}</span></div>
+                    <div class="mt-3 pt-3 border-t border-red-200 text-gray-700 question-text font-medium"><span class="font-bold text-gray-800">Alasan:</span> <br>${alasanText}</div>
                 `;
             }
             
@@ -1389,18 +1384,16 @@ ANS: B
 
         function updateSelectedUI() {
             const labels = optionsContainer.querySelectorAll('.option-label');
-            
             labels.forEach(label => {
                 const radio = label.querySelector('input');
                 const box = label.querySelector('.option-box');
                 const dot = label.querySelector('.option-box div');
                 
-                // Reset basic styles
-                box.classList.remove('border-teal-600', 'border-green-500', 'border-red-500', 'bg-red-100');
+                box.classList.remove('border-indigo-600', 'border-green-500', 'border-red-500', 'bg-red-100');
                 dot.classList.add('opacity-0');
 
                 if (radio.checked) {
-                    box.classList.add('border-teal-600');
+                    box.classList.add('border-indigo-600');
                     dot.classList.remove('opacity-0');
                 }
             });
@@ -1416,7 +1409,7 @@ ANS: B
         function finishQuiz() {
             const answeredCount = Object.keys(userAnswers).filter(k => userAnswers[k].checked).length;
             if (answeredCount < questions.length) {
-                if(!confirm(`Anda baru menjawab ${answeredCount} dari ${questions.length} soal. Yakin ingin mengakhiri kuis dan melihat hasil akhir?`)) {
+                if(!confirm(`Anda baru menjawab ${answeredCount} dari ${questions.length} soal.\nYakin ingin mengakhiri kuis dan melihat hasil akhir?`)) {
                     return;
                 }
             }
@@ -1431,45 +1424,60 @@ ANS: B
 
         function calculateResult() {
             let correct = 0;
+            let answeredCount = 0;
             let discussionHtml = '';
 
             questions.forEach((q, index) => {
                 const userAnsObj = userAnswers[index];
                 const userAns = userAnsObj ? userAnsObj.val : null;
                 const isCorrect = userAns === q.ans;
+                const isAnswered = userAns !== null;
+                
                 if (isCorrect) correct++;
+                if (isAnswered) answeredCount++;
 
-                let userAnsText = userAns ? `${userAns}. ${escapeHtml(q.options[userAns])}` : 'Tidak dijawab';
+                let userAnsText = userAns ? `${userAns}. ${escapeHtml(q.options[userAns])}` : 'Tidak dijawab (Dilewati)';
                 let correctAnsText = `${q.ans}. ${escapeHtml(q.options[q.ans])}`;
+                let alasanText = q.alasan ? escapeHtml(q.alasan) : `Kunci jawaban yang tepat adalah ${q.ans} yaitu "${escapeHtml(q.options[q.ans])}".`;
+
+                // Tampilan Box di Rekap (Abu-abu untuk skipped, hijau untuk benar, merah untuk salah)
+                let boxColorClass = isCorrect ? 'border-l-green-500' : (!isAnswered ? 'border-l-gray-400' : 'border-l-red-500');
+                let iconHtml = isCorrect ? '<i class="fas fa-check-circle text-green-600"></i>' : (!isAnswered ? '<i class="fas fa-minus-circle text-gray-400"></i>' : '<i class="fas fa-times-circle text-red-600"></i>');
 
                 discussionHtml += `
-                    <div class="bg-white p-6 rounded-xl border-l-4 shadow-sm mb-4 ${isCorrect ? 'border-l-green-500' : 'border-l-red-500'} relative">
+                    <div class="bg-white p-6 rounded-xl border-l-4 shadow-sm mb-4 ${boxColorClass} relative">
                         <div class="absolute top-4 right-4 text-3xl opacity-20">
-                            ${isCorrect ? '<i class="fas fa-check-circle text-green-600"></i>' : '<i class="fas fa-times-circle text-red-600"></i>'}
+                            ${iconHtml}
                         </div>
                         <h4 class="font-bold text-gray-800 mb-3 bg-gray-100 inline-block px-3 py-1 rounded-md text-sm">Soal ${q.num}</h4>
                         <p class="mb-5 text-gray-700 question-text font-medium">${escapeHtml(q.text)}</p>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                                <span class="text-xs font-bold text-gray-400 block mb-1 uppercase tracking-wide">Jawaban Anda</span>
-                                <span class="${isCorrect ? 'text-green-700' : 'text-red-600'} font-semibold question-text">${userAnsText}</span>
+                            <div class="${!isAnswered ? 'bg-gray-100 border-gray-200' : 'bg-gray-50 border-gray-100'} p-4 rounded-lg border">
+                                <span class="text-xs font-bold ${!isAnswered ? 'text-gray-500' : 'text-gray-400'} block mb-1 uppercase tracking-wide">Jawaban Anda</span>
+                                <span class="${isCorrect ? 'text-green-700' : (!isAnswered ? 'text-gray-500 italic' : 'text-red-600')} font-semibold question-text">${userAnsText}</span>
                             </div>
                             <div class="bg-green-50 p-4 rounded-lg border border-green-100">
                                 <span class="text-xs font-bold text-green-500 block mb-1 uppercase tracking-wide">Kunci Jawaban</span>
                                 <span class="text-green-700 font-semibold question-text">${correctAnsText}</span>
+                            </div>
+                            <div class="md:col-span-2 bg-blue-50/50 p-4 rounded-lg border border-blue-100 mt-2">
+                                <span class="text-xs font-bold text-blue-500 block mb-1 uppercase tracking-wide">Alasan / Penjelasan</span>
+                                <span class="text-blue-800 font-medium text-sm leading-relaxed">${alasanText}</span>
                             </div>
                         </div>
                     </div>
                 `;
             });
 
-            const incorrect = questions.length - correct;
+            const incorrect = answeredCount - correct;
+            const skipped = questions.length - answeredCount;
             const score = Math.round((correct / questions.length) * 100);
 
             // Animate numbers
             animateValue("correct-count", 0, correct, 1000);
             animateValue("incorrect-count", 0, incorrect, 1000);
+            animateValue("skipped-count", 0, skipped, 1000);
             animateValue("final-score", 0, score, 1500);
             
             document.getElementById('discussion-container').innerHTML += discussionHtml;
@@ -1504,7 +1512,7 @@ ANS: B
             discussionContainer.classList.add('hidden');
             discussionContainer.innerHTML = `
                 <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
-                    <i class="fas fa-tasks text-teal-500 mr-3"></i> Detail Jawaban Anda
+                    <i class="fas fa-tasks text-indigo-500 mr-3"></i> Detail Jawaban Anda
                 </h3>
             `;
             startQuiz();
