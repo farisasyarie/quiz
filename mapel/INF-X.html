@@ -65,7 +65,7 @@
                 <h2 class="text-3xl font-bold mb-4 text-gray-800">Siap Menguji Pengetahuanmu?</h2>
                 <p class="text-gray-600 mb-8 max-w-lg mx-auto text-lg">
                     Kuis ini mencakup materi Informatika Kelas X Bab 2 dan 3.
-                    <strong>Jawaban yang benar dan penjelasannya akan langsung muncul saat kamu memilih opsi.</strong>
+                    <strong>Anda dapat melewati soal dan kembali lagi nanti. Jawaban beserta penjelasannya akan muncul saat Anda memilih opsi.</strong>
                 </p>
                 <button id="start-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-indigo-300/50">
                     <i class="fas fa-play mr-2"></i> Mulai Quiz Sekarang
@@ -112,7 +112,8 @@
                         <i class="fas fa-arrow-left mr-2"></i> Sebelumnya
                     </button>
 
-                    <button id="next-btn" class="hidden w-full sm:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                    <!-- Tombol Next selalu ada -->
+                    <button id="next-btn" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                         Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
                     </button>
                     
@@ -129,24 +130,28 @@
                         <i class="fas fa-award text-8xl text-yellow-400 mb-4 drop-shadow-lg"></i>
                         <i class="fas fa-star absolute top-0 right-0 text-3xl text-orange-400 animate-pulse"></i>
                     </div>
-                    <h2 class="text-4xl font-extrabold mb-3 text-gray-800">Luar Biasa!</h2>
-                    <p class="text-gray-600 text-lg">Kamu telah menyelesaikan seluruh 120 soal kuis.</p>
+                    <h2 class="text-4xl font-extrabold mb-3 text-gray-800">Selesai!</h2>
+                    <p class="text-gray-600 text-lg">Berikut adalah hasil pekerjaan kuis Anda.</p>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-center">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10 text-center">
                     <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl border border-green-200 shadow-sm transform transition hover:scale-105">
-                        <div class="text-green-600 font-bold text-lg mb-2 uppercase tracking-wide">Jawaban Benar</div>
-                        <div id="correct-count" class="text-5xl font-black text-green-700">0</div>
+                        <div class="text-green-600 font-bold text-sm mb-2 uppercase tracking-wide">Benar</div>
+                        <div id="correct-count" class="text-4xl font-black text-green-700">0</div>
                     </div>
                     <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-2xl border border-red-200 shadow-sm transform transition hover:scale-105">
-                        <div class="text-red-600 font-bold text-lg mb-2 uppercase tracking-wide">Jawaban Salah</div>
-                        <div id="incorrect-count" class="text-5xl font-black text-red-700">0</div>
+                        <div class="text-red-600 font-bold text-sm mb-2 uppercase tracking-wide">Salah</div>
+                        <div id="incorrect-count" class="text-4xl font-black text-red-700">0</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-2xl border border-gray-200 shadow-sm transform transition hover:scale-105">
+                        <div class="text-gray-600 font-bold text-sm mb-2 uppercase tracking-wide">Dilewati</div>
+                        <div id="skipped-count" class="text-4xl font-black text-gray-700">0</div>
                     </div>
                     <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-2xl border border-indigo-200 shadow-sm transform transition hover:scale-105">
-                        <div class="text-indigo-600 font-bold text-lg mb-2 uppercase tracking-wide">Skor Akurasi</div>
+                        <div class="text-indigo-600 font-bold text-sm mb-2 uppercase tracking-wide">Akurasi</div>
                         <div class="flex justify-center items-baseline">
-                            <span id="final-score" class="text-5xl font-black text-indigo-700">0</span>
-                            <span class="text-2xl font-bold text-indigo-500 ml-1">%</span>
+                            <span id="final-score" class="text-4xl font-black text-indigo-700">0</span>
+                            <span class="text-xl font-bold text-indigo-500 ml-1">%</span>
                         </div>
                     </div>
                 </div>
@@ -175,965 +180,966 @@
     <script id="raw-data" type="text/template">
 120 Soal HOTS Informatika Kelas X (Bab 2 & 3)
 
-1.    Andi menemukan algoritma pencarian. Ia mencari sebuah kembang kol spesifik di tumpukan yang sudah terurut. Untuk meminimalkan langkah, ia membagi tumpukan menjadi dua secara berulang. Strategi ini disebut...
-A.   Linear Search
-B.   Binary Search
-C.   Bubble Sort
-D.   Insertion Sort
-E.   Selection Sort
+1. Andi menemukan algoritma pencarian. Ia mencari sebuah kembang kol spesifik di tumpukan yang sudah terurut. Untuk meminimalkan langkah, ia membagi tumpukan menjadi dua secara berulang. Strategi ini disebut...
+A.    Linear Search
+B.    Binary Search
+C.    Bubble Sort
+D.    Insertion Sort
+E.    Selection Sort
 ANS: B
-
-2.    Saat melakukan debugging pada pseudokode: `x = 1; WHILE x > 0 DO x = x + 1`, Andi menyadari program tidak pernah berhenti. Masalah utamanya adalah...
-A.   Variabel x tidak diinisialisasi
-B.   Kondisi x > 0 selalu bernilai salah
-C.   Perubahan nilai x menjauhi kondisi berhenti (infinite loop)
-D.   Tipe data x salah
-E.   Kurang instruksi PRINT
+ALASAN: Binary Search bekerja dengan membagi data yang sudah terurut menjadi dua bagian (divide and conquer) secara berulang kali, yang membuatnya sangat efisien untuk meminimalkan langkah pencarian.
+2. Saat melakukan debugging pada pseudokode: `x = 1; WHILE x > 0 DO x = x + 1`, Andi menyadari program tidak pernah berhenti. Masalah utamanya adalah...
+A.    Variabel x tidak diinisialisasi
+B.    Kondisi x > 0 selalu bernilai salah
+C.    Perubahan nilai x menjauhi kondisi berhenti (infinite loop)
+D.    Tipe data x salah
+E.    Kurang instruksi PRINT
 ANS: C
-
-3.    Andi menggunakan algoritma rekursif. Fungsi `f(n) = 2*f(n-1)` dengan basis `f(0)=3`. Berapakah nilai `f(2)` yang didapat Andi?
-A.   6
-B.   12
-C.   24
-D.   48
-E.   96
+ALASAN: Variabel `x` diinisialisasi dengan nilai 1 dan terus bertambah, sehingga kondisi `x > 0` akan selalu bernilai benar selamanya (infinite loop).
+3. Andi menggunakan algoritma rekursif. Fungsi `f(n) = 2*f(n-1)` dengan basis `f(0)=3`. Berapakah nilai `f(2)` yang didapat Andi?
+A.    6
+B.    12
+C.    24
+D.    48
+E.    96
 ANS: B
-
-4.    Dalam menyortir kembang kol bernilai 5, 2, 4, 1, 3 dengan Bubble Sort (menaik), pada langkah pertama Andi akan melakukan pertukaran antara...
-A.   5 dan 2
-B.   5 dan 3
-C.   1 dan 2
-D.   4 dan 1
-E.   Tidak ada pertukaran
+ALASAN: Diketahui f(0) = 3. Maka f(1) = 2 * f(0) = 2 * 3 = 6. Selanjutnya, f(2) = 2 * f(1) = 2 * 6 = 12.
+4. Dalam menyortir kembang kol bernilai 5, 2, 4, 1, 3 dengan Bubble Sort (menaik), pada langkah pertama Andi akan melakukan pertukaran antara...
+A.    5 dan 2
+B.    5 dan 3
+C.    1 dan 2
+D.    4 dan 1
+E.    Tidak ada pertukaran
 ANS: A
-
-5.    Andi menyusun kembang kol secara urut dengan mengambil satu elemen dan menyisipkannya di posisi yang tepat di antara elemen yang sudah terurut. Teknik ini adalah...
-A.   Bubble Sort
-B.   Selection Sort
-C.   Insertion Sort
-D.   Quick Sort
-E.   Merge Sort
+ALASAN: Algoritma Bubble Sort membandingkan elemen berdekatan dari awal. Elemen pertama (5) lebih besar dari elemen kedua (2), sehingga keduanya langsung ditukar pada langkah pertama.
+5. Andi menyusun kembang kol secara urut dengan mengambil satu elemen dan menyisipkannya di posisi yang tepat di antara elemen yang sudah terurut. Teknik ini adalah...
+A.    Bubble Sort
+B.    Selection Sort
+C.    Insertion Sort
+D.    Quick Sort
+E.    Merge Sort
 ANS: C
-
-6.    Dalam bahasa C, ekspresi logika `(2 > 1) && (0 != 5)` yang dieksekusi Andi akan menghasilkan nilai...
-A.   TRUE (1)
-B.   FALSE (0)
-C.   ERROR
-D.   NULL
-E.   -1
+ALASAN: Karakteristik utama Insertion Sort adalah mengambil sebuah elemen dan menyisipkannya (insert) ke posisi yang tepat pada sekumpulan data yang sudah terurut sebelumnya.
+6. Dalam bahasa C, ekspresi logika `(2 > 1) && (0 != 5)` yang dieksekusi Andi akan menghasilkan nilai...
+A.    TRUE (1)
+B.    FALSE (0)
+C.    ERROR
+D.    NULL
+E.    -1
 ANS: A
-
-7.    Sebuah restoran menggunakan antrean untuk pesanan kembang kol. Jika pesanan masuk berurutan: A, B, C, maka pesanan yang diproses paling awal oleh koki adalah...
-A.   A (karena FIFO)
-B.   C (karena LIFO)
-C.   B (karena ditengah)
-D.   Bisa A atau C
-E.   Acak
+ALASAN: `(2 > 1)` bernilai TRUE dan `(0 != 5)` juga bernilai TRUE. Karena menggunakan operator AND (`&&`), jika keduanya TRUE, maka hasil akhirnya adalah TRUE (1).
+7. Sebuah restoran menggunakan antrean untuk pesanan kembang kol. Jika pesanan masuk berurutan: A, B, C, maka pesanan yang diproses paling awal oleh koki adalah...
+A.    A (karena FIFO)
+B.    C (karena LIFO)
+C.    B (karena ditengah)
+D.    Bisa A atau C
+E.    Acak
 ANS: A
-
-8.    Andi menekan tombol 'Undo' di komputernya berturut-turut untuk membatalkan aksi terakhir pada kembang kol. Struktur data yang memodelkan fitur Undo ini adalah...
-A.   Queue
-B.   Tree
-C.   Graph
-D.   Stack
-E.   Array
+ALASAN: Struktur data antrean (Queue) selalu menerapkan prinsip First In First Out (FIFO), yang berarti elemen yang pertama kali masuk (A) akan menjadi yang pertama keluar/diproses.
+8. Andi menekan tombol 'Undo' di komputernya berturut-turut untuk membatalkan aksi terakhir pada kembang kol. Struktur data yang memodelkan fitur Undo ini adalah...
+A.    Queue
+B.    Tree
+C.    Graph
+D.    Stack
+E.    Array
 ANS: D
-
-9.    Jika Andi mengubah ekspresi `a = a + 5` menjadi bentuk compound assignment (penugasan majemuk), maka penulisannya menjadi...
-A.   a =+ 5
-B.   a += 5
-C.   a ++ 5
-D.   a == 5
-E.   a := 5
+ALASAN: Fitur Undo membatalkan aksi dari yang paling terakhir dilakukan (Last In First Out / LIFO), yang merupakan cara kerja dari struktur data Stack (tumpukan).
+9. Jika Andi mengubah ekspresi `a = a + 5` menjadi bentuk compound assignment (penugasan majemuk), maka penulisannya menjadi...
+A.    a =+ 5
+B.    a += 5
+C.    a ++ 5
+D.    a == 5
+E.    a := 5
 ANS: B
-
-10.    Untuk memeriksa apakah variabel `bil` habis dibagi 2, Andi menggunakan ekspresi...
-A.   bil / 2 == 0
-B.   bil % 2 == 0
-C.   bil 2 == 0
-D.   bil MOD 2 == 1
-E.   bil != 2
+ALASAN: Operator penugasan majemuk (compound assignment) untuk penambahan di banyak bahasa pemrograman (seperti C) ditulis dengan menggabungkan operator aritmatika dan penugasan, yaitu `+=`.
+10. Untuk memeriksa apakah variabel `bil` habis dibagi 2, Andi menggunakan ekspresi...
+A.    bil / 2 == 0
+B.    bil % 2 == 0
+C.    bil 2 == 0
+D.    bil MOD 2 == 1
+E.    bil != 2
 ANS: B
-
-11.    Andi mengamati struktur `switch-case`. Jika ia lupa menambahkan perintah `break;` di setiap `case`, yang akan terjadi adalah...
-A.   Error saat kompilasi
-B.   Hanya case pertama yang dieksekusi
-C.   Program akan keluar dari switch otomatis
-D.   Program mengeksekusi case berikutnya secara terus menerus (fall-through)
-E.   Program berhenti (crash)
+ALASAN: Operator modulo (`%`) menghasilkan sisa hasil bagi. Suatu bilangan dikatakan habis dibagi 2 (genap) apabila sisa pembagiannya adalah 0 (`% 2 == 0`).
+11. Andi mengamati struktur `switch-case`. Jika ia lupa menambahkan perintah `break;` di setiap `case`, yang akan terjadi adalah...
+A.    Error saat kompilasi
+B.    Hanya case pertama yang dieksekusi
+C.    Program akan keluar dari switch otomatis
+D.    Program mengeksekusi case berikutnya secara terus menerus (fall-through)
+E.    Program berhenti (crash)
 ANS: D
-
-12.    Sebuah program yang diuji Andi memiliki loop bersarang: FOR terluar berjalan 2 kali, FOR terdalam berjalan 4 kali. Total eksekusi pernyataan di dalam FOR terdalam adalah...
-A.   2 kali
-B.   4 kali
-C.   8 kali
-D.   6 kali
-E.   1 kali
+ALASAN: Tanpa statement `break;`, program tidak akan keluar dari blok `switch`, melainkan terus mengeksekusi semua instruksi di bawahnya (dikenal sebagai perilaku fall-through).
+12. Sebuah program yang diuji Andi memiliki loop bersarang: FOR terluar berjalan 2 kali, FOR terdalam berjalan 4 kali. Total eksekusi pernyataan di dalam FOR terdalam adalah...
+A.    2 kali
+B.    4 kali
+C.    8 kali
+D.    6 kali
+E.    1 kali
 ANS: C
-
-13.    Pada diagram alir yang dibuat Andi, simbol belah ketupat (diamond) berfungsi untuk...
-A.   Membaca input data
-B.   Mencetak output
-C.   Melakukan proses perhitungan
-D.   Mengevaluasi kondisi percabangan
-E.   Menghentikan program
+ALASAN: Pernyataan dalam loop terdalam akan dieksekusi sebanyak perkalian antara batas loop terluar dan terdalam. Dalam hal ini, 2 dikali 4 sama dengan 8 kali.
+13. Pada diagram alir yang dibuat Andi, simbol belah ketupat (diamond) berfungsi untuk...
+A.    Membaca input data
+B.    Mencetak output
+C.    Melakukan proses perhitungan
+D.    Mengevaluasi kondisi percabangan
+E.    Menghentikan program
 ANS: D
-
-14.    Jika Andi merancang pseudokode untuk mencari bilangan terbesar dari himpunan bilangan bulat positif, inisialisasi awal variabel `Terbesar` sebaiknya menggunakan angka...
-A.   0
-B.   100
-C.   1000
-D.   Nilai acak
-E.   Bebas
+ALASAN: Dalam standar flowchart, simbol belah ketupat (decision/keputusan) digunakan untuk mengevaluasi suatu kondisi yang menentukan jalur atau arah (percabangan) eksekusi selanjutnya (Ya/Tidak).
+14. Jika Andi merancang pseudokode untuk mencari bilangan terbesar dari himpunan bilangan bulat positif, inisialisasi awal variabel `Terbesar` sebaiknya menggunakan angka...
+A.    0
+B.    100
+C.    1000
+D.    Nilai acak
+E.    Bebas
 ANS: A
-
-15.    Andi mencoba membagi `10 / 0` dalam algoritma. Untuk mencegah program crash, validasi yang harus ditambahkan Andi adalah...
-A.   IF pembilang > 0
-B.   IF penyebut != 0
-C.   IF penyebut == 0
-D.   IF pembilang == penyebut
-E.   WHILE pembilang > penyebut
+ALASAN: Karena data himpunannya bilangan bulat positif (bernilai > 0), variabel penampung nilai terbesar harus diinisialisasi dengan angka sekecil mungkin (0) agar nilai pertama yang diperiksa pasti bisa menggantikannya.
+15. Andi mencoba membagi `10 / 0` dalam algoritma. Untuk mencegah program crash, validasi yang harus ditambahkan Andi adalah...
+A.    IF pembilang > 0
+B.    IF penyebut != 0
+C.    IF penyebut == 0
+D.    IF pembilang == penyebut
+E.    WHILE pembilang > penyebut
 ANS: B
-
-16.    Andi mempelajari siklus mesin (Fetch-Execute). Langkah pertama yang dilakukan oleh Control Unit saat mengeksekusi program adalah...
-A.   Menyimpan hasil perhitungan ke RAM
-B.   Melakukan kalkulasi aritmatika
-C.   Mengambil (fetch) instruksi dari memori
-D.   Menyalakan layar monitor
-E.   Mengkompilasi kode sumber
+ALASAN: Pembagian dengan angka nol tidak terdefinisi dan menyebabkan fatal error. Validasi pencegahan harus memastikan angka pembagi (penyebut) tidak sama dengan nol (`!= 0`).
+16. Andi mempelajari siklus mesin (Fetch-Execute). Langkah pertama yang dilakukan oleh Control Unit saat mengeksekusi program adalah...
+A.    Menyimpan hasil perhitungan ke RAM
+B.    Melakukan kalkulasi aritmatika
+C.    Mengambil (fetch) instruksi dari memori
+D.    Menyalakan layar monitor
+E.    Mengkompilasi kode sumber
 ANS: C
-
-17.    Pada arsitektur Von Neumann, ketika Andi mengetik di keyboard, tempat yang menyimpan sementara instruksi sebelum diproses oleh CPU adalah...
-A.   Hard Disk (HDD)
-B.   Read Only Memory (ROM)
-C.   Random Access Memory (RAM)
-D.   Flash Drive / USB
-E.   Arithmetic Logic Unit
+ALASAN: Siklus instruksi selalu dimulai dengan tahapan 'Fetch', di mana CPU (Control Unit) mengambil perintah atau data berikutnya yang akan dijalankan dari memori utama.
+17. Pada arsitektur Von Neumann, ketika Andi mengetik di keyboard, tempat yang menyimpan sementara instruksi sebelum diproses oleh CPU adalah...
+A.    Hard Disk (HDD)
+B.    Read Only Memory (ROM)
+C.    Random Access Memory (RAM)
+D.    Flash Drive / USB
+E.    Arithmetic Logic Unit
 ANS: C
-
-18.    Jika CPU mengeksekusi instruksi `TAMBAH REG1 REG2`, maka secara konseptual bagian CPU yang bekerja melakukan perhitungan untuk Andi adalah...
-A.   Control Unit
-B.   Register
-C.   Arithmetic Logic Unit (ALU)
-D.   Bus
-E.   Memory Unit
+ALASAN: Konsep Von Neumann menggunakan memori terpadu, di mana instruksi maupun data masukan sebelum diproses oleh prosesor (CPU) harus disimpan terlebih dahulu di RAM (memori utama).
+18. Jika CPU mengeksekusi instruksi `TAMBAH REG1 REG2`, maka secara konseptual bagian CPU yang bekerja melakukan perhitungan untuk Andi adalah...
+A.    Control Unit
+B.    Register
+C.    Arithmetic Logic Unit (ALU)
+D.    Bus
+E.    Memory Unit
 ANS: C
-
-19.    Andi dapat mendengarkan lagu dan mengetik kembang kol bersamaan (Multitasking). Sistem operasi membagi jatah waktu prosesor menggunakan algoritma...
-A.   First In First Out
-B.   Round Robin
-C.   Last In First Out
-D.   Bubble Sort
-E.   Binary Search
+ALASAN: ALU (Arithmetic Logic Unit) adalah satu-satunya komponen fisik di dalam CPU yang memiliki peran khusus untuk menjalankan proses operasi matematis (seperti tambah, kurang) dan logika.
+19. Andi dapat mendengarkan lagu dan mengetik kembang kol bersamaan (Multitasking). Sistem operasi membagi jatah waktu prosesor menggunakan algoritma...
+A.    First In First Out
+B.    Round Robin
+C.    Last In First Out
+D.    Bubble Sort
+E.    Binary Search
 ANS: B
-
-20.    Saat menyusun kembang kol di MS Word, Andi ingin membuat daftar isi otomatis. Syarat mutlak agar MS Word dapat membedakan judul bab dengan teks biasa adalah...
-A.   Mewarnai teks judul dengan merah
-B.   Menekan tombol Tab 3 kali pada judul
-C.   Menerapkan Styles (seperti Heading 1, Heading 2)
-D.   Mengetik kata 'Bab' di setiap awal kalimat
-E.   Memisahkan setiap bab di file berbeda
+ALASAN: Round Robin adalah algoritma penjadwalan CPU yang memberikan setiap proses jatah waktu (time slice) kecil secara bergiliran, menciptakan ilusi bagi pengguna bahwa semua program berjalan bersamaan (multitasking).
+20. Saat menyusun kembang kol di MS Word, Andi ingin membuat daftar isi otomatis. Syarat mutlak agar MS Word dapat membedakan judul bab dengan teks biasa adalah...
+A.    Mewarnai teks judul dengan merah
+B.    Menekan tombol Tab 3 kali pada judul
+C.    Menerapkan Styles (seperti Heading 1, Heading 2)
+D.    Mengetik kata 'Bab' di setiap awal kalimat
+E.    Memisahkan setiap bab di file berbeda
 ANS: C
-
-21.    Andi menautkan data tabel Excel ke dalam slide PowerPoint menggunakan fitur 'Object Linking'. Jika ia merevisi angka di Excel, yang terjadi pada PowerPoint adalah...
-A.   Data tidak berubah
-B.   Data otomatis diperbarui mengikuti Excel
-C.   Tabel akan terhapus
-D.   Format tabel menjadi rusak
-E.   Slide menjadi tidak bisa diedit
+ALASAN: Mesin pembuat Daftar Isi (Table of Contents) di Word bekerja dengan memindai dokumen dan mencari teks-teks yang telah diformat menggunakan metadata Styles berbasis struktur (Heading).
+21. Andi menautkan data tabel Excel ke dalam slide PowerPoint menggunakan fitur 'Object Linking'. Jika ia merevisi angka di Excel, yang terjadi pada PowerPoint adalah...
+A.    Data tidak berubah
+B.    Data otomatis diperbarui mengikuti Excel
+C.    Tabel akan terhapus
+D.    Format tabel menjadi rusak
+E.    Slide menjadi tidak bisa diedit
 ANS: B
-
-22.    Untuk mengirim surat edaran resmi terkait kembang kol ke 50 orang berbeda, Andi cukup membuat 1 dokumen utama menggunakan fitur...
-A.   Track Changes
-B.   Macros
-C.   Mail Merge
-D.   OLE (Object Linking)
-E.   Table of Contents
+ALASAN: Fitur Object Linking (dari mekanisme OLE) menciptakan koneksi dinamis antara file sumber dan file tujuan. Jika data di file asalnya (Excel) diubah, file tujuannya (PowerPoint) akan langsung ter-update.
+22. Untuk mengirim surat edaran resmi terkait kembang kol ke 50 orang berbeda, Andi cukup membuat 1 dokumen utama menggunakan fitur...
+A.    Track Changes
+B.    Macros
+C.    Mail Merge
+D.    OLE (Object Linking)
+E.    Table of Contents
 ANS: C
-
-23.    Software yang di-install Andi mengizinkannya untuk memodifikasi kode sumber (source code) dan mendistribusikannya kembali. Lisensi software tersebut tergolong...
-A.   Freeware
-B.   Shareware
-C.   Komersial
-D.   Open Source
-E.   Proprietary
+ALASAN: Mail Merge (Cetak Surat Massal) secara khusus dirancang untuk menggabungkan sebuah dokumen master (template) dengan basis data penerima untuk mencetak banyak salinan yang telah dipersonalisasi.
+23. Software yang di-install Andi mengizinkannya untuk memodifikasi kode sumber (source code) dan mendistribusikannya kembali. Lisensi software tersebut tergolong...
+A.    Freeware
+B.    Shareware
+C.    Komersial
+D.    Open Source
+E.    Proprietary
 ANS: D
-
-24.    Perusahaan tempat Andi bekerja mengembangkan software dan memberikan lisensi komersial. Artinya pengguna software tersebut harus...
-A.   Berbagi secara gratis
-B.   Membayar hak guna/lisensi
-C.   Melihat kode sumbernya
-D.   Mengubah tampilan aslinya
-E.   Mengunggahnya ke internet
+ALASAN: Open Source adalah kategori lisensi di mana pengembang sengaja membuka dan mengizinkan publik untuk melihat, mengedit/memodifikasi, dan menyebarkan kode sumber program tersebut secara bebas.
+24. Perusahaan tempat Andi bekerja mengembangkan software dan memberikan lisensi komersial. Artinya pengguna software tersebut harus...
+A.    Berbagi secara gratis
+B.    Membayar hak guna/lisensi
+C.    Melihat kode sumbernya
+D.    Mengubah tampilan aslinya
+E.    Mengunggahnya ke internet
 ANS: B
-
-25.    Tindakan Andi menggunakan software bajakan tanpa membeli lisensi resmi merupakan bentuk pelanggaran terhadap...
-A.   Hak Cipta / Kekayaan Intelektual
-B.   Hukum Siber Dasar
-C.   Undang-Undang Perdagangan
-D.   Standar Operasional Prosedur
-E.   Hukum Privasi Data
+ALASAN: Software komersial (proprietary) bersifat tertutup dan dibuat untuk tujuan komersialisasi. Oleh sebab itu, penggunanya diwajibkan membeli lisensi berbayar (hak guna) secara legal untuk dapat mengoperasikannya.
+25. Tindakan Andi menggunakan software bajakan tanpa membeli lisensi resmi merupakan bentuk pelanggaran terhadap...
+A.    Hak Cipta / Kekayaan Intelektual
+B.    Hukum Siber Dasar
+C.    Undang-Undang Perdagangan
+D.    Standar Operasional Prosedur
+E.    Hukum Privasi Data
 ANS: A
-
-26.    Munculnya e-commerce mendisrupsi kebiasaan berbelanja. Keuntungan ekonomi bagi wirausahawan kecil seperti Andi adalah...
-A.   Biaya bahan baku turun drastis
-B.   Terbatasnya area promosi
-C.   Dapat menjangkau pasar luas tanpa butuh toko fisik
-D.   Konsumen semakin sulit dihubungi
-E.   Tidak butuh jaringan internet
+ALASAN: Pembajakan (penggandaan/penggunaan karya komersial tanpa izin pembuatnya) adalah pelanggaran langsung terhadap hukum Hak Cipta dan Hak Kekayaan Intelektual (HAKI).
+26. Munculnya e-commerce mendisrupsi kebiasaan berbelanja. Keuntungan ekonomi bagi wirausahawan kecil seperti Andi adalah...
+A.    Biaya bahan baku turun drastis
+B.    Terbatasnya area promosi
+C.    Dapat menjangkau pasar luas tanpa butuh toko fisik
+D.    Konsumen semakin sulit dihubungi
+E.    Tidak butuh jaringan internet
 ANS: C
-
-27.    Andi memanfaatkan komputer papan tunggal seukuran kartu kredit untuk eksperimen robotika. Komputer jenis ini tergolong ke dalam...
-A.   Supercomputer
-B.   Mainframe
-C.   Microcomputer (seperti Raspberry Pi)
-D.   Minicomputer
-E.   Workstation
+ALASAN: E-commerce memangkas biaya infrastruktur besar (seperti sewa ruko fisik) dan menghilangkan hambatan jarak geografis, sehingga pelaku UMKM dapat melayani dan menjangkau pelanggan di seluruh dunia.
+27. Andi memanfaatkan komputer papan tunggal seukuran kartu kredit untuk eksperimen robotika. Komputer jenis ini tergolong ke dalam...
+A.    Supercomputer
+B.    Mainframe
+C.    Microcomputer (seperti Raspberry Pi)
+D.    Minicomputer
+E.    Workstation
 ANS: C
-
-28.    Dalam pengembangan aplikasi untuk perusahaan, tugas pokok Andi sebagai System Analyst adalah...
-A.   Membuat desain antarmuka grafis
-B.   Berkomunikasi dengan pengguna untuk menganalisis kebutuhan sistem
-C.   Merakit server secara fisik
-D.   Menjual aplikasi kepada pihak ketiga
-E.   Melakukan instalasi sistem operasi
+ALASAN: Perangkat elektronik komputasi seperti Raspberry Pi adalah komputer yang memiliki CPU (microprocessor), RAM, dan I/O di dalam satu papan mungil, yang termasuk dalam klasifikasi Microcomputer.
+28. Dalam pengembangan aplikasi untuk perusahaan, tugas pokok Andi sebagai System Analyst adalah...
+A.    Membuat desain antarmuka grafis
+B.    Berkomunikasi dengan pengguna untuk menganalisis kebutuhan sistem
+C.    Merakit server secara fisik
+D.    Menjual aplikasi kepada pihak ketiga
+E.    Melakukan instalasi sistem operasi
 ANS: B
-
-29.    Dalam kode program C milik Andi, terdapat operator unary, binary, dan ternary. Operator yang membutuhkan tepat tiga operand disebut...
-A.   Ternary operator
-B.   Binary operator
-C.   Unary operator
-D.   Logical operator
-E.   Relational operator
+ALASAN: Seorang Analis Sistem (System Analyst) bertugas menganalisis persoalan, mengumpulkan kebutuhan dari pihak klien/pengguna, dan merancang solusi logika untuk selanjutnya dikerjakan oleh programmer.
+29. Dalam kode program C milik Andi, terdapat operator unary, binary, dan ternary. Operator yang membutuhkan tepat tiga operand disebut...
+A.    Ternary operator
+B.    Binary operator
+C.    Unary operator
+D.    Logical operator
+E.    Relational operator
 ANS: A
-
-30.    Dalam mesin konseptual, instruksi `SALIN AAA1 REG1` yang dipelajari Andi berarti...
-A.   Menghapus data di AAA1
-B.   Menukar data REG1 dengan AAA1
-C.   Menyalin isi memori dari alamat AAA1 ke register REG1
-D.   Menjumlahkan AAA1 dan REG1
-E.   Menyimpan hasil ke harddisk
+ALASAN: Istilah 'Ternary' merujuk pada jumlah angka tiga. Dalam pemrograman, operator ternary (seperti `?:`) adalah satu-satunya operator yang memerlukan tiga argumen/operand untuk dievaluasi.
+30. Dalam mesin konseptual, instruksi `SALIN AAA1 REG1` yang dipelajari Andi berarti...
+A.    Menghapus data di AAA1
+B.    Menukar data REG1 dengan AAA1
+C.    Menyalin isi memori dari alamat AAA1 ke register REG1
+D.    Menjumlahkan AAA1 dan REG1
+E.    Menyimpan hasil ke harddisk
 ANS: C
-
-31.    Budi menemukan algoritma pencarian. Ia mencari sebuah buku teks spesifik di tumpukan yang sudah terurut. Untuk meminimalkan langkah, ia membagi tumpukan menjadi dua secara berulang. Strategi ini disebut...
-A.   Linear Search
-B.   Binary Search
-C.   Bubble Sort
-D.   Insertion Sort
-E.   Selection Sort
+ALASAN: Perintah SALIN (juga dikenal sebagai LOAD/MOV) berfungsi untuk menyalin/memanggil nilai dari lokasi asal (alamat memori AAA1) lalu menyimpannya ke memori cepat di dalam prosesor (Register REG1).
+31. Budi menemukan algoritma pencarian. Ia mencari sebuah buku teks spesifik di tumpukan yang sudah terurut. Untuk meminimalkan langkah, ia membagi tumpukan menjadi dua secara berulang. Strategi ini disebut...
+A.    Linear Search
+B.    Binary Search
+C.    Bubble Sort
+D.    Insertion Sort
+E.    Selection Sort
 ANS: B
-
-32.    Saat melakukan debugging pada pseudokode: `x = 2; WHILE x > 0 DO x = x + 1`, Budi menyadari program tidak pernah berhenti. Masalah utamanya adalah...
-A.   Variabel x tidak diinisialisasi
-B.   Kondisi x > 0 selalu bernilai salah
-C.   Perubahan nilai x menjauhi kondisi berhenti (infinite loop)
-D.   Tipe data x salah
-E.   Kurang instruksi PRINT
+ALASAN: Binary Search bekerja dengan membagi data yang sudah terurut menjadi dua bagian (divide and conquer) secara berulang kali, yang membuatnya sangat efisien untuk meminimalkan langkah pencarian.
+32. Saat melakukan debugging pada pseudokode: `x = 2; WHILE x > 0 DO x = x + 1`, Budi menyadari program tidak pernah berhenti. Masalah utamanya adalah...
+A.    Variabel x tidak diinisialisasi
+B.    Kondisi x > 0 selalu bernilai salah
+C.    Perubahan nilai x menjauhi kondisi berhenti (infinite loop)
+D.    Tipe data x salah
+E.    Kurang instruksi PRINT
 ANS: C
-
-33.    Budi menggunakan algoritma rekursif. Fungsi `f(n) = 2*f(n-1)` dengan basis `f(0)=3`. Berapakah nilai `f(3)` yang didapat Budi?
-A.   12
-B.   24
-C.   48
-D.   96
-E.   192
+ALASAN: Variabel `x` bernilai awal 2 dan nilainya selalu ditambah (increment), sehingga syarat berhentinya (`x` bernilai 0 atau kurang) tidak akan pernah tercapai, dan program terjebak dalam infinite loop.
+33. Budi menggunakan algoritma rekursif. Fungsi `f(n) = 2*f(n-1)` dengan basis `f(0)=3`. Berapakah nilai `f(3)` yang didapat Budi?
+A.    12
+B.    24
+C.    48
+D.    96
+E.    192
 ANS: B
-
-34.    Dalam menyortir buku teks bernilai 5, 2, 4, 1, 3 dengan Bubble Sort (menaik), pada langkah pertama Budi akan melakukan pertukaran antara...
-A.   5 dan 2
-B.   5 dan 3
-C.   1 dan 2
-D.   4 dan 1
-E.   Tidak ada pertukaran
+ALASAN: Langkah pencariannya: f(1)=2*3=6, f(2)=2*6=12, dan terakhir f(3)=2*12=24.
+34. Dalam menyortir buku teks bernilai 5, 2, 4, 1, 3 dengan Bubble Sort (menaik), pada langkah pertama Budi akan melakukan pertukaran antara...
+A.    5 dan 2
+B.    5 dan 3
+C.    1 dan 2
+D.    4 dan 1
+E.    Tidak ada pertukaran
 ANS: A
-
-35.    Budi menyusun buku teks secara urut dengan mengambil satu elemen dan menyisipkannya di posisi yang tepat di antara elemen yang sudah terurut. Teknik ini adalah...
-A.   Bubble Sort
-B.   Selection Sort
-C.   Insertion Sort
-D.   Quick Sort
-E.   Merge Sort
+ALASAN: Algoritma Bubble Sort membandingkan elemen berdekatan dari awal. Elemen pertama (5) lebih besar dari elemen kedua (2), sehingga keduanya langsung ditukar pada langkah pertama.
+35. Budi menyusun buku teks secara urut dengan mengambil satu elemen dan menyisipkannya di posisi yang tepat di antara elemen yang sudah terurut. Teknik ini adalah...
+A.    Bubble Sort
+B.    Selection Sort
+C.    Insertion Sort
+D.    Quick Sort
+E.    Merge Sort
 ANS: C
-
-36.    Dalam bahasa C, ekspresi logika `(3 > 2) && (1 != 6)` yang dieksekusi Budi akan menghasilkan nilai...
-A.   TRUE (1)
-B.   FALSE (0)
-C.   ERROR
-D.   NULL
-E.   -1
+ALASAN: Karakteristik utama Insertion Sort adalah mengambil sebuah elemen dan menyisipkannya (insert) ke posisi yang tepat pada sekumpulan data yang sudah terurut sebelumnya.
+36. Dalam bahasa C, ekspresi logika `(3 > 2) && (1 != 6)` yang dieksekusi Budi akan menghasilkan nilai...
+A.    TRUE (1)
+B.    FALSE (0)
+C.    ERROR
+D.    NULL
+E.    -1
 ANS: A
-
-37.    Sebuah restoran menggunakan antrean untuk pesanan buku teks. Jika pesanan masuk berurutan: A, B, C, maka pesanan yang diproses paling awal oleh koki adalah...
-A.   A (karena FIFO)
-B.   C (karena LIFO)
-C.   B (karena ditengah)
-D.   Bisa A atau C
-E.   Acak
+ALASAN: `(3 > 2)` bernilai TRUE dan `(1 != 6)` juga bernilai TRUE. Karena menggunakan operator AND (`&&`), jika keduanya TRUE, maka hasil akhirnya adalah TRUE (1).
+37. Sebuah restoran menggunakan antrean untuk pesanan buku teks. Jika pesanan masuk berurutan: A, B, C, maka pesanan yang diproses paling awal oleh koki adalah...
+A.    A (karena FIFO)
+B.    C (karena LIFO)
+C.    B (karena ditengah)
+D.    Bisa A atau C
+E.    Acak
 ANS: A
-
-38.    Budi menekan tombol 'Undo' di komputernya berturut-turut untuk membatalkan aksi terakhir pada buku teks. Struktur data yang memodelkan fitur Undo ini adalah...
-A.   Queue
-B.   Tree
-C.   Graph
-D.   Stack
-E.   Array
+ALASAN: Struktur data antrean (Queue) selalu menerapkan prinsip First In First Out (FIFO), yang berarti elemen yang pertama kali masuk (A) akan menjadi yang pertama keluar/diproses.
+38. Budi menekan tombol 'Undo' di komputernya berturut-turut untuk membatalkan aksi terakhir pada buku teks. Struktur data yang memodelkan fitur Undo ini adalah...
+A.    Queue
+B.    Tree
+C.    Graph
+D.    Stack
+E.    Array
 ANS: D
-
-39.    Jika Budi mengubah ekspresi `a = a + 6` menjadi bentuk compound assignment (penugasan majemuk), maka penulisannya menjadi...
-A.   a =+ 6
-B.   a += 6
-C.   a ++ 6
-D.   a == 6
-E.   a := 6
+ALASAN: Fitur Undo membatalkan aksi dari yang paling terakhir dilakukan (Last In First Out / LIFO), yang merupakan cara kerja dari struktur data Stack (tumpukan).
+39. Jika Budi mengubah ekspresi `a = a + 6` menjadi bentuk compound assignment (penugasan majemuk), maka penulisannya menjadi...
+A.    a =+ 6
+B.    a += 6
+C.    a ++ 6
+D.    a == 6
+E.    a := 6
 ANS: B
-
-40.    Untuk memeriksa apakah variabel `bil` habis dibagi 2, Budi menggunakan ekspresi...
-A.   bil / 2 == 0
-B.   bil % 2 == 0
-C.   bil 2 == 0
-D.   bil MOD 2 == 1
-E.   bil != 2
+ALASAN: Operator penugasan majemuk (compound assignment) untuk penambahan di banyak bahasa pemrograman (seperti C) ditulis dengan menggabungkan operator aritmatika dan penugasan, yaitu `+=`.
+40. Untuk memeriksa apakah variabel `bil` habis dibagi 2, Budi menggunakan ekspresi...
+A.    bil / 2 == 0
+B.    bil % 2 == 0
+C.    bil 2 == 0
+D.    bil MOD 2 == 1
+E.    bil != 2
 ANS: B
-
-41.    Budi mengamati struktur `switch-case`. Jika ia lupa menambahkan perintah `break;` di setiap `case`, yang akan terjadi adalah...
-A.   Error saat kompilasi
-B.   Hanya case pertama yang dieksekusi
-C.   Program akan keluar dari switch otomatis
-D.   Program mengeksekusi case berikutnya secara terus menerus (fall-through)
-E.   Program berhenti (crash)
+ALASAN: Operator modulo (`%`) menghasilkan sisa hasil bagi. Suatu bilangan dikatakan habis dibagi 2 (genap) apabila sisa pembagiannya adalah 0 (`% 2 == 0`).
+41. Budi mengamati struktur `switch-case`. Jika ia lupa menambahkan perintah `break;` di setiap `case`, yang akan terjadi adalah...
+A.    Error saat kompilasi
+B.    Hanya case pertama yang dieksekusi
+C.    Program akan keluar dari switch otomatis
+D.    Program mengeksekusi case berikutnya secara terus menerus (fall-through)
+E.    Program berhenti (crash)
 ANS: D
-
-42.    Sebuah program yang diuji Budi memiliki loop bersarang: FOR terluar berjalan 3 kali, FOR terdalam berjalan 4 kali. Total eksekusi pernyataan di dalam FOR terdalam adalah...
-A.   3 kali
-B.   4 kali
-C.   12 kali
-D.   7 kali
-E.   1 kali
+ALASAN: Tanpa statement `break;`, program tidak akan keluar dari blok `switch`, melainkan terus mengeksekusi semua instruksi di bawahnya (dikenal sebagai perilaku fall-through).
+42. Sebuah program yang diuji Budi memiliki loop bersarang: FOR terluar berjalan 3 kali, FOR terdalam berjalan 4 kali. Total eksekusi pernyataan di dalam FOR terdalam adalah...
+A.    3 kali
+B.    4 kali
+C.    12 kali
+D.    7 kali
+E.    1 kali
 ANS: C
-
-43.    Pada diagram alir yang dibuat Budi, simbol belah ketupat (diamond) berfungsi untuk...
-A.   Membaca input data
-B.   Mencetak output
-C.   Melakukan proses perhitungan
-D.   Mengevaluasi kondisi percabangan
-E.   Menghentikan program
+ALASAN: Pernyataan dalam loop terdalam akan dieksekusi sebanyak perkalian antara batas loop terluar dan terdalam. Dalam hal ini, 3 dikali 4 sama dengan 12 kali.
+43. Pada diagram alir yang dibuat Budi, simbol belah ketupat (diamond) berfungsi untuk...
+A.    Membaca input data
+B.    Mencetak output
+C.    Melakukan proses perhitungan
+D.    Mengevaluasi kondisi percabangan
+E.    Menghentikan program
 ANS: D
-
-44.    Jika Budi merancang pseudokode untuk mencari bilangan terbesar dari himpunan bilangan bulat positif, inisialisasi awal variabel `Terbesar` sebaiknya menggunakan angka...
-A.   0
-B.   100
-C.   1000
-D.   Nilai acak
-E.   Bebas
+ALASAN: Dalam standar flowchart, simbol belah ketupat (decision/keputusan) digunakan untuk mengevaluasi suatu kondisi yang menentukan jalur atau arah (percabangan) eksekusi selanjutnya (Ya/Tidak).
+44. Jika Budi merancang pseudokode untuk mencari bilangan terbesar dari himpunan bilangan bulat positif, inisialisasi awal variabel `Terbesar` sebaiknya menggunakan angka...
+A.    0
+B.    100
+C.    1000
+D.    Nilai acak
+E.    Bebas
 ANS: A
-
-45.    Budi mencoba membagi `10 / 0` dalam algoritma. Untuk mencegah program crash, validasi yang harus ditambahkan Budi adalah...
-A.   IF pembilang > 0
-B.   IF penyebut != 0
-C.   IF penyebut == 0
-D.   IF pembilang == penyebut
-E.   WHILE pembilang > penyebut
+ALASAN: Karena data himpunannya bilangan bulat positif (bernilai > 0), variabel penampung nilai terbesar harus diinisialisasi dengan angka sekecil mungkin (0) agar nilai pertama yang diperiksa pasti bisa menggantikannya.
+45. Budi mencoba membagi `10 / 0` dalam algoritma. Untuk mencegah program crash, validasi yang harus ditambahkan Budi adalah...
+A.    IF pembilang > 0
+B.    IF penyebut != 0
+C.    IF penyebut == 0
+D.    IF pembilang == penyebut
+E.    WHILE pembilang > penyebut
 ANS: B
-
-46.    Budi mempelajari siklus mesin (Fetch-Execute). Langkah pertama yang dilakukan oleh Control Unit saat mengeksekusi program adalah...
-A.   Menyimpan hasil perhitungan ke RAM
-B.   Melakukan kalkulasi aritmatika
-C.   Mengambil (fetch) instruksi dari memori
-D.   Menyalakan layar monitor
-E.   Mengkompilasi kode sumber
+ALASAN: Pembagian dengan angka nol tidak terdefinisi dan menyebabkan fatal error. Validasi pencegahan harus memastikan angka pembagi (penyebut) tidak sama dengan nol (`!= 0`).
+46. Budi mempelajari siklus mesin (Fetch-Execute). Langkah pertama yang dilakukan oleh Control Unit saat mengeksekusi program adalah...
+A.    Menyimpan hasil perhitungan ke RAM
+B.    Melakukan kalkulasi aritmatika
+C.    Mengambil (fetch) instruksi dari memori
+D.    Menyalakan layar monitor
+E.    Mengkompilasi kode sumber
 ANS: C
-
-47.    Pada arsitektur Von Neumann, ketika Budi mengetik di keyboard, tempat yang menyimpan sementara instruksi sebelum diproses oleh CPU adalah...
-A.   Hard Disk (HDD)
-B.   Read Only Memory (ROM)
-C.   Random Access Memory (RAM)
-D.   Flash Drive / USB
-E.   Arithmetic Logic Unit
+ALASAN: Siklus instruksi selalu dimulai dengan tahapan 'Fetch', di mana CPU (Control Unit) mengambil perintah atau data berikutnya yang akan dijalankan dari memori utama.
+47. Pada arsitektur Von Neumann, ketika Budi mengetik di keyboard, tempat yang menyimpan sementara instruksi sebelum diproses oleh CPU adalah...
+A.    Hard Disk (HDD)
+B.    Read Only Memory (ROM)
+C.    Random Access Memory (RAM)
+D.    Flash Drive / USB
+E.    Arithmetic Logic Unit
 ANS: C
-
-48.    Jika CPU mengeksekusi instruksi `TAMBAH REG1 REG2`, maka secara konseptual bagian CPU yang bekerja melakukan perhitungan untuk Budi adalah...
-A.   Control Unit
-B.   Register
-C.   Arithmetic Logic Unit (ALU)
-D.   Bus
-E.   Memory Unit
+ALASAN: Konsep Von Neumann menggunakan memori terpadu, di mana instruksi maupun data masukan sebelum diproses oleh prosesor (CPU) harus disimpan terlebih dahulu di RAM (memori utama).
+48. Jika CPU mengeksekusi instruksi `TAMBAH REG1 REG2`, maka secara konseptual bagian CPU yang bekerja melakukan perhitungan untuk Budi adalah...
+A.    Control Unit
+B.    Register
+C.    Arithmetic Logic Unit (ALU)
+D.    Bus
+E.    Memory Unit
 ANS: C
-
-49.    Budi dapat mendengarkan lagu dan mengetik buku teks bersamaan (Multitasking). Sistem operasi membagi jatah waktu prosesor menggunakan algoritma...
-A.   First In First Out
-B.   Round Robin
-C.   Last In First Out
-D.   Bubble Sort
-E.   Binary Search
+ALASAN: ALU (Arithmetic Logic Unit) adalah satu-satunya komponen fisik di dalam CPU yang memiliki peran khusus untuk menjalankan proses operasi matematis (seperti tambah, kurang) dan logika.
+49. Budi dapat mendengarkan lagu dan mengetik buku teks bersamaan (Multitasking). Sistem operasi membagi jatah waktu prosesor menggunakan algoritma...
+A.    First In First Out
+B.    Round Robin
+C.    Last In First Out
+D.    Bubble Sort
+E.    Binary Search
 ANS: B
-
-50.    Saat menyusun buku teks di MS Word, Budi ingin membuat daftar isi otomatis. Syarat mutlak agar MS Word dapat membedakan judul bab dengan teks biasa adalah...
-A.   Mewarnai teks judul dengan merah
-B.   Menekan tombol Tab 3 kali pada judul
-C.   Menerapkan Styles (seperti Heading 1, Heading 2)
-D.   Mengetik kata 'Bab' di setiap awal kalimat
-E.   Memisahkan setiap bab di file berbeda
+ALASAN: Round Robin adalah algoritma penjadwalan CPU yang memberikan setiap proses jatah waktu (time slice) kecil secara bergiliran, menciptakan ilusi bagi pengguna bahwa semua program berjalan bersamaan (multitasking).
+50. Saat menyusun buku teks di MS Word, Budi ingin membuat daftar isi otomatis. Syarat mutlak agar MS Word dapat membedakan judul bab dengan teks biasa adalah...
+A.    Mewarnai teks judul dengan merah
+B.    Menekan tombol Tab 3 kali pada judul
+C.    Menerapkan Styles (seperti Heading 1, Heading 2)
+D.    Mengetik kata 'Bab' di setiap awal kalimat
+E.    Memisahkan setiap bab di file berbeda
 ANS: C
-
-51.    Budi menautkan data tabel Excel ke dalam slide PowerPoint menggunakan fitur 'Object Linking'. Jika ia merevisi angka di Excel, yang terjadi pada PowerPoint adalah...
-A.   Data tidak berubah
-B.   Data otomatis diperbarui mengikuti Excel
-C.   Tabel akan terhapus
-D.   Format tabel menjadi rusak
-E.   Slide menjadi tidak bisa diedit
+ALASAN: Mesin pembuat Daftar Isi (Table of Contents) di Word bekerja dengan memindai dokumen dan mencari teks-teks yang telah diformat menggunakan metadata Styles berbasis struktur (Heading).
+51. Budi menautkan data tabel Excel ke dalam slide PowerPoint menggunakan fitur 'Object Linking'. Jika ia merevisi angka di Excel, yang terjadi pada PowerPoint adalah...
+A.    Data tidak berubah
+B.    Data otomatis diperbarui mengikuti Excel
+C.    Tabel akan terhapus
+D.    Format tabel menjadi rusak
+E.    Slide menjadi tidak bisa diedit
 ANS: B
-
-52.    Untuk mengirim surat edaran resmi terkait buku teks ke 50 orang berbeda, Budi cukup membuat 1 dokumen utama menggunakan fitur...
-A.   Track Changes
-B.   Macros
-C.   Mail Merge
-D.   OLE (Object Linking)
-E.   Table of Contents
+ALASAN: Fitur Object Linking (dari mekanisme OLE) menciptakan koneksi dinamis antara file sumber dan file tujuan. Jika data di file asalnya (Excel) diubah, file tujuannya (PowerPoint) akan langsung ter-update.
+52. Untuk mengirim surat edaran resmi terkait buku teks ke 50 orang berbeda, Budi cukup membuat 1 dokumen utama menggunakan fitur...
+A.    Track Changes
+B.    Macros
+C.    Mail Merge
+D.    OLE (Object Linking)
+E.    Table of Contents
 ANS: C
-
-53.    Software yang di-install Budi mengizinkannya untuk memodifikasi kode sumber (source code) dan mendistribusikannya kembali. Lisensi software tersebut tergolong...
-A.   Freeware
-B.   Shareware
-C.   Komersial
-D.   Open Source
-E.   Proprietary
+ALASAN: Mail Merge (Cetak Surat Massal) secara khusus dirancang untuk menggabungkan sebuah dokumen master (template) dengan basis data penerima untuk mencetak banyak salinan yang telah dipersonalisasi.
+53. Software yang di-install Budi mengizinkannya untuk memodifikasi kode sumber (source code) dan mendistribusikannya kembali. Lisensi software tersebut tergolong...
+A.    Freeware
+B.    Shareware
+C.    Komersial
+D.    Open Source
+E.    Proprietary
 ANS: D
-
-54.    Perusahaan tempat Budi bekerja mengembangkan software dan memberikan lisensi komersial. Artinya pengguna software tersebut harus...
-A.   Berbagi secara gratis
-B.   Membayar hak guna/lisensi
-C.   Melihat kode sumbernya
-D.   Mengubah tampilan aslinya
-E.   Mengunggahnya ke internet
+ALASAN: Open Source adalah kategori lisensi di mana pengembang sengaja membuka dan mengizinkan publik untuk melihat, mengedit/memodifikasi, dan menyebarkan kode sumber program tersebut secara bebas.
+54. Perusahaan tempat Budi bekerja mengembangkan software dan memberikan lisensi komersial. Artinya pengguna software tersebut harus...
+A.    Berbagi secara gratis
+B.    Membayar hak guna/lisensi
+C.    Melihat kode sumbernya
+D.    Mengubah tampilan aslinya
+E.    Mengunggahnya ke internet
 ANS: B
-
-55.    Tindakan Budi menggunakan software bajakan tanpa membeli lisensi resmi merupakan bentuk pelanggaran terhadap...
-A.   Hak Cipta / Kekayaan Intelektual
-B.   Hukum Siber Dasar
-C.   Undang-Undang Perdagangan
-D.   Standar Operasional Prosedur
-E.   Hukum Privasi Data
+ALASAN: Software komersial (proprietary) bersifat tertutup dan dibuat untuk tujuan komersialisasi. Oleh sebab itu, penggunanya diwajibkan membeli lisensi berbayar (hak guna) secara legal untuk dapat mengoperasikannya.
+55. Tindakan Budi menggunakan software bajakan tanpa membeli lisensi resmi merupakan bentuk pelanggaran terhadap...
+A.    Hak Cipta / Kekayaan Intelektual
+B.    Hukum Siber Dasar
+C.    Undang-Undang Perdagangan
+D.    Standar Operasional Prosedur
+E.    Hukum Privasi Data
 ANS: A
-
-56.    Munculnya e-commerce mendisrupsi kebiasaan berbelanja. Keuntungan ekonomi bagi wirausahawan kecil seperti Budi adalah...
-A.   Biaya bahan baku turun drastis
-B.   Terbatasnya area promosi
-C.   Dapat menjangkau pasar luas tanpa butuh toko fisik
-D.   Konsumen semakin sulit dihubungi
-E.   Tidak butuh jaringan internet
+ALASAN: Pembajakan (penggandaan/penggunaan karya komersial tanpa izin pembuatnya) adalah pelanggaran langsung terhadap hukum Hak Cipta dan Hak Kekayaan Intelektual (HAKI).
+56. Munculnya e-commerce mendisrupsi kebiasaan berbelanja. Keuntungan ekonomi bagi wirausahawan kecil seperti Budi adalah...
+A.    Biaya bahan baku turun drastis
+B.    Terbatasnya area promosi
+C.    Dapat menjangkau pasar luas tanpa butuh toko fisik
+D.    Konsumen semakin sulit dihubungi
+E.    Tidak butuh jaringan internet
 ANS: C
-
-57.    Budi memanfaatkan komputer papan tunggal seukuran kartu kredit untuk eksperimen robotika. Komputer jenis ini tergolong ke dalam...
-A.   Supercomputer
-B.   Mainframe
-C.   Microcomputer (seperti Raspberry Pi)
-D.   Minicomputer
-E.   Workstation
+ALASAN: E-commerce memangkas biaya infrastruktur besar (seperti sewa ruko fisik) dan menghilangkan hambatan jarak geografis, sehingga pelaku UMKM dapat melayani dan menjangkau pelanggan di seluruh dunia.
+57. Budi memanfaatkan komputer papan tunggal seukuran kartu kredit untuk eksperimen robotika. Komputer jenis ini tergolong ke dalam...
+A.    Supercomputer
+B.    Mainframe
+C.    Microcomputer (seperti Raspberry Pi)
+D.    Minicomputer
+E.    Workstation
 ANS: C
-
-58.    Dalam pengembangan aplikasi untuk perusahaan, tugas pokok Budi sebagai System Analyst adalah...
-A.   Membuat desain antarmuka grafis
-B.   Berkomunikasi dengan pengguna untuk menganalisis kebutuhan sistem
-C.   Merakit server secara fisik
-D.   Menjual aplikasi kepada pihak ketiga
-E.   Melakukan instalasi sistem operasi
+ALASAN: Perangkat elektronik komputasi seperti Raspberry Pi adalah komputer yang memiliki CPU (microprocessor), RAM, dan I/O di dalam satu papan mungil, yang termasuk dalam klasifikasi Microcomputer.
+58. Dalam pengembangan aplikasi untuk perusahaan, tugas pokok Budi sebagai System Analyst adalah...
+A.    Membuat desain antarmuka grafis
+B.    Berkomunikasi dengan pengguna untuk menganalisis kebutuhan sistem
+C.    Merakit server secara fisik
+D.    Menjual aplikasi kepada pihak ketiga
+E.    Melakukan instalasi sistem operasi
 ANS: B
-
-59.    Dalam kode program C milik Budi, terdapat operator unary, binary, dan ternary. Operator yang membutuhkan tepat tiga operand disebut...
-A.   Ternary operator
-B.   Binary operator
-C.   Unary operator
-D.   Logical operator
-E.   Relational operator
+ALASAN: Seorang Analis Sistem (System Analyst) bertugas menganalisis persoalan, mengumpulkan kebutuhan dari pihak klien/pengguna, dan merancang solusi logika untuk selanjutnya dikerjakan oleh programmer.
+59. Dalam kode program C milik Budi, terdapat operator unary, binary, dan ternary. Operator yang membutuhkan tepat tiga operand disebut...
+A.    Ternary operator
+B.    Binary operator
+C.    Unary operator
+D.    Logical operator
+E.    Relational operator
 ANS: A
-
-60.    Dalam mesin konseptual, instruksi `SALIN AAA1 REG1` yang dipelajari Budi berarti...
-A.   Menghapus data di AAA1
-B.   Menukar data REG1 dengan AAA1
-C.   Menyalin isi memori dari alamat AAA1 ke register REG1
-D.   Menjumlahkan AAA1 dan REG1
-E.   Menyimpan hasil ke harddisk
+ALASAN: Istilah 'Ternary' merujuk pada jumlah angka tiga. Dalam pemrograman, operator ternary (seperti `?:`) adalah satu-satunya operator yang memerlukan tiga argumen/operand untuk dievaluasi.
+60. Dalam mesin konseptual, instruksi `SALIN AAA1 REG1` yang dipelajari Budi berarti...
+A.    Menghapus data di AAA1
+B.    Menukar data REG1 dengan AAA1
+C.    Menyalin isi memori dari alamat AAA1 ke register REG1
+D.    Menjumlahkan AAA1 dan REG1
+E.    Menyimpan hasil ke harddisk
 ANS: C
-
-61.    Citra menemukan algoritma pencarian. Ia mencari sebuah kartu remi spesifik di tumpukan yang sudah terurut. Untuk meminimalkan langkah, ia membagi tumpukan menjadi dua secara berulang. Strategi ini disebut...
-A.   Linear Search
-B.   Binary Search
-C.   Bubble Sort
-D.   Insertion Sort
-E.   Selection Sort
+ALASAN: Perintah SALIN (juga dikenal sebagai LOAD/MOV) berfungsi untuk menyalin/memanggil nilai dari lokasi asal (alamat memori AAA1) lalu menyimpannya ke memori cepat di dalam prosesor (Register REG1).
+61. Citra menemukan algoritma pencarian. Ia mencari sebuah kartu remi spesifik di tumpukan yang sudah terurut. Untuk meminimalkan langkah, ia membagi tumpukan menjadi dua secara berulang. Strategi ini disebut...
+A.    Linear Search
+B.    Binary Search
+C.    Bubble Sort
+D.    Insertion Sort
+E.    Selection Sort
 ANS: B
-
-62.    Saat melakukan debugging pada pseudokode: `x = 3; WHILE x > 0 DO x = x + 1`, Citra menyadari program tidak pernah berhenti. Masalah utamanya adalah...
-A.   Variabel x tidak diinisialisasi
-B.   Kondisi x > 0 selalu bernilai salah
-C.   Perubahan nilai x menjauhi kondisi berhenti (infinite loop)
-D.   Tipe data x salah
-E.   Kurang instruksi PRINT
+ALASAN: Binary Search bekerja dengan membagi data yang sudah terurut menjadi dua bagian (divide and conquer) secara berulang kali, yang membuatnya sangat efisien untuk meminimalkan langkah pencarian.
+62. Saat melakukan debugging pada pseudokode: `x = 3; WHILE x > 0 DO x = x + 1`, Citra menyadari program tidak pernah berhenti. Masalah utamanya adalah...
+A.    Variabel x tidak diinisialisasi
+B.    Kondisi x > 0 selalu bernilai salah
+C.    Perubahan nilai x menjauhi kondisi berhenti (infinite loop)
+D.    Tipe data x salah
+E.    Kurang instruksi PRINT
 ANS: C
-
-63.    Citra menggunakan algoritma rekursif. Fungsi `f(n) = 2*f(n-1)` dengan basis `f(0)=3`. Berapakah nilai `f(4)` yang didapat Citra?
-A.   24
-B.   48
-C.   96
-D.   192
-E.   384
+ALASAN: Variabel `x` bernilai awal 3 dan nilainya selalu ditambah, sehingga syarat berhentinya (`x` bernilai 0 atau kurang) tidak akan pernah tercapai, memicu terjadinya perulangan tiada henti (infinite loop).
+63. Citra menggunakan algoritma rekursif. Fungsi `f(n) = 2*f(n-1)` dengan basis `f(0)=3`. Berapakah nilai `f(4)` yang didapat Citra?
+A.    24
+B.    48
+C.    96
+D.    192
+E.    384
 ANS: B
-
-64.    Dalam menyortir kartu remi bernilai 5, 2, 4, 1, 3 dengan Bubble Sort (menaik), pada langkah pertama Citra akan melakukan pertukaran antara...
-A.   5 dan 2
-B.   5 dan 3
-C.   1 dan 2
-D.   4 dan 1
-E.   Tidak ada pertukaran
+ALASAN: Melanjutkan perhitungannya: f(1)=6, f(2)=12, f(3)=24, sehingga untuk f(4) = 2 * 24 = 48.
+64. Dalam menyortir kartu remi bernilai 5, 2, 4, 1, 3 dengan Bubble Sort (menaik), pada langkah pertama Citra akan melakukan pertukaran antara...
+A.    5 dan 2
+B.    5 dan 3
+C.    1 dan 2
+D.    4 dan 1
+E.    Tidak ada pertukaran
 ANS: A
-
-65.    Citra menyusun kartu remi secara urut dengan mengambil satu elemen dan menyisipkannya di posisi yang tepat di antara elemen yang sudah terurut. Teknik ini adalah...
-A.   Bubble Sort
-B.   Selection Sort
-C.   Insertion Sort
-D.   Quick Sort
-E.   Merge Sort
+ALASAN: Algoritma Bubble Sort membandingkan elemen berdekatan dari awal. Elemen pertama (5) lebih besar dari elemen kedua (2), sehingga keduanya langsung ditukar pada langkah pertama.
+65. Citra menyusun kartu remi secara urut dengan mengambil satu elemen dan menyisipkannya di posisi yang tepat di antara elemen yang sudah terurut. Teknik ini adalah...
+A.    Bubble Sort
+B.    Selection Sort
+C.    Insertion Sort
+D.    Quick Sort
+E.    Merge Sort
 ANS: C
-
-66.    Dalam bahasa C, ekspresi logika `(4 > 3) && (2 != 7)` yang dieksekusi Citra akan menghasilkan nilai...
-A.   TRUE (1)
-B.   FALSE (0)
-C.   ERROR
-D.   NULL
-E.   -1
+ALASAN: Karakteristik utama Insertion Sort adalah mengambil sebuah elemen dan menyisipkannya (insert) ke posisi yang tepat pada sekumpulan data yang sudah terurut sebelumnya.
+66. Dalam bahasa C, ekspresi logika `(4 > 3) && (2 != 7)` yang dieksekusi Citra akan menghasilkan nilai...
+A.    TRUE (1)
+B.    FALSE (0)
+C.    ERROR
+D.    NULL
+E.    -1
 ANS: A
-
-67.    Sebuah restoran menggunakan antrean untuk pesanan kartu remi. Jika pesanan masuk berurutan: A, B, C, maka pesanan yang diproses paling awal oleh koki adalah...
-A.   A (karena FIFO)
-B.   C (karena LIFO)
-C.   B (karena ditengah)
-D.   Bisa A atau C
-E.   Acak
+ALASAN: `(4 > 3)` bernilai TRUE dan `(2 != 7)` juga bernilai TRUE. Karena menggunakan operator AND (`&&`), jika keduanya TRUE, maka hasil akhirnya adalah TRUE (1).
+67. Sebuah restoran menggunakan antrean untuk pesanan kartu remi. Jika pesanan masuk berurutan: A, B, C, maka pesanan yang diproses paling awal oleh koki adalah...
+A.    A (karena FIFO)
+B.    C (karena LIFO)
+C.    B (karena ditengah)
+D.    Bisa A atau C
+E.    Acak
 ANS: A
-
-68.    Citra menekan tombol 'Undo' di komputernya berturut-turut untuk membatalkan aksi terakhir pada kartu remi. Struktur data yang memodelkan fitur Undo ini adalah...
-A.   Queue
-B.   Tree
-C.   Graph
-D.   Stack
-E.   Array
+ALASAN: Struktur data antrean (Queue) selalu menerapkan prinsip First In First Out (FIFO), yang berarti elemen yang pertama kali masuk (A) akan menjadi yang pertama keluar/diproses.
+68. Citra menekan tombol 'Undo' di komputernya berturut-turut untuk membatalkan aksi terakhir pada kartu remi. Struktur data yang memodelkan fitur Undo ini adalah...
+A.    Queue
+B.    Tree
+C.    Graph
+D.    Stack
+E.    Array
 ANS: D
-
-69.    Jika Citra mengubah ekspresi `a = a + 7` menjadi bentuk compound assignment (penugasan majemuk), maka penulisannya menjadi...
-A.   a =+ 7
-B.   a += 7
-C.   a ++ 7
-D.   a == 7
-E.   a := 7
+ALASAN: Fitur Undo membatalkan aksi dari yang paling terakhir dilakukan (Last In First Out / LIFO), yang merupakan cara kerja dari struktur data Stack (tumpukan).
+69. Jika Citra mengubah ekspresi `a = a + 7` menjadi bentuk compound assignment (penugasan majemuk), maka penulisannya menjadi...
+A.    a =+ 7
+B.    a += 7
+C.    a ++ 7
+D.    a == 7
+E.    a := 7
 ANS: B
-
-70.    Untuk memeriksa apakah variabel `bil` habis dibagi 2, Citra menggunakan ekspresi...
-A.   bil / 2 == 0
-B.   bil % 2 == 0
-C.   bil 2 == 0
-D.   bil MOD 2 == 1
-E.   bil != 2
+ALASAN: Operator penugasan majemuk (compound assignment) untuk penambahan di banyak bahasa pemrograman (seperti C) ditulis dengan menggabungkan operator aritmatika dan penugasan, yaitu `+=`.
+70. Untuk memeriksa apakah variabel `bil` habis dibagi 2, Citra menggunakan ekspresi...
+A.    bil / 2 == 0
+B.    bil % 2 == 0
+C.    bil 2 == 0
+D.    bil MOD 2 == 1
+E.    bil != 2
 ANS: B
-
-71.    Citra mengamati struktur `switch-case`. Jika ia lupa menambahkan perintah `break;` di setiap `case`, yang akan terjadi adalah...
-A.   Error saat kompilasi
-B.   Hanya case pertama yang dieksekusi
-C.   Program akan keluar dari switch otomatis
-D.   Program mengeksekusi case berikutnya secara terus menerus (fall-through)
-E.   Program berhenti (crash)
+ALASAN: Operator modulo (`%`) menghasilkan sisa hasil bagi. Suatu bilangan dikatakan habis dibagi 2 (genap) apabila sisa pembagiannya adalah 0 (`% 2 == 0`).
+71. Citra mengamati struktur `switch-case`. Jika ia lupa menambahkan perintah `break;` di setiap `case`, yang akan terjadi adalah...
+A.    Error saat kompilasi
+B.    Hanya case pertama yang dieksekusi
+C.    Program akan keluar dari switch otomatis
+D.    Program mengeksekusi case berikutnya secara terus menerus (fall-through)
+E.    Program berhenti (crash)
 ANS: D
-
-72.    Sebuah program yang diuji Citra memiliki loop bersarang: FOR terluar berjalan 4 kali, FOR terdalam berjalan 4 kali. Total eksekusi pernyataan di dalam FOR terdalam adalah...
-A.   4 kali
-B.   4 kali
-C.   16 kali
-D.   8 kali
-E.   1 kali
+ALASAN: Tanpa statement `break;`, program tidak akan keluar dari blok `switch`, melainkan terus mengeksekusi semua instruksi di bawahnya (dikenal sebagai perilaku fall-through).
+72. Sebuah program yang diuji Citra memiliki loop bersarang: FOR terluar berjalan 4 kali, FOR terdalam berjalan 4 kali. Total eksekusi pernyataan di dalam FOR terdalam adalah...
+A.    4 kali
+B.    4 kali
+C.    16 kali
+D.    8 kali
+E.    1 kali
 ANS: C
-
-73.    Pada diagram alir yang dibuat Citra, simbol belah ketupat (diamond) berfungsi untuk...
-A.   Membaca input data
-B.   Mencetak output
-C.   Melakukan proses perhitungan
-D.   Mengevaluasi kondisi percabangan
-E.   Menghentikan program
+ALASAN: Pernyataan dalam loop terdalam akan dieksekusi sebanyak perkalian antara batas loop terluar dan terdalam. Dalam hal ini, 4 dikali 4 sama dengan 16 kali.
+73. Pada diagram alir yang dibuat Citra, simbol belah ketupat (diamond) berfungsi untuk...
+A.    Membaca input data
+B.    Mencetak output
+C.    Melakukan proses perhitungan
+D.    Mengevaluasi kondisi percabangan
+E.    Menghentikan program
 ANS: D
-
-74.    Jika Citra merancang pseudokode untuk mencari bilangan terbesar dari himpunan bilangan bulat positif, inisialisasi awal variabel `Terbesar` sebaiknya menggunakan angka...
-A.   0
-B.   100
-C.   1000
-D.   Nilai acak
-E.   Bebas
+ALASAN: Dalam standar flowchart, simbol belah ketupat (decision/keputusan) digunakan untuk mengevaluasi suatu kondisi yang menentukan jalur atau arah (percabangan) eksekusi selanjutnya (Ya/Tidak).
+74. Jika Citra merancang pseudokode untuk mencari bilangan terbesar dari himpunan bilangan bulat positif, inisialisasi awal variabel `Terbesar` sebaiknya menggunakan angka...
+A.    0
+B.    100
+C.    1000
+D.    Nilai acak
+E.    Bebas
 ANS: A
-
-75.    Citra mencoba membagi `10 / 0` dalam algoritma. Untuk mencegah program crash, validasi yang harus ditambahkan Citra adalah...
-A.   IF pembilang > 0
-B.   IF penyebut != 0
-C.   IF penyebut == 0
-D.   IF pembilang == penyebut
-E.   WHILE pembilang > penyebut
+ALASAN: Karena data himpunannya bilangan bulat positif (bernilai > 0), variabel penampung nilai terbesar harus diinisialisasi dengan angka sekecil mungkin (0) agar nilai pertama yang diperiksa pasti bisa menggantikannya.
+75. Citra mencoba membagi `10 / 0` dalam algoritma. Untuk mencegah program crash, validasi yang harus ditambahkan Citra adalah...
+A.    IF pembilang > 0
+B.    IF penyebut != 0
+C.    IF penyebut == 0
+D.    IF pembilang == penyebut
+E.    WHILE pembilang > penyebut
 ANS: B
-
-76.    Citra mempelajari siklus mesin (Fetch-Execute). Langkah pertama yang dilakukan oleh Control Unit saat mengeksekusi program adalah...
-A.   Menyimpan hasil perhitungan ke RAM
-B.   Melakukan kalkulasi aritmatika
-C.   Mengambil (fetch) instruksi dari memori
-D.   Menyalakan layar monitor
-E.   Mengkompilasi kode sumber
+ALASAN: Pembagian dengan angka nol tidak terdefinisi dan menyebabkan fatal error. Validasi pencegahan harus memastikan angka pembagi (penyebut) tidak sama dengan nol (`!= 0`).
+76. Citra mempelajari siklus mesin (Fetch-Execute). Langkah pertama yang dilakukan oleh Control Unit saat mengeksekusi program adalah...
+A.    Menyimpan hasil perhitungan ke RAM
+B.    Melakukan kalkulasi aritmatika
+C.    Mengambil (fetch) instruksi dari memori
+D.    Menyalakan layar monitor
+E.    Mengkompilasi kode sumber
 ANS: C
-
-77.    Pada arsitektur Von Neumann, ketika Citra mengetik di keyboard, tempat yang menyimpan sementara instruksi sebelum diproses oleh CPU adalah...
-A.   Hard Disk (HDD)
-B.   Read Only Memory (ROM)
-C.   Random Access Memory (RAM)
-D.   Flash Drive / USB
-E.   Arithmetic Logic Unit
+ALASAN: Siklus instruksi selalu dimulai dengan tahapan 'Fetch', di mana CPU (Control Unit) mengambil perintah atau data berikutnya yang akan dijalankan dari memori utama.
+77. Pada arsitektur Von Neumann, ketika Citra mengetik di keyboard, tempat yang menyimpan sementara instruksi sebelum diproses oleh CPU adalah...
+A.    Hard Disk (HDD)
+B.    Read Only Memory (ROM)
+C.    Random Access Memory (RAM)
+D.    Flash Drive / USB
+E.    Arithmetic Logic Unit
 ANS: C
-
-78.    Jika CPU mengeksekusi instruksi `TAMBAH REG1 REG2`, maka secara konseptual bagian CPU yang bekerja melakukan perhitungan untuk Citra adalah...
-A.   Control Unit
-B.   Register
-C.   Arithmetic Logic Unit (ALU)
-D.   Bus
-E.   Memory Unit
+ALASAN: Konsep Von Neumann menggunakan memori terpadu, di mana instruksi maupun data masukan sebelum diproses oleh prosesor (CPU) harus disimpan terlebih dahulu di RAM (memori utama).
+78. Jika CPU mengeksekusi instruksi `TAMBAH REG1 REG2`, maka secara konseptual bagian CPU yang bekerja melakukan perhitungan untuk Citra adalah...
+A.    Control Unit
+B.    Register
+C.    Arithmetic Logic Unit (ALU)
+D.    Bus
+E.    Memory Unit
 ANS: C
-
-79.    Citra dapat mendengarkan lagu dan mengetik kartu remi bersamaan (Multitasking). Sistem operasi membagi jatah waktu prosesor menggunakan algoritma...
-A.   First In First Out
-B.   Round Robin
-C.   Last In First Out
-D.   Bubble Sort
-E.   Binary Search
+ALASAN: ALU (Arithmetic Logic Unit) adalah satu-satunya komponen fisik di dalam CPU yang memiliki peran khusus untuk menjalankan proses operasi matematis (seperti tambah, kurang) dan logika.
+79. Citra dapat mendengarkan lagu dan mengetik kartu remi bersamaan (Multitasking). Sistem operasi membagi jatah waktu prosesor menggunakan algoritma...
+A.    First In First Out
+B.    Round Robin
+C.    Last In First Out
+D.    Bubble Sort
+E.    Binary Search
 ANS: B
-
-80.    Saat menyusun kartu remi di MS Word, Citra ingin membuat daftar isi otomatis. Syarat mutlak agar MS Word dapat membedakan judul bab dengan teks biasa adalah...
-A.   Mewarnai teks judul dengan merah
-B.   Menekan tombol Tab 3 kali pada judul
-C.   Menerapkan Styles (seperti Heading 1, Heading 2)
-D.   Mengetik kata 'Bab' di setiap awal kalimat
-E.   Memisahkan setiap bab di file berbeda
+ALASAN: Round Robin adalah algoritma penjadwalan CPU yang memberikan setiap proses jatah waktu (time slice) kecil secara bergiliran, menciptakan ilusi bagi pengguna bahwa semua program berjalan bersamaan (multitasking).
+80. Saat menyusun kartu remi di MS Word, Citra ingin membuat daftar isi otomatis. Syarat mutlak agar MS Word dapat membedakan judul bab dengan teks biasa adalah...
+A.    Mewarnai teks judul dengan merah
+B.    Menekan tombol Tab 3 kali pada judul
+C.    Menerapkan Styles (seperti Heading 1, Heading 2)
+D.    Mengetik kata 'Bab' di setiap awal kalimat
+E.    Memisahkan setiap bab di file berbeda
 ANS: C
-
-81.    Citra menautkan data tabel Excel ke dalam slide PowerPoint menggunakan fitur 'Object Linking'. Jika ia merevisi angka di Excel, yang terjadi pada PowerPoint adalah...
-A.   Data tidak berubah
-B.   Data otomatis diperbarui mengikuti Excel
-C.   Tabel akan terhapus
-D.   Format tabel menjadi rusak
-E.   Slide menjadi tidak bisa diedit
+ALASAN: Mesin pembuat Daftar Isi (Table of Contents) di Word bekerja dengan memindai dokumen dan mencari teks-teks yang telah diformat menggunakan metadata Styles berbasis struktur (Heading).
+81. Citra menautkan data tabel Excel ke dalam slide PowerPoint menggunakan fitur 'Object Linking'. Jika ia merevisi angka di Excel, yang terjadi pada PowerPoint adalah...
+A.    Data tidak berubah
+B.    Data otomatis diperbarui mengikuti Excel
+C.    Tabel akan terhapus
+D.    Format tabel menjadi rusak
+E.    Slide menjadi tidak bisa diedit
 ANS: B
-
-82.    Untuk mengirim surat edaran resmi terkait kartu remi ke 50 orang berbeda, Citra cukup membuat 1 dokumen utama menggunakan fitur...
-A.   Track Changes
-B.   Macros
-C.   Mail Merge
-D.   OLE (Object Linking)
-E.   Table of Contents
+ALASAN: Fitur Object Linking (dari mekanisme OLE) menciptakan koneksi dinamis antara file sumber dan file tujuan. Jika data di file asalnya (Excel) diubah, file tujuannya (PowerPoint) akan langsung ter-update.
+82. Untuk mengirim surat edaran resmi terkait kartu remi ke 50 orang berbeda, Citra cukup membuat 1 dokumen utama menggunakan fitur...
+A.    Track Changes
+B.    Macros
+C.    Mail Merge
+D.    OLE (Object Linking)
+E.    Table of Contents
 ANS: C
-
-83.    Software yang di-install Citra mengizinkannya untuk memodifikasi kode sumber (source code) dan mendistribusikannya kembali. Lisensi software tersebut tergolong...
-A.   Freeware
-B.   Shareware
-C.   Komersial
-D.   Open Source
-E.   Proprietary
+ALASAN: Mail Merge (Cetak Surat Massal) secara khusus dirancang untuk menggabungkan sebuah dokumen master (template) dengan basis data penerima untuk mencetak banyak salinan yang telah dipersonalisasi.
+83. Software yang di-install Citra mengizinkannya untuk memodifikasi kode sumber (source code) dan mendistribusikannya kembali. Lisensi software tersebut tergolong...
+A.    Freeware
+B.    Shareware
+C.    Komersial
+D.    Open Source
+E.    Proprietary
 ANS: D
-
-84.    Perusahaan tempat Citra bekerja mengembangkan software dan memberikan lisensi komersial. Artinya pengguna software tersebut harus...
-A.   Berbagi secara gratis
-B.   Membayar hak guna/lisensi
-C.   Melihat kode sumbernya
-D.   Mengubah tampilan aslinya
-E.   Mengunggahnya ke internet
+ALASAN: Open Source adalah kategori lisensi di mana pengembang sengaja membuka dan mengizinkan publik untuk melihat, mengedit/memodifikasi, dan menyebarkan kode sumber program tersebut secara bebas.
+84. Perusahaan tempat Citra bekerja mengembangkan software dan memberikan lisensi komersial. Artinya pengguna software tersebut harus...
+A.    Berbagi secara gratis
+B.    Membayar hak guna/lisensi
+C.    Melihat kode sumbernya
+D.    Mengubah tampilan aslinya
+E.    Mengunggahnya ke internet
 ANS: B
-
-85.    Tindakan Citra menggunakan software bajakan tanpa membeli lisensi resmi merupakan bentuk pelanggaran terhadap...
-A.   Hak Cipta / Kekayaan Intelektual
-B.   Hukum Siber Dasar
-C.   Undang-Undang Perdagangan
-D.   Standar Operasional Prosedur
-E.   Hukum Privasi Data
+ALASAN: Software komersial (proprietary) bersifat tertutup dan dibuat untuk tujuan komersialisasi. Oleh sebab itu, penggunanya diwajibkan membeli lisensi berbayar (hak guna) secara legal untuk dapat mengoperasikannya.
+85. Tindakan Citra menggunakan software bajakan tanpa membeli lisensi resmi merupakan bentuk pelanggaran terhadap...
+A.    Hak Cipta / Kekayaan Intelektual
+B.    Hukum Siber Dasar
+C.    Undang-Undang Perdagangan
+D.    Standar Operasional Prosedur
+E.    Hukum Privasi Data
 ANS: A
-
-86.    Munculnya e-commerce mendisrupsi kebiasaan berbelanja. Keuntungan ekonomi bagi wirausahawan kecil seperti Citra adalah...
-A.   Biaya bahan baku turun drastis
-B.   Terbatasnya area promosi
-C.   Dapat menjangkau pasar luas tanpa butuh toko fisik
-D.   Konsumen semakin sulit dihubungi
-E.   Tidak butuh jaringan internet
+ALASAN: Pembajakan (penggandaan/penggunaan karya komersial tanpa izin pembuatnya) adalah pelanggaran langsung terhadap hukum Hak Cipta dan Hak Kekayaan Intelektual (HAKI).
+86. Munculnya e-commerce mendisrupsi kebiasaan berbelanja. Keuntungan ekonomi bagi wirausahawan kecil seperti Citra adalah...
+A.    Biaya bahan baku turun drastis
+B.    Terbatasnya area promosi
+C.    Dapat menjangkau pasar luas tanpa butuh toko fisik
+D.    Konsumen semakin sulit dihubungi
+E.    Tidak butuh jaringan internet
 ANS: C
-
-87.    Citra memanfaatkan komputer papan tunggal seukuran kartu kredit untuk eksperimen robotika. Komputer jenis ini tergolong ke dalam...
-A.   Supercomputer
-B.   Mainframe
-C.   Microcomputer (seperti Raspberry Pi)
-D.   Minicomputer
-E.   Workstation
+ALASAN: E-commerce memangkas biaya infrastruktur besar (seperti sewa ruko fisik) dan menghilangkan hambatan jarak geografis, sehingga pelaku UMKM dapat melayani dan menjangkau pelanggan di seluruh dunia.
+87. Citra memanfaatkan komputer papan tunggal seukuran kartu kredit untuk eksperimen robotika. Komputer jenis ini tergolong ke dalam...
+A.    Supercomputer
+B.    Mainframe
+C.    Microcomputer (seperti Raspberry Pi)
+D.    Minicomputer
+E.    Workstation
 ANS: C
-
-88.    Dalam pengembangan aplikasi untuk perusahaan, tugas pokok Citra sebagai System Analyst adalah...
-A.   Membuat desain antarmuka grafis
-B.   Berkomunikasi dengan pengguna untuk menganalisis kebutuhan sistem
-C.   Merakit server secara fisik
-D.   Menjual aplikasi kepada pihak ketiga
-E.   Melakukan instalasi sistem operasi
+ALASAN: Perangkat elektronik komputasi seperti Raspberry Pi adalah komputer yang memiliki CPU (microprocessor), RAM, dan I/O di dalam satu papan mungil, yang termasuk dalam klasifikasi Microcomputer.
+88. Dalam pengembangan aplikasi untuk perusahaan, tugas pokok Citra sebagai System Analyst adalah...
+A.    Membuat desain antarmuka grafis
+B.    Berkomunikasi dengan pengguna untuk menganalisis kebutuhan sistem
+C.    Merakit server secara fisik
+D.    Menjual aplikasi kepada pihak ketiga
+E.    Melakukan instalasi sistem operasi
 ANS: B
-
-89.    Dalam kode program C milik Citra, terdapat operator unary, binary, dan ternary. Operator yang membutuhkan tepat tiga operand disebut...
-A.   Ternary operator
-B.   Binary operator
-C.   Unary operator
-D.   Logical operator
-E.   Relational operator
+ALASAN: Seorang Analis Sistem (System Analyst) bertugas menganalisis persoalan, mengumpulkan kebutuhan dari pihak klien/pengguna, dan merancang solusi logika untuk selanjutnya dikerjakan oleh programmer.
+89. Dalam kode program C milik Citra, terdapat operator unary, binary, dan ternary. Operator yang membutuhkan tepat tiga operand disebut...
+A.    Ternary operator
+B.    Binary operator
+C.    Unary operator
+D.    Logical operator
+E.    Relational operator
 ANS: A
-
-90.    Dalam mesin konseptual, instruksi `SALIN AAA1 REG1` yang dipelajari Citra berarti...
-A.   Menghapus data di AAA1
-B.   Menukar data REG1 dengan AAA1
-C.   Menyalin isi memori dari alamat AAA1 ke register REG1
-D.   Menjumlahkan AAA1 dan REG1
-E.   Menyimpan hasil ke harddisk
+ALASAN: Istilah 'Ternary' merujuk pada jumlah angka tiga. Dalam pemrograman, operator ternary (seperti `?:`) adalah satu-satunya operator yang memerlukan tiga argumen/operand untuk dievaluasi.
+90. Dalam mesin konseptual, instruksi `SALIN AAA1 REG1` yang dipelajari Citra berarti...
+A.    Menghapus data di AAA1
+B.    Menukar data REG1 dengan AAA1
+C.    Menyalin isi memori dari alamat AAA1 ke register REG1
+D.    Menjumlahkan AAA1 dan REG1
+E.    Menyimpan hasil ke harddisk
 ANS: C
-
-91.    Dewi menemukan algoritma pencarian. Ia mencari sebuah dokumen laporan spesifik di tumpukan yang sudah terurut. Untuk meminimalkan langkah, ia membagi tumpukan menjadi dua secara berulang. Strategi ini disebut...
-A.   Linear Search
-B.   Binary Search
-C.   Bubble Sort
-D.   Insertion Sort
-E.   Selection Sort
+ALASAN: Perintah SALIN (juga dikenal sebagai LOAD/MOV) berfungsi untuk menyalin/memanggil nilai dari lokasi asal (alamat memori AAA1) lalu menyimpannya ke memori cepat di dalam prosesor (Register REG1).
+91. Dewi menemukan algoritma pencarian. Ia mencari sebuah dokumen laporan spesifik di tumpukan yang sudah terurut. Untuk meminimalkan langkah, ia membagi tumpukan menjadi dua secara berulang. Strategi ini disebut...
+A.    Linear Search
+B.    Binary Search
+C.    Bubble Sort
+D.    Insertion Sort
+E.    Selection Sort
 ANS: B
-
-92.    Saat melakukan debugging pada pseudokode: `x = 4; WHILE x > 0 DO x = x + 1`, Dewi menyadari program tidak pernah berhenti. Masalah utamanya adalah...
-A.   Variabel x tidak diinisialisasi
-B.   Kondisi x > 0 selalu bernilai salah
-C.   Perubahan nilai x menjauhi kondisi berhenti (infinite loop)
-D.   Tipe data x salah
-E.   Kurang instruksi PRINT
+ALASAN: Binary Search bekerja dengan membagi data yang sudah terurut menjadi dua bagian (divide and conquer) secara berulang kali, yang membuatnya sangat efisien untuk meminimalkan langkah pencarian.
+92. Saat melakukan debugging pada pseudokode: `x = 4; WHILE x > 0 DO x = x + 1`, Dewi menyadari program tidak pernah berhenti. Masalah utamanya adalah...
+A.    Variabel x tidak diinisialisasi
+B.    Kondisi x > 0 selalu bernilai salah
+C.    Perubahan nilai x menjauhi kondisi berhenti (infinite loop)
+D.    Tipe data x salah
+E.    Kurang instruksi PRINT
 ANS: C
-
-93.    Dewi menggunakan algoritma rekursif. Fungsi `f(n) = 2*f(n-1)` dengan basis `f(0)=3`. Berapakah nilai `f(5)` yang didapat Dewi?
-A.   48
-B.   96
-C.   192
-D.   384
-E.   768
+ALASAN: Variabel `x` bernilai awal 4 dan nilainya selalu ditambah, sehingga syarat berhentinya (`x` bernilai 0 atau kurang) tidak akan pernah tercapai, memicu terjadinya perulangan tiada henti (infinite loop).
+93. Dewi menggunakan algoritma rekursif. Fungsi `f(n) = 2*f(n-1)` dengan basis `f(0)=3`. Berapakah nilai `f(5)` yang didapat Dewi?
+A.    48
+B.    96
+C.    192
+D.    384
+E.    768
 ANS: B
-
-94.    Dalam menyortir dokumen laporan bernilai 5, 2, 4, 1, 3 dengan Bubble Sort (menaik), pada langkah pertama Dewi akan melakukan pertukaran antara...
-A.   5 dan 2
-B.   5 dan 3
-C.   1 dan 2
-D.   4 dan 1
-E.   Tidak ada pertukaran
+ALASAN: Melanjutkan perhitungannya: f(1)=6, f(2)=12, f(3)=24, f(4)=48. Sehingga untuk f(5) = 2 * 48 = 96.
+94. Dalam menyortir dokumen laporan bernilai 5, 2, 4, 1, 3 dengan Bubble Sort (menaik), pada langkah pertama Dewi akan melakukan pertukaran antara...
+A.    5 dan 2
+B.    5 dan 3
+C.    1 dan 2
+D.    4 dan 1
+E.    Tidak ada pertukaran
 ANS: A
-
-95.    Dewi menyusun dokumen laporan secara urut dengan mengambil satu elemen dan menyisipkannya di posisi yang tepat di antara elemen yang sudah terurut. Teknik ini adalah...
-A.   Bubble Sort
-B.   Selection Sort
-C.   Insertion Sort
-D.   Quick Sort
-E.   Merge Sort
+ALASAN: Algoritma Bubble Sort membandingkan elemen berdekatan dari awal. Elemen pertama (5) lebih besar dari elemen kedua (2), sehingga keduanya langsung ditukar pada langkah pertama.
+95. Dewi menyusun dokumen laporan secara urut dengan mengambil satu elemen dan menyisipkannya di posisi yang tepat di antara elemen yang sudah terurut. Teknik ini adalah...
+A.    Bubble Sort
+B.    Selection Sort
+C.    Insertion Sort
+D.    Quick Sort
+E.    Merge Sort
 ANS: C
-
-96.    Dalam bahasa C, ekspresi logika `(5 > 4) && (3 != 8)` yang dieksekusi Dewi akan menghasilkan nilai...
-A.   TRUE (1)
-B.   FALSE (0)
-C.   ERROR
-D.   NULL
-E.   -1
+ALASAN: Karakteristik utama Insertion Sort adalah mengambil sebuah elemen dan menyisipkannya (insert) ke posisi yang tepat pada sekumpulan data yang sudah terurut sebelumnya.
+96. Dalam bahasa C, ekspresi logika `(5 > 4) && (3 != 8)` yang dieksekusi Dewi akan menghasilkan nilai...
+A.    TRUE (1)
+B.    FALSE (0)
+C.    ERROR
+D.    NULL
+E.    -1
 ANS: A
-
-97.    Sebuah restoran menggunakan antrean untuk pesanan dokumen laporan. Jika pesanan masuk berurutan: A, B, C, maka pesanan yang diproses paling awal oleh koki adalah...
-A.   A (karena FIFO)
-B.   C (karena LIFO)
-C.   B (karena ditengah)
-D.   Bisa A atau C
-E.   Acak
+ALASAN: `(5 > 4)` bernilai TRUE dan `(3 != 8)` juga bernilai TRUE. Karena menggunakan operator AND (`&&`), jika keduanya TRUE, maka hasil akhirnya adalah TRUE (1).
+97. Sebuah restoran menggunakan antrean untuk pesanan dokumen laporan. Jika pesanan masuk berurutan: A, B, C, maka pesanan yang diproses paling awal oleh koki adalah...
+A.    A (karena FIFO)
+B.    C (karena LIFO)
+C.    B (karena ditengah)
+D.    Bisa A atau C
+E.    Acak
 ANS: A
-
-98.    Dewi menekan tombol 'Undo' di komputernya berturut-turut untuk membatalkan aksi terakhir pada dokumen laporan. Struktur data yang memodelkan fitur Undo ini adalah...
-A.   Queue
-B.   Tree
-C.   Graph
-D.   Stack
-E.   Array
+ALASAN: Struktur data antrean (Queue) selalu menerapkan prinsip First In First Out (FIFO), yang berarti elemen yang pertama kali masuk (A) akan menjadi yang pertama keluar/diproses.
+98. Dewi menekan tombol 'Undo' di komputernya berturut-turut untuk membatalkan aksi terakhir pada dokumen laporan. Struktur data yang memodelkan fitur Undo ini adalah...
+A.    Queue
+B.    Tree
+C.    Graph
+D.    Stack
+E.    Array
 ANS: D
-
-99.    Jika Dewi mengubah ekspresi `a = a + 8` menjadi bentuk compound assignment (penugasan majemuk), maka penulisannya menjadi...
-A.   a =+ 8
-B.   a += 8
-C.   a ++ 8
-D.   a == 8
-E.   a := 8
+ALASAN: Fitur Undo membatalkan aksi dari yang paling terakhir dilakukan (Last In First Out / LIFO), yang merupakan cara kerja dari struktur data Stack (tumpukan).
+99. Jika Dewi mengubah ekspresi `a = a + 8` menjadi bentuk compound assignment (penugasan majemuk), maka penulisannya menjadi...
+A.    a =+ 8
+B.    a += 8
+C.    a ++ 8
+D.    a == 8
+E.    a := 8
 ANS: B
-
-100.    Untuk memeriksa apakah variabel `bil` habis dibagi 2, Dewi menggunakan ekspresi...
-A.   bil / 2 == 0
-B.   bil % 2 == 0
-C.   bil 2 == 0
-D.   bil MOD 2 == 1
-E.   bil != 2
+ALASAN: Operator penugasan majemuk (compound assignment) untuk penambahan di banyak bahasa pemrograman (seperti C) ditulis dengan menggabungkan operator aritmatika dan penugasan, yaitu `+=`.
+100. Untuk memeriksa apakah variabel `bil` habis dibagi 2, Dewi menggunakan ekspresi...
+A.    bil / 2 == 0
+B.    bil % 2 == 0
+C.    bil 2 == 0
+D.    bil MOD 2 == 1
+E.    bil != 2
 ANS: B
-
-101.    Dewi mengamati struktur `switch-case`. Jika ia lupa menambahkan perintah `break;` di setiap `case`, yang akan terjadi adalah...
-A.   Error saat kompilasi
-B.   Hanya case pertama yang dieksekusi
-C.   Program akan keluar dari switch otomatis
-D.   Program mengeksekusi case berikutnya secara terus menerus (fall-through)
-E.   Program berhenti (crash)
+ALASAN: Operator modulo (`%`) menghasilkan sisa hasil bagi. Suatu bilangan dikatakan habis dibagi 2 (genap) apabila sisa pembagiannya adalah 0 (`% 2 == 0`).
+101. Dewi mengamati struktur `switch-case`. Jika ia lupa menambahkan perintah `break;` di setiap `case`, yang akan terjadi adalah...
+A.    Error saat kompilasi
+B.    Hanya case pertama yang dieksekusi
+C.    Program akan keluar dari switch otomatis
+D.    Program mengeksekusi case berikutnya secara terus menerus (fall-through)
+E.    Program berhenti (crash)
 ANS: D
-
-102.    Sebuah program yang diuji Dewi memiliki loop bersarang: FOR terluar berjalan 5 kali, FOR terdalam berjalan 4 kali. Total eksekusi pernyataan di dalam FOR terdalam adalah...
-A.   5 kali
-B.   4 kali
-C.   20 kali
-D.   9 kali
-E.   1 kali
+ALASAN: Tanpa statement `break;`, program tidak akan keluar dari blok `switch`, melainkan terus mengeksekusi semua instruksi di bawahnya (dikenal sebagai perilaku fall-through).
+102. Sebuah program yang diuji Dewi memiliki loop bersarang: FOR terluar berjalan 5 kali, FOR terdalam berjalan 4 kali. Total eksekusi pernyataan di dalam FOR terdalam adalah...
+A.    5 kali
+B.    4 kali
+C.    20 kali
+D.    9 kali
+E.    1 kali
 ANS: C
-
-103.    Pada diagram alir yang dibuat Dewi, simbol belah ketupat (diamond) berfungsi untuk...
-A.   Membaca input data
-B.   Mencetak output
-C.   Melakukan proses perhitungan
-D.   Mengevaluasi kondisi percabangan
-E.   Menghentikan program
+ALASAN: Pernyataan dalam loop terdalam akan dieksekusi sebanyak perkalian antara batas loop terluar dan terdalam. Dalam hal ini, 5 dikali 4 sama dengan 20 kali.
+103. Pada diagram alir yang dibuat Dewi, simbol belah ketupat (diamond) berfungsi untuk...
+A.    Membaca input data
+B.    Mencetak output
+C.    Melakukan proses perhitungan
+D.    Mengevaluasi kondisi percabangan
+E.    Menghentikan program
 ANS: D
-
-104.    Jika Dewi merancang pseudokode untuk mencari bilangan terbesar dari himpunan bilangan bulat positif, inisialisasi awal variabel `Terbesar` sebaiknya menggunakan angka...
-A.   0
-B.   100
-C.   1000
-D.   Nilai acak
-E.   Bebas
+ALASAN: Dalam standar flowchart, simbol belah ketupat (decision/keputusan) digunakan untuk mengevaluasi suatu kondisi yang menentukan jalur atau arah (percabangan) eksekusi selanjutnya (Ya/Tidak).
+104. Jika Dewi merancang pseudokode untuk mencari bilangan terbesar dari himpunan bilangan bulat positif, inisialisasi awal variabel `Terbesar` sebaiknya menggunakan angka...
+A.    0
+B.    100
+C.    1000
+D.    Nilai acak
+E.    Bebas
 ANS: A
-
-105.    Dewi mencoba membagi `10 / 0` dalam algoritma. Untuk mencegah program crash, validasi yang harus ditambahkan Dewi adalah...
-A.   IF pembilang > 0
-B.   IF penyebut != 0
-C.   IF penyebut == 0
-D.   IF pembilang == penyebut
-E.   WHILE pembilang > penyebut
+ALASAN: Karena data himpunannya bilangan bulat positif (bernilai > 0), variabel penampung nilai terbesar harus diinisialisasi dengan angka sekecil mungkin (0) agar nilai pertama yang diperiksa pasti bisa menggantikannya.
+105. Dewi mencoba membagi `10 / 0` dalam algoritma. Untuk mencegah program crash, validasi yang harus ditambahkan Dewi adalah...
+A.    IF pembilang > 0
+B.    IF penyebut != 0
+C.    IF penyebut == 0
+D.    IF pembilang == penyebut
+E.    WHILE pembilang > penyebut
 ANS: B
-
-106.    Dewi mempelajari siklus mesin (Fetch-Execute). Langkah pertama yang dilakukan oleh Control Unit saat mengeksekusi program adalah...
-A.   Menyimpan hasil perhitungan ke RAM
-B.   Melakukan kalkulasi aritmatika
-C.   Mengambil (fetch) instruksi dari memori
-D.   Menyalakan layar monitor
-E.   Mengkompilasi kode sumber
+ALASAN: Pembagian dengan angka nol tidak terdefinisi dan menyebabkan fatal error. Validasi pencegahan harus memastikan angka pembagi (penyebut) tidak sama dengan nol (`!= 0`).
+106. Dewi mempelajari siklus mesin (Fetch-Execute). Langkah pertama yang dilakukan oleh Control Unit saat mengeksekusi program adalah...
+A.    Menyimpan hasil perhitungan ke RAM
+B.    Melakukan kalkulasi aritmatika
+C.    Mengambil (fetch) instruksi dari memori
+D.    Menyalakan layar monitor
+E.    Mengkompilasi kode sumber
 ANS: C
-
-107.    Pada arsitektur Von Neumann, ketika Dewi mengetik di keyboard, tempat yang menyimpan sementara instruksi sebelum diproses oleh CPU adalah...
-A.   Hard Disk (HDD)
-B.   Read Only Memory (ROM)
-C.   Random Access Memory (RAM)
-D.   Flash Drive / USB
-E.   Arithmetic Logic Unit
+ALASAN: Siklus instruksi selalu dimulai dengan tahapan 'Fetch', di mana CPU (Control Unit) mengambil perintah atau data berikutnya yang akan dijalankan dari memori utama.
+107. Pada arsitektur Von Neumann, ketika Dewi mengetik di keyboard, tempat yang menyimpan sementara instruksi sebelum diproses oleh CPU adalah...
+A.    Hard Disk (HDD)
+B.    Read Only Memory (ROM)
+C.    Random Access Memory (RAM)
+D.    Flash Drive / USB
+E.    Arithmetic Logic Unit
 ANS: C
-
-108.    Jika CPU mengeksekusi instruksi `TAMBAH REG1 REG2`, maka secara konseptual bagian CPU yang bekerja melakukan perhitungan untuk Dewi adalah...
-A.   Control Unit
-B.   Register
-C.   Arithmetic Logic Unit (ALU)
-D.   Bus
-E.   Memory Unit
+ALASAN: Konsep Von Neumann menggunakan memori terpadu, di mana instruksi maupun data masukan sebelum diproses oleh prosesor (CPU) harus disimpan terlebih dahulu di RAM (memori utama).
+108. Jika CPU mengeksekusi instruksi `TAMBAH REG1 REG2`, maka secara konseptual bagian CPU yang bekerja melakukan perhitungan untuk Dewi adalah...
+A.    Control Unit
+B.    Register
+C.    Arithmetic Logic Unit (ALU)
+D.    Bus
+E.    Memory Unit
 ANS: C
-
-109.    Dewi dapat mendengarkan lagu dan mengetik dokumen laporan bersamaan (Multitasking). Sistem operasi membagi jatah waktu prosesor menggunakan algoritma...
-A.   First In First Out
-B.   Round Robin
-C.   Last In First Out
-D.   Bubble Sort
-E.   Binary Search
+ALASAN: ALU (Arithmetic Logic Unit) adalah satu-satunya komponen fisik di dalam CPU yang memiliki peran khusus untuk menjalankan proses operasi matematis (seperti tambah, kurang) dan logika.
+109. Dewi dapat mendengarkan lagu dan mengetik dokumen laporan bersamaan (Multitasking). Sistem operasi membagi jatah waktu prosesor menggunakan algoritma...
+A.    First In First Out
+B.    Round Robin
+C.    Last In First Out
+D.    Bubble Sort
+E.    Binary Search
 ANS: B
-
-110.    Saat menyusun dokumen laporan di MS Word, Dewi ingin membuat daftar isi otomatis. Syarat mutlak agar MS Word dapat membedakan judul bab dengan teks biasa adalah...
-A.   Mewarnai teks judul dengan merah
-B.   Menekan tombol Tab 3 kali pada judul
-C.   Menerapkan Styles (seperti Heading 1, Heading 2)
-D.   Mengetik kata 'Bab' di setiap awal kalimat
-E.   Memisahkan setiap bab di file berbeda
+ALASAN: Round Robin adalah algoritma penjadwalan CPU yang memberikan setiap proses jatah waktu (time slice) kecil secara bergiliran, menciptakan ilusi bagi pengguna bahwa semua program berjalan bersamaan (multitasking).
+110. Saat menyusun dokumen laporan di MS Word, Dewi ingin membuat daftar isi otomatis. Syarat mutlak agar MS Word dapat membedakan judul bab dengan teks biasa adalah...
+A.    Mewarnai teks judul dengan merah
+B.    Menekan tombol Tab 3 kali pada judul
+C.    Menerapkan Styles (seperti Heading 1, Heading 2)
+D.    Mengetik kata 'Bab' di setiap awal kalimat
+E.    Memisahkan setiap bab di file berbeda
 ANS: C
-
-111.    Dewi menautkan data tabel Excel ke dalam slide PowerPoint menggunakan fitur 'Object Linking'. Jika ia merevisi angka di Excel, yang terjadi pada PowerPoint adalah...
-A.   Data tidak berubah
-B.   Data otomatis diperbarui mengikuti Excel
-C.   Tabel akan terhapus
-D.   Format tabel menjadi rusak
-E.   Slide menjadi tidak bisa diedit
+ALASAN: Mesin pembuat Daftar Isi (Table of Contents) di Word bekerja dengan memindai dokumen dan mencari teks-teks yang telah diformat menggunakan metadata Styles berbasis struktur (Heading).
+111. Dewi menautkan data tabel Excel ke dalam slide PowerPoint menggunakan fitur 'Object Linking'. Jika ia merevisi angka di Excel, yang terjadi pada PowerPoint adalah...
+A.    Data tidak berubah
+B.    Data otomatis diperbarui mengikuti Excel
+C.    Tabel akan terhapus
+D.    Format tabel menjadi rusak
+E.    Slide menjadi tidak bisa diedit
 ANS: B
-
-112.    Untuk mengirim surat edaran resmi terkait dokumen laporan ke 50 orang berbeda, Dewi cukup membuat 1 dokumen utama menggunakan fitur...
-A.   Track Changes
-B.   Macros
-C.   Mail Merge
-D.   OLE (Object Linking)
-E.   Table of Contents
+ALASAN: Fitur Object Linking (dari mekanisme OLE) menciptakan koneksi dinamis antara file sumber dan file tujuan. Jika data di file asalnya (Excel) diubah, file tujuannya (PowerPoint) akan langsung ter-update.
+112. Untuk mengirim surat edaran resmi terkait dokumen laporan ke 50 orang berbeda, Dewi cukup membuat 1 dokumen utama menggunakan fitur...
+A.    Track Changes
+B.    Macros
+C.    Mail Merge
+D.    OLE (Object Linking)
+E.    Table of Contents
 ANS: C
-
-113.    Software yang di-install Dewi mengizinkannya untuk memodifikasi kode sumber (source code) dan mendistribusikannya kembali. Lisensi software tersebut tergolong...
-A.   Freeware
-B.   Shareware
-C.   Komersial
-D.   Open Source
-E.   Proprietary
+ALASAN: Mail Merge (Cetak Surat Massal) secara khusus dirancang untuk menggabungkan sebuah dokumen master (template) dengan basis data penerima untuk mencetak banyak salinan yang telah dipersonalisasi.
+113. Software yang di-install Dewi mengizinkannya untuk memodifikasi kode sumber (source code) dan mendistribusikannya kembali. Lisensi software tersebut tergolong...
+A.    Freeware
+B.    Shareware
+C.    Komersial
+D.    Open Source
+E.    Proprietary
 ANS: D
-
-114.    Perusahaan tempat Dewi bekerja mengembangkan software dan memberikan lisensi komersial. Artinya pengguna software tersebut harus...
-A.   Berbagi secara gratis
-B.   Membayar hak guna/lisensi
-C.   Melihat kode sumbernya
-D.   Mengubah tampilan aslinya
-E.   Mengunggahnya ke internet
+ALASAN: Open Source adalah kategori lisensi di mana pengembang sengaja membuka dan mengizinkan publik untuk melihat, mengedit/memodifikasi, dan menyebarkan kode sumber program tersebut secara bebas.
+114. Perusahaan tempat Dewi bekerja mengembangkan software dan memberikan lisensi komersial. Artinya pengguna software tersebut harus...
+A.    Berbagi secara gratis
+B.    Membayar hak guna/lisensi
+C.    Melihat kode sumbernya
+D.    Mengubah tampilan aslinya
+E.    Mengunggahnya ke internet
 ANS: B
-
-115.    Tindakan Dewi menggunakan software bajakan tanpa membeli lisensi resmi merupakan bentuk pelanggaran terhadap...
-A.   Hak Cipta / Kekayaan Intelektual
-B.   Hukum Siber Dasar
-C.   Undang-Undang Perdagangan
-D.   Standar Operasional Prosedur
-E.   Hukum Privasi Data
+ALASAN: Software komersial (proprietary) bersifat tertutup dan dibuat untuk tujuan komersialisasi. Oleh sebab itu, penggunanya diwajibkan membeli lisensi berbayar (hak guna) secara legal untuk dapat mengoperasikannya.
+115. Tindakan Dewi menggunakan software bajakan tanpa membeli lisensi resmi merupakan bentuk pelanggaran terhadap...
+A.    Hak Cipta / Kekayaan Intelektual
+B.    Hukum Siber Dasar
+C.    Undang-Undang Perdagangan
+D.    Standar Operasional Prosedur
+E.    Hukum Privasi Data
 ANS: A
-
-116.    Munculnya e-commerce mendisrupsi kebiasaan berbelanja. Keuntungan ekonomi bagi wirausahawan kecil seperti Dewi adalah...
-A.   Biaya bahan baku turun drastis
-B.   Terbatasnya area promosi
-C.   Dapat menjangkau pasar luas tanpa butuh toko fisik
-D.   Konsumen semakin sulit dihubungi
-E.   Tidak butuh jaringan internet
+ALASAN: Pembajakan (penggandaan/penggunaan karya komersial tanpa izin pembuatnya) adalah pelanggaran langsung terhadap hukum Hak Cipta dan Hak Kekayaan Intelektual (HAKI).
+116. Munculnya e-commerce mendisrupsi kebiasaan berbelanja. Keuntungan ekonomi bagi wirausahawan kecil seperti Dewi adalah...
+A.    Biaya bahan baku turun drastis
+B.    Terbatasnya area promosi
+C.    Dapat menjangkau pasar luas tanpa butuh toko fisik
+D.    Konsumen semakin sulit dihubungi
+E.    Tidak butuh jaringan internet
 ANS: C
-
-117.    Dewi memanfaatkan komputer papan tunggal seukuran kartu kredit untuk eksperimen robotika. Komputer jenis ini tergolong ke dalam...
-A.   Supercomputer
-B.   Mainframe
-C.   Microcomputer (seperti Raspberry Pi)
-D.   Minicomputer
-E.   Workstation
+ALASAN: E-commerce memangkas biaya infrastruktur besar (seperti sewa ruko fisik) dan menghilangkan hambatan jarak geografis, sehingga pelaku UMKM dapat melayani dan menjangkau pelanggan di seluruh dunia.
+117. Dewi memanfaatkan komputer papan tunggal seukuran kartu kredit untuk eksperimen robotika. Komputer jenis ini tergolong ke dalam...
+A.    Supercomputer
+B.    Mainframe
+C.    Microcomputer (seperti Raspberry Pi)
+D.    Minicomputer
+E.    Workstation
 ANS: C
-
-118.    Dalam pengembangan aplikasi untuk perusahaan, tugas pokok Dewi sebagai System Analyst adalah...
-A.   Membuat desain antarmuka grafis
-B.   Berkomunikasi dengan pengguna untuk menganalisis kebutuhan sistem
-C.   Merakit server secara fisik
-D.   Menjual aplikasi kepada pihak ketiga
-E.   Melakukan instalasi sistem operasi
+ALASAN: Perangkat elektronik komputasi seperti Raspberry Pi adalah komputer yang memiliki CPU (microprocessor), RAM, dan I/O di dalam satu papan mungil, yang termasuk dalam klasifikasi Microcomputer.
+118. Dalam pengembangan aplikasi untuk perusahaan, tugas pokok Dewi sebagai System Analyst adalah...
+A.    Membuat desain antarmuka grafis
+B.    Berkomunikasi dengan pengguna untuk menganalisis kebutuhan sistem
+C.    Merakit server secara fisik
+D.    Menjual aplikasi kepada pihak ketiga
+E.    Melakukan instalasi sistem operasi
 ANS: B
-
-119.    Dalam kode program C milik Dewi, terdapat operator unary, binary, dan ternary. Operator yang membutuhkan tepat tiga operand disebut...
-A.   Ternary operator
-B.   Binary operator
-C.   Unary operator
-D.   Logical operator
-E.   Relational operator
+ALASAN: Seorang Analis Sistem (System Analyst) bertugas menganalisis persoalan, mengumpulkan kebutuhan dari pihak klien/pengguna, dan merancang solusi logika untuk selanjutnya dikerjakan oleh programmer.
+119. Dalam kode program C milik Dewi, terdapat operator unary, binary, dan ternary. Operator yang membutuhkan tepat tiga operand disebut...
+A.    Ternary operator
+B.    Binary operator
+C.    Unary operator
+D.    Logical operator
+E.    Relational operator
 ANS: A
-
-120.    Dalam mesin konseptual, instruksi `SALIN AAA1 REG1` yang dipelajari Dewi berarti...
-A.   Menghapus data di AAA1
-B.   Menukar data REG1 dengan AAA1
-C.   Menyalin isi memori dari alamat AAA1 ke register REG1
-D.   Menjumlahkan AAA1 dan REG1
-E.   Menyimpan hasil ke harddisk
+ALASAN: Istilah 'Ternary' merujuk pada jumlah angka tiga. Dalam pemrograman, operator ternary (seperti `?:`) adalah satu-satunya operator yang memerlukan tiga argumen/operand untuk dievaluasi.
+120. Dalam mesin konseptual, instruksi `SALIN AAA1 REG1` yang dipelajari Dewi berarti...
+A.    Menghapus data di AAA1
+B.    Menukar data REG1 dengan AAA1
+C.    Menyalin isi memori dari alamat AAA1 ke register REG1
+D.    Menjumlahkan AAA1 dan REG1
+E.    Menyimpan hasil ke harddisk
 ANS: C
+ALASAN: Perintah SALIN (juga dikenal sebagai LOAD/MOV) berfungsi untuk menyalin/memanggil nilai dari lokasi asal (alamat memori AAA1) lalu menyimpannya ke memori cepat di dalam prosesor (Register REG1).
     </script>
 
     <!-- Quiz Logic -->
@@ -1166,7 +1172,8 @@ ANS: C
                         num: qMatch[1],
                         text: qMatch[2],
                         options: {},
-                        ans: ''
+                        ans: '',
+                        alasan: ''
                     };
                     currentOpt = null;
                 } else if (line.match(/^[A-E]\.\s+/)) {
@@ -1181,10 +1188,17 @@ ANS: C
                         currentQ.ans = trimmed.replace('ANS:', '').trim();
                     }
                     currentOpt = null;
+                } else if (trimmed.startsWith('ALASAN:')) {
+                    if (currentQ) {
+                        currentQ.alasan = trimmed.replace('ALASAN:', '').trim();
+                    }
+                    currentOpt = null;
                 } else {
                     if (currentQ) {
                         if (currentOpt) {
                             currentQ.options[currentOpt] += '\n' + line;
+                        } else if (currentQ.alasan) {
+                            currentQ.alasan += '\n' + line;
                         } else {
                             currentQ.text += '\n' + line;
                         }
@@ -1229,6 +1243,7 @@ ANS: C
         }
 
         function startQuiz() {
+            questions = []; // reset array to avoid duplicate if restarted
             parseRawData();
             if (questions.length === 0) {
                 alert("Data soal gagal dimuat!");
@@ -1290,45 +1305,33 @@ ANS: C
                 optionsContainer.insertAdjacentHTML('beforeend', optionHtml);
             }
             
-            // Update UI if already checked
-            if (hasChecked) {
-                updateSelectedUI();
-                showExplanation();
-                if (index === questions.length - 1) {
-                    nextBtn.classList.add('hidden');
-                    submitBtn.classList.remove('hidden');
-                } else {
-                    nextBtn.classList.remove('hidden');
-                    submitBtn.classList.add('hidden');
-                }
-            } else {
+            // Atur Navigasi: Tombol "Selanjutnya" & "Selesai" SELALU DITAMPILKAN
+            if (index === questions.length - 1) {
                 nextBtn.classList.add('hidden');
-                submitBtn.classList.add('hidden');
-            }
-
-            prevBtn.disabled = index === 0;
-        }
-
-        // Function dipanggil otomatis SAAT KLIK (menggantikan tombol cek)
-        function selectOption(key) {
-            // Jika sudah terjawab dan dicek, abaikan klik lanjutan
-            if (userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].checked) return;
-            
-            // Simpan jawaban & tandai sudah dicek
-            userAnswers[currentQuestionIndex] = { val: key, checked: true };
-            
-            // Update tampilan opsi yang dipilih dan benar/salah
-            updateSelectedUI();
-            
-            // Langsung tampilkan penjelasan!
-            showExplanation();
-            
-            // Tampilkan tombol selanjutnya
-            if (currentQuestionIndex === questions.length - 1) {
                 submitBtn.classList.remove('hidden');
             } else {
                 nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
             }
+            prevBtn.disabled = index === 0;
+
+            // Jika soal ini sudah pernah dijawab, tunjukkan kembali jawabannya
+            if (hasChecked) {
+                updateSelectedUI();
+                showExplanation();
+            }
+        }
+
+        // Function dipanggil otomatis SAAT KLIK opsi
+        function selectOption(key) {
+            // Jika sudah terjawab, abaikan klik
+            if (userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].checked) return;
+            
+            // Simpan jawaban & tandai
+            userAnswers[currentQuestionIndex] = { val: key, checked: true };
+            
+            updateSelectedUI();
+            showExplanation();
             
             // Nonaktifkan klik opsi lain
             const radios = optionsContainer.querySelectorAll('input[type="radio"]');
@@ -1342,26 +1345,27 @@ ANS: C
             const userAns = userAnswers[currentQuestionIndex]?.val;
             const isCorrect = userAns === q.ans;
             
-            explanationContainer.classList.remove('hidden');
+            // Menentukan Alasan. Jika tidak ada property q.alasan, gunakan teks asli opsi yang benar.
+            const alasanText = q.alasan ? escapeHtml(q.alasan) : `Jawaban yang benar adalah ${q.ans} yaitu "${escapeHtml(q.options[q.ans])}".`;
             
-            // Force reflow to trigger animation
-            void explanationContainer.offsetWidth;
+            explanationContainer.classList.remove('hidden');
+            void explanationContainer.offsetWidth; // Trigger reflow
             explanationContainer.classList.add('animate-slide-down');
 
             if (isCorrect) {
                 explanationContainer.className = 'mb-8 p-5 bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl shadow-sm animate-slide-down';
                 explanationTitle.innerHTML = `<div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3"><i class="fas fa-check"></i></div> <span class="text-green-800 text-xl">Tepat Sekali!</span>`;
                 explanationText.innerHTML = `
-                    <div class="mb-2"><span class="font-bold text-gray-600">Jawaban Benar:</span> <span class="font-black text-green-600">${q.ans}</span></div>
-                    <div class="text-gray-700 question-text font-medium">${escapeHtml(q.options[q.ans])}</div>
+                    <div class="mb-2"><span class="font-bold text-gray-600">Kunci Jawaban:</span> <span class="font-black text-green-600">${q.ans}</span></div>
+                    <div class="mt-3 pt-3 border-t border-green-200 text-gray-700 question-text font-medium"><span class="font-bold text-gray-800">Alasan:</span> <br>${alasanText}</div>
                 `;
             } else {
                 explanationContainer.className = 'mb-8 p-5 bg-gradient-to-br from-red-50 to-red-100 border border-red-200 rounded-xl shadow-sm animate-slide-down';
                 explanationTitle.innerHTML = `<div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3"><i class="fas fa-times"></i></div> <span class="text-red-800 text-xl">Kurang Tepat</span>`;
                 explanationText.innerHTML = `
                     <div class="mb-2"><span class="font-bold text-gray-600">Jawaban Anda:</span> <span class="font-bold text-red-500">${userAns || '-'}</span></div>
-                    <div class="mb-2"><span class="font-bold text-gray-600">Kunci Jawaban yang Benar:</span> <span class="font-black text-green-600">${q.ans}</span></div>
-                    <div class="text-gray-700 question-text font-medium pt-2 border-t border-red-100 mt-2">${escapeHtml(q.options[q.ans])}</div>
+                    <div class="mb-2"><span class="font-bold text-gray-600">Kunci Jawaban:</span> <span class="font-black text-green-600">${q.ans}</span></div>
+                    <div class="mt-3 pt-3 border-t border-red-200 text-gray-700 question-text font-medium"><span class="font-bold text-gray-800">Alasan:</span> <br>${alasanText}</div>
                 `;
             }
             
@@ -1383,13 +1387,11 @@ ANS: C
 
         function updateSelectedUI() {
             const labels = optionsContainer.querySelectorAll('.option-label');
-            
             labels.forEach(label => {
                 const radio = label.querySelector('input');
                 const box = label.querySelector('.option-box');
                 const dot = label.querySelector('.option-box div');
                 
-                // Reset basic styles
                 box.classList.remove('border-indigo-600', 'border-green-500', 'border-red-500', 'bg-red-100');
                 dot.classList.add('opacity-0');
 
@@ -1410,7 +1412,7 @@ ANS: C
         function finishQuiz() {
             const answeredCount = Object.keys(userAnswers).filter(k => userAnswers[k].checked).length;
             if (answeredCount < questions.length) {
-                if(!confirm(`Anda baru menjawab ${answeredCount} dari ${questions.length} soal. Yakin ingin mengakhiri kuis dan melihat hasil akhir?`)) {
+                if(!confirm(`Anda baru menjawab ${answeredCount} dari ${questions.length} soal.\nYakin ingin mengakhiri kuis dan melihat hasil akhir?`)) {
                     return;
                 }
             }
@@ -1425,45 +1427,60 @@ ANS: C
 
         function calculateResult() {
             let correct = 0;
+            let answeredCount = 0;
             let discussionHtml = '';
 
             questions.forEach((q, index) => {
                 const userAnsObj = userAnswers[index];
                 const userAns = userAnsObj ? userAnsObj.val : null;
                 const isCorrect = userAns === q.ans;
+                const isAnswered = userAns !== null;
+                
                 if (isCorrect) correct++;
+                if (isAnswered) answeredCount++;
 
-                let userAnsText = userAns ? `${userAns}. ${escapeHtml(q.options[userAns])}` : 'Tidak dijawab';
+                let userAnsText = userAns ? `${userAns}. ${escapeHtml(q.options[userAns])}` : 'Tidak dijawab (Dilewati)';
                 let correctAnsText = `${q.ans}. ${escapeHtml(q.options[q.ans])}`;
+                let alasanText = q.alasan ? escapeHtml(q.alasan) : `Kunci jawaban yang tepat adalah ${q.ans} yaitu "${escapeHtml(q.options[q.ans])}".`;
+
+                // Tampilan Box di Rekap (Abu-abu untuk skipped, hijau untuk benar, merah untuk salah)
+                let boxColorClass = isCorrect ? 'border-l-green-500' : (!isAnswered ? 'border-l-gray-400' : 'border-l-red-500');
+                let iconHtml = isCorrect ? '<i class="fas fa-check-circle text-green-600"></i>' : (!isAnswered ? '<i class="fas fa-minus-circle text-gray-400"></i>' : '<i class="fas fa-times-circle text-red-600"></i>');
 
                 discussionHtml += `
-                    <div class="bg-white p-6 rounded-xl border-l-4 shadow-sm mb-4 ${isCorrect ? 'border-l-green-500' : 'border-l-red-500'} relative">
+                    <div class="bg-white p-6 rounded-xl border-l-4 shadow-sm mb-4 ${boxColorClass} relative">
                         <div class="absolute top-4 right-4 text-3xl opacity-20">
-                            ${isCorrect ? '<i class="fas fa-check-circle text-green-600"></i>' : '<i class="fas fa-times-circle text-red-600"></i>'}
+                            ${iconHtml}
                         </div>
                         <h4 class="font-bold text-gray-800 mb-3 bg-gray-100 inline-block px-3 py-1 rounded-md text-sm">Soal ${q.num}</h4>
                         <p class="mb-5 text-gray-700 question-text font-medium">${escapeHtml(q.text)}</p>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
-                                <span class="text-xs font-bold text-gray-400 block mb-1 uppercase tracking-wide">Jawaban Anda</span>
-                                <span class="${isCorrect ? 'text-green-700' : 'text-red-600'} font-semibold question-text">${userAnsText}</span>
+                            <div class="${!isAnswered ? 'bg-gray-100 border-gray-200' : 'bg-gray-50 border-gray-100'} p-4 rounded-lg border">
+                                <span class="text-xs font-bold ${!isAnswered ? 'text-gray-500' : 'text-gray-400'} block mb-1 uppercase tracking-wide">Jawaban Anda</span>
+                                <span class="${isCorrect ? 'text-green-700' : (!isAnswered ? 'text-gray-500 italic' : 'text-red-600')} font-semibold question-text">${userAnsText}</span>
                             </div>
                             <div class="bg-green-50 p-4 rounded-lg border border-green-100">
                                 <span class="text-xs font-bold text-green-500 block mb-1 uppercase tracking-wide">Kunci Jawaban</span>
                                 <span class="text-green-700 font-semibold question-text">${correctAnsText}</span>
+                            </div>
+                            <div class="md:col-span-2 bg-blue-50/50 p-4 rounded-lg border border-blue-100 mt-2">
+                                <span class="text-xs font-bold text-blue-500 block mb-1 uppercase tracking-wide">Alasan / Penjelasan</span>
+                                <span class="text-blue-800 font-medium text-sm leading-relaxed">${alasanText}</span>
                             </div>
                         </div>
                     </div>
                 `;
             });
 
-            const incorrect = questions.length - correct;
+            const incorrect = answeredCount - correct;
+            const skipped = questions.length - answeredCount;
             const score = Math.round((correct / questions.length) * 100);
 
             // Animate numbers
             animateValue("correct-count", 0, correct, 1000);
             animateValue("incorrect-count", 0, incorrect, 1000);
+            animateValue("skipped-count", 0, skipped, 1000);
             animateValue("final-score", 0, score, 1500);
             
             document.getElementById('discussion-container').innerHTML += discussionHtml;
