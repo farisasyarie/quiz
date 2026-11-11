@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz HOTS Informatika Kelas XI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; }
+        .question-text { white-space: pre-wrap; word-wrap: break-word; }
+        .option-label { cursor: pointer; transition: all 0.3s ease; }
+        .option-label:hover:not(.disabled) { background-color: #e0e7ff; transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        input[type="radio"]:checked + .option-box { border-color: #4f46e5; background-color: #e0e7ff; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c7c7cc; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a0a0a5; }
+
+        /* Animation for explanation */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-down { animation: slideDown 0.4s ease forwards; }
+    </style>
+</head>
+<body class="text-gray-800 h-screen flex flex-col">
+
+    <!-- Header & Illustration -->
+    <header class="bg-gradient-to-r from-indigo-600 to-purple-700 text-white p-6 shadow-lg shrink-0 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between relative z-10">
+            <div class="mb-4 md:mb-0">
+                <div class="inline-block bg-white text-indigo-700 text-xs font-bold px-3 py-1 rounded-full mb-3 shadow">
+                    SOAL INF-XI HOTS BAB 3 & 4
+                </div>
+                <h1 class="text-3xl font-extrabold mb-2 tracking-tight">Quiz Interaktif Informatika</h1>
+                <p class="text-indigo-100 text-lg">120 Pertanyaan Pilihan Ganda</p>
+            </div>
+            <!-- Illustration SVG -->
+            <div class="hidden md:block w-40 h-40">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-200 w-full h-full opacity-90 drop-shadow-md">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                </svg>
+            </div>
+        </div>
+        <!-- Decorative background shapes -->
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-48 h-48 bg-purple-400 opacity-10 rounded-full blur-2xl"></div>
+    </header>
+
+    <!-- Main Quiz Area -->
+    <main class="flex-grow overflow-y-auto p-4 md:p-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-10 relative border border-gray-100">
+            
+            <!-- Setup Screen -->
+            <div id="setup-screen" class="text-center py-12">
+                <div class="bg-indigo-50 w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6 shadow-inner">
+                    <i class="fas fa-brain text-5xl text-indigo-600"></i>
+                </div>
+                <h2 class="text-3xl font-bold mb-4 text-gray-800">Siap Menguji Pengetahuanmu?</h2>
+                <p class="text-gray-600 mb-8 max-w-lg mx-auto text-lg">
+                    Kuis ini mencakup materi Informatika Kelas XI Bab 3 dan 4.
+                    <strong>Jawaban yang benar dan penjelasannya akan langsung muncul saat kamu memilih opsi.</strong>
+                </p>
+                <button id="start-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-indigo-300/50">
+                    <i class="fas fa-play mr-2"></i> Mulai Quiz Sekarang
+                </button>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center space-x-2 text-sm font-bold text-gray-600 bg-gray-100 px-4 py-2 rounded-lg border border-gray-200">
+                        <i class="fas fa-flag-checkered text-indigo-500"></i>
+                        <span id="question-tracker">Soal 1 / 120</span>
+                    </div>
+                    <div class="text-sm font-bold text-indigo-700 bg-indigo-50 px-4 py-2 rounded-lg border border-indigo-100 shadow-sm">
+                        <i class="fas fa-stopwatch mr-1"></i> <span id="timer">00:00</span>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 rounded-full h-3 mb-8 shadow-inner overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-full transition-all duration-500 rounded-full" style="width: 0%"></div>
+                </div>
+
+                <div id="question-container" class="mb-8 p-6 bg-blue-50/50 rounded-xl border border-blue-100">
+                    <!-- Question will be injected here -->
+                </div>
+
+                <div id="options-container" class="space-y-4 mb-8">
+                    <!-- Options will be injected here -->
+                </div>
+
+                <!-- Explanation Area (Hidden by default) -->
+                <div id="explanation-container" class="hidden mb-8 p-5 rounded-xl shadow-sm border animate-slide-down">
+                    <h4 class="font-bold mb-3 flex items-center text-lg" id="explanation-title">
+                        <!-- Icon and Title injected dynamically -->
+                    </h4>
+                    <div id="explanation-text" class="text-gray-700 leading-relaxed text-md bg-white p-4 rounded-lg border border-white/50 shadow-inner">
+                        <!-- Explanation injected dynamically -->
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-center pt-6 border-t border-gray-200 mt-4">
+                    <button id="prev-btn" class="w-full sm:w-auto mb-3 sm:mb-0 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm">
+                        <i class="fas fa-arrow-left mr-2"></i> Sebelumnya
+                    </button>
+
+                    <button id="next-btn" class="hidden w-full sm:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    
+                    <button id="submit-btn" class="hidden w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg">
+                        Selesaikan & Lihat Hasil <i class="fas fa-trophy ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result Screen -->
+            <div id="result-screen" class="hidden py-10">
+                <div class="text-center mb-10">
+                    <div class="relative inline-block">
+                        <i class="fas fa-award text-8xl text-yellow-400 mb-4 drop-shadow-lg"></i>
+                        <i class="fas fa-star absolute top-0 right-0 text-3xl text-orange-400 animate-pulse"></i>
+                    </div>
+                    <h2 class="text-4xl font-extrabold mb-3 text-gray-800">Luar Biasa!</h2>
+                    <p class="text-gray-600 text-lg">Kamu telah menyelesaikan seluruh 120 soal kuis.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-center">
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl border border-green-200 shadow-sm transform transition hover:scale-105">
+                        <div class="text-green-600 font-bold text-lg mb-2 uppercase tracking-wide">Jawaban Benar</div>
+                        <div id="correct-count" class="text-5xl font-black text-green-700">0</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-2xl border border-red-200 shadow-sm transform transition hover:scale-105">
+                        <div class="text-red-600 font-bold text-lg mb-2 uppercase tracking-wide">Jawaban Salah</div>
+                        <div id="incorrect-count" class="text-5xl font-black text-red-700">0</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-2xl border border-indigo-200 shadow-sm transform transition hover:scale-105">
+                        <div class="text-indigo-600 font-bold text-lg mb-2 uppercase tracking-wide">Skor Akurasi</div>
+                        <div class="flex justify-center items-baseline">
+                            <span id="final-score" class="text-5xl font-black text-indigo-700">0</span>
+                            <span class="text-2xl font-bold text-indigo-500 ml-1">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                    <button id="view-discussion-btn" class="bg-white border-2 border-indigo-600 text-indigo-700 font-bold py-3 px-8 rounded-xl transition-colors hover:bg-indigo-50 shadow-sm">
+                        <i class="fas fa-book-open mr-2"></i> Rekap Pembahasan
+                    </button>
+                    <button id="restart-btn" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-md">
+                        <i class="fas fa-redo mr-2"></i> Ulangi Kuis
+                    </button>
+                </div>
+
+                <div id="discussion-container" class="hidden space-y-6 mt-12 border-t border-gray-200 pt-10">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                        <i class="fas fa-tasks text-indigo-500 mr-3"></i> Detail Jawaban Anda
+                    </h3>
+                    <!-- Discussion will be injected here -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Raw Data Injection -->
+    <script id="raw-data" type="text/template">
+Kumpulan 120 Soal HOTS - Bab 3 & 4 Informatika Kelas XI
+
+1. Dalam pengembangan sebuah aplikasi, tim menemukan situasi berikut: 'Klien meminta perubahan karena aplikasi tidak menyelesaikan masalah utamanya'. Berdasarkan siklus pengembangan program (SDLC), tahapan manakah yang paling krusial untuk dievaluasi ulang agar masalah ini terselesaikan dari akarnya?
+A. Deployment
+B. Mengimplementasikan Solusi (Coding)
+C. Menguji Program (Testing)
+D. Menganalisis Permasalahan (Analyzing)
+E. Mendesain Solusi (Design)
+ANS: D
+
+2. Dalam pengembangan sebuah aplikasi, tim menemukan situasi berikut: 'Aplikasi berjalan lambat saat memproses 1 juta data'. Berdasarkan siklus pengembangan program (SDLC), tahapan manakah yang paling krusial untuk dievaluasi ulang agar masalah ini terselesaikan dari akarnya?
+A. Deployment
+B. Menguji Program (Testing)
+C. Menganalisis Permasalahan (Analyzing)
+D. Mendesain Solusi (Design)
+E. Mengimplementasikan Solusi (Coding)
+ANS: D
+
+3. Dalam pengembangan sebuah aplikasi, tim menemukan situasi berikut: 'Terjadi 'Syntax Error' saat program dikompilasi'. Berdasarkan siklus pengembangan program (SDLC), tahapan manakah yang paling krusial untuk dievaluasi ulang agar masalah ini terselesaikan dari akarnya?
+A. Deployment
+B. Mendesain Solusi (Design)
+C. Menguji Program (Testing)
+D. Menganalisis Permasalahan (Analyzing)
+E. Mengimplementasikan Solusi (Coding)
+ANS: E
+
+4. Dalam pengembangan sebuah aplikasi, tim menemukan situasi berikut: 'Program menghasilkan output yang salah hanya pada input angka negatif'. Berdasarkan siklus pengembangan program (SDLC), tahapan manakah yang paling krusial untuk dievaluasi ulang agar masalah ini terselesaikan dari akarnya?
+A. Mendesain Solusi (Design)
+B. Mengimplementasikan Solusi (Coding)
+C. Deployment
+D. Menguji Program (Testing)
+E. Menganalisis Permasalahan (Analyzing)
+ANS: D
+
+5. Dalam pengembangan sebuah aplikasi, tim menemukan situasi berikut: 'Tim pengembang berdebat memilih antara algoritma Greedy atau DP'. Berdasarkan siklus pengembangan program (SDLC), tahapan manakah yang paling krusial untuk dievaluasi ulang agar masalah ini terselesaikan dari akarnya?
+A. Mendesain Solusi (Design)
+B. Deployment
+C. Menguji Program (Testing)
+D. Menganalisis Permasalahan (Analyzing)
+E. Mengimplementasikan Solusi (Coding)
+ANS: A
+
+6. Dalam pengembangan sebuah aplikasi, tim menemukan situasi berikut: 'Ditemukan bug setelah program dirilis ke publik'. Berdasarkan siklus pengembangan program (SDLC), tahapan manakah yang paling krusial untuk dievaluasi ulang agar masalah ini terselesaikan dari akarnya?
+A. Mengimplementasikan Solusi (Coding)
+B. Mendesain Solusi (Design)
+C. Menganalisis Permasalahan (Analyzing)
+D. Deployment
+E. Menguji Program (Testing)
+ANS: E
+
+7. Dalam pengembangan sebuah aplikasi, tim menemukan situasi berikut: 'Pemrograman kesulitan menerjemahkan pseudocode ke dalam bahasa C++'. Berdasarkan siklus pengembangan program (SDLC), tahapan manakah yang paling krusial untuk dievaluasi ulang agar masalah ini terselesaikan dari akarnya?
+A. Mendesain Solusi (Design)
+B. Deployment
+C. Menganalisis Permasalahan (Analyzing)
+D. Menguji Program (Testing)
+E. Mengimplementasikan Solusi (Coding)
+ANS: E
+
+8. Dalam pengembangan sebuah aplikasi, tim menemukan situasi berikut: 'Aplikasi membutuhkan waktu 10 menit untuk merespons'. Berdasarkan siklus pengembangan program (SDLC), tahapan manakah yang paling krusial untuk dievaluasi ulang agar masalah ini terselesaikan dari akarnya?
+A. Mendesain Solusi (Design)
+B. Menganalisis Permasalahan (Analyzing)
+C. Mengimplementasikan Solusi (Coding)
+D. Menguji Program (Testing)
+E. Deployment
+ANS: A
+
+9. Dalam pengembangan sebuah aplikasi, tim menemukan situasi berikut: 'Pengguna akhir kebingungan dengan batasan input yang tidak dijelaskan'. Berdasarkan siklus pengembangan program (SDLC), tahapan manakah yang paling krusial untuk dievaluasi ulang agar masalah ini terselesaikan dari akarnya?
+A. Menganalisis Permasalahan (Analyzing)
+B. Deployment
+C. Mendesain Solusi (Design)
+D. Menguji Program (Testing)
+E. Mengimplementasikan Solusi (Coding)
+ANS: A
+
+10. Dalam pengembangan sebuah aplikasi, tim menemukan situasi berikut: 'Kode program sangat berantakan dan sulit dibaca'. Berdasarkan siklus pengembangan program (SDLC), tahapan manakah yang paling krusial untuk dievaluasi ulang agar masalah ini terselesaikan dari akarnya?
+A. Mengimplementasikan Solusi (Coding)
+B. Menguji Program (Testing)
+C. Mendesain Solusi (Design)
+D. Menganalisis Permasalahan (Analyzing)
+E. Deployment
+ANS: A
+
+11. Diberikan fungsi rekursif: f(n) = f(n-1) + 3*f(n-2) untuk n > 2. Jika f(1) = 2 dan f(2) = 3, berapakah nilai dari f(5)? Analisislah pohon rekursinya.
+A. 64
+B. 41
+C. 45
+D. 18
+E. 46
+ANS: C
+
+12. Diberikan fungsi rekursif: f(n) = f(n-1) + 3*f(n-2) untuk n > 2. Jika f(1) = 3 dan f(2) = 4, berapakah nilai dari f(5)? Analisislah pohon rekursinya.
+A. 59
+B. 25
+C. 78
+D. 64
+E. 70
+ANS: D
+
+13. Diberikan fungsi rekursif: f(n) = f(n-1) + 2*f(n-2) untuk n > 2. Jika f(1) = 1 dan f(2) = 2, berapakah nilai dari f(5)? Analisislah pohon rekursinya.
+A. 20
+B. 15
+C. 16
+D. 8
+E. 33
+ANS: C
+
+14. Diberikan fungsi rekursif: f(n) = f(n-1) + 1*f(n-2) untuk n > 2. Jika f(1) = 2 dan f(2) = 3, berapakah nilai dari f(5)? Analisislah pohon rekursinya.
+A. 8
+B. 13
+C. 28
+D. 11
+E. 19
+ANS: B
+
+15. Diberikan fungsi rekursif: f(n) = f(n-1) + 1*f(n-2) untuk n > 2. Jika f(1) = 2 dan f(2) = 3, berapakah nilai dari f(5)? Analisislah pohon rekursinya.
+A. 13
+B. 8
+C. 20
+D. 32
+E. 10
+ANS: A
+
+16. Diberikan fungsi rekursif: f(n) = f(n-1) + 1*f(n-2) untuk n > 2. Jika f(1) = 2 dan f(2) = 3, berapakah nilai dari f(5)? Analisislah pohon rekursinya.
+A. 8
+B. 13
+C. 20
+D. 25
+E. 10
+ANS: B
+
+17. Diberikan fungsi rekursif: f(n) = f(n-1) + 2*f(n-2) untuk n > 2. Jika f(1) = 3 dan f(2) = 4, berapakah nilai dari f(5)? Analisislah pohon rekursinya.
+A. 46
+B. 18
+C. 53
+D. 38
+E. 36
+ANS: D
+
+18. Diberikan fungsi rekursif: f(n) = f(n-1) + 3*f(n-2) untuk n > 2. Jika f(1) = 3 dan f(2) = 4, berapakah nilai dari f(5)? Analisislah pohon rekursinya.
+A. 64
+B. 25
+C. 71
+D. 59
+E. 81
+ANS: A
+
+19. Diberikan fungsi rekursif: f(n) = f(n-1) + 1*f(n-2) untuk n > 2. Jika f(1) = 1 dan f(2) = 2, berapakah nilai dari f(5)? Analisislah pohon rekursinya.
+A. 8
+B. 21
+C. 6
+D. 10
+E. 5
+ANS: A
+
+20. Diberikan fungsi rekursif: f(n) = f(n-1) + 3*f(n-2) untuk n > 2. Jika f(1) = 2 dan f(2) = 3, berapakah nilai dari f(5)? Analisislah pohon rekursinya.
+A. 18
+B. 42
+C. 64
+D. 45
+E. 54
+ANS: D
+
+21. Budi harus menukarkan uang senilai 45 menggunakan koin [20, 10, 5, 2, 1]. Menggunakan algoritma Greedy, berapa jumlah koin minimum yang dibutuhkan, dan apakah hasilnya selalu optimal untuk himpunan koin ini?
+A. 5 koin, Ya selalu optimal
+B. 3 koin, Ya selalu optimal
+C. 4 koin, Tidak optimal
+D. 2 koin, Ya selalu optimal
+E. 3 koin, Tidak optimal
+ANS: B
+
+22. Budi harus menukarkan uang senilai 30 menggunakan koin [20, 10, 5, 2, 1]. Menggunakan algoritma Greedy, berapa jumlah koin minimum yang dibutuhkan, dan apakah hasilnya selalu optimal untuk himpunan koin ini?
+A. 2 koin, Ya selalu optimal
+B. 3 koin, Tidak optimal
+C. 2 koin, Tidak optimal
+D. 1 koin, Ya selalu optimal
+E. 4 koin, Ya selalu optimal
+ANS: A
+
+23. Budi harus menukarkan uang senilai 41 menggunakan koin [20, 10, 5, 2, 1]. Menggunakan algoritma Greedy, berapa jumlah koin minimum yang dibutuhkan, dan apakah hasilnya selalu optimal untuk himpunan koin ini?
+A. 5 koin, Ya selalu optimal
+B. 3 koin, Ya selalu optimal
+C. 3 koin, Tidak optimal
+D. 2 koin, Ya selalu optimal
+E. 4 koin, Tidak optimal
+ANS: B
+
+24. Budi harus menukarkan uang senilai 45 menggunakan koin [20, 10, 5, 2, 1]. Menggunakan algoritma Greedy, berapa jumlah koin minimum yang dibutuhkan, dan apakah hasilnya selalu optimal untuk himpunan koin ini?
+A. 3 koin, Tidak optimal
+B. 5 koin, Ya selalu optimal
+C. 2 koin, Ya selalu optimal
+D. 4 koin, Tidak optimal
+E. 3 koin, Ya selalu optimal
+ANS: E
+
+25. Budi harus menukarkan uang senilai 30 menggunakan koin [20, 10, 5, 2, 1]. Menggunakan algoritma Greedy, berapa jumlah koin minimum yang dibutuhkan, dan apakah hasilnya selalu optimal untuk himpunan koin ini?
+A. 4 koin, Ya selalu optimal
+B. 3 koin, Tidak optimal
+C. 2 koin, Tidak optimal
+D. 1 koin, Ya selalu optimal
+E. 2 koin, Ya selalu optimal
+ANS: E
+
+26. Budi harus menukarkan uang senilai 40 menggunakan koin [20, 10, 5, 2, 1]. Menggunakan algoritma Greedy, berapa jumlah koin minimum yang dibutuhkan, dan apakah hasilnya selalu optimal untuk himpunan koin ini?
+A. 4 koin, Ya selalu optimal
+B. 2 koin, Tidak optimal
+C. 3 koin, Tidak optimal
+D. 2 koin, Ya selalu optimal
+E. 1 koin, Ya selalu optimal
+ANS: D
+
+27. Budi harus menukarkan uang senilai 32 menggunakan koin [20, 10, 5, 2, 1]. Menggunakan algoritma Greedy, berapa jumlah koin minimum yang dibutuhkan, dan apakah hasilnya selalu optimal untuk himpunan koin ini?
+A. 5 koin, Ya selalu optimal
+B. 3 koin, Ya selalu optimal
+C. 3 koin, Tidak optimal
+D. 4 koin, Tidak optimal
+E. 2 koin, Ya selalu optimal
+ANS: B
+
+28. Budi harus menukarkan uang senilai 27 menggunakan koin [20, 10, 5, 2, 1]. Menggunakan algoritma Greedy, berapa jumlah koin minimum yang dibutuhkan, dan apakah hasilnya selalu optimal untuk himpunan koin ini?
+A. 4 koin, Tidak optimal
+B. 3 koin, Ya selalu optimal
+C. 3 koin, Tidak optimal
+D. 2 koin, Ya selalu optimal
+E. 5 koin, Ya selalu optimal
+ANS: B
+
+29. Budi harus menukarkan uang senilai 29 menggunakan koin [20, 10, 5, 2, 1]. Menggunakan algoritma Greedy, berapa jumlah koin minimum yang dibutuhkan, dan apakah hasilnya selalu optimal untuk himpunan koin ini?
+A. 3 koin, Ya selalu optimal
+B. 4 koin, Tidak optimal
+C. 4 koin, Ya selalu optimal
+D. 5 koin, Tidak optimal
+E. 6 koin, Ya selalu optimal
+ANS: C
+
+30. Budi harus menukarkan uang senilai 31 menggunakan koin [20, 10, 5, 2, 1]. Menggunakan algoritma Greedy, berapa jumlah koin minimum yang dibutuhkan, dan apakah hasilnya selalu optimal untuk himpunan koin ini?
+A. 2 koin, Ya selalu optimal
+B. 5 koin, Ya selalu optimal
+C. 3 koin, Tidak optimal
+D. 4 koin, Tidak optimal
+E. 3 koin, Ya selalu optimal
+ANS: E
+
+31. Seorang petani memanen cabai dari petak kiri atas ke kanan bawah pada grid 2x2. Nilai cabai di grid adalah baris 1: [16, 18], baris 2: [17, 21]. Ia hanya bisa bergerak ke kanan atau ke bawah. Menggunakan pendekatan Pemrograman Dinamis (bottom-up), berapakah total cabai maksimal yang dapat dipanen?
+A. 54
+B. 56
+C. 55
+D. 54
+E. 57
+ANS: C
+
+32. Seorang petani memanen cabai dari petak kiri atas ke kanan bawah pada grid 2x2. Nilai cabai di grid adalah baris 1: [11, 13], baris 2: [12, 16]. Ia hanya bisa bergerak ke kanan atau ke bawah. Menggunakan pendekatan Pemrograman Dinamis (bottom-up), berapakah total cabai maksimal yang dapat dipanen?
+A. 42
+B. 39
+C. 39
+D. 40
+E. 41
+ANS: D
+
+33. Seorang petani memanen cabai dari petak kiri atas ke kanan bawah pada grid 2x2. Nilai cabai di grid adalah baris 1: [10, 12], baris 2: [11, 15]. Ia hanya bisa bergerak ke kanan atau ke bawah. Menggunakan pendekatan Pemrograman Dinamis (bottom-up), berapakah total cabai maksimal yang dapat dipanen?
+A. 36
+B. 36
+C. 39
+D. 38
+E. 37
+ANS: E
+
+34. Seorang petani memanen cabai dari petak kiri atas ke kanan bawah pada grid 2x2. Nilai cabai di grid adalah baris 1: [10, 12], baris 2: [11, 15]. Ia hanya bisa bergerak ke kanan atau ke bawah. Menggunakan pendekatan Pemrograman Dinamis (bottom-up), berapakah total cabai maksimal yang dapat dipanen?
+A. 38
+B. 39
+C. 36
+D. 37
+E. 36
+ANS: D
+
+35. Seorang petani memanen cabai dari petak kiri atas ke kanan bawah pada grid 2x2. Nilai cabai di grid adalah baris 1: [10, 12], baris 2: [11, 15]. Ia hanya bisa bergerak ke kanan atau ke bawah. Menggunakan pendekatan Pemrograman Dinamis (bottom-up), berapakah total cabai maksimal yang dapat dipanen?
+A. 38
+B. 36
+C. 37
+D. 36
+E. 39
+ANS: C
+
+36. Seorang petani memanen cabai dari petak kiri atas ke kanan bawah pada grid 2x2. Nilai cabai di grid adalah baris 1: [14, 16], baris 2: [15, 19]. Ia hanya bisa bergerak ke kanan atau ke bawah. Menggunakan pendekatan Pemrograman Dinamis (bottom-up), berapakah total cabai maksimal yang dapat dipanen?
+A. 49
+B. 48
+C. 51
+D. 50
+E. 48
+ANS: A
+
+37. Seorang petani memanen cabai dari petak kiri atas ke kanan bawah pada grid 2x2. Nilai cabai di grid adalah baris 1: [19, 21], baris 2: [20, 24]. Ia hanya bisa bergerak ke kanan atau ke bawah. Menggunakan pendekatan Pemrograman Dinamis (bottom-up), berapakah total cabai maksimal yang dapat dipanen?
+A. 66
+B. 65
+C. 63
+D. 63
+E. 64
+ANS: E
+
+38. Seorang petani memanen cabai dari petak kiri atas ke kanan bawah pada grid 2x2. Nilai cabai di grid adalah baris 1: [16, 18], baris 2: [17, 21]. Ia hanya bisa bergerak ke kanan atau ke bawah. Menggunakan pendekatan Pemrograman Dinamis (bottom-up), berapakah total cabai maksimal yang dapat dipanen?
+A. 57
+B. 55
+C. 54
+D. 54
+E. 56
+ANS: B
+
+39. Seorang petani memanen cabai dari petak kiri atas ke kanan bawah pada grid 2x2. Nilai cabai di grid adalah baris 1: [15, 17], baris 2: [16, 20]. Ia hanya bisa bergerak ke kanan atau ke bawah. Menggunakan pendekatan Pemrograman Dinamis (bottom-up), berapakah total cabai maksimal yang dapat dipanen?
+A. 54
+B. 51
+C. 53
+D. 52
+E. 51
+ANS: D
+
+40. Seorang petani memanen cabai dari petak kiri atas ke kanan bawah pada grid 2x2. Nilai cabai di grid adalah baris 1: [20, 22], baris 2: [21, 25]. Ia hanya bisa bergerak ke kanan atau ke bawah. Menggunakan pendekatan Pemrograman Dinamis (bottom-up), berapakah total cabai maksimal yang dapat dipanen?
+A. 66
+B. 69
+C. 68
+D. 67
+E. 66
+ANS: D
+
+41. Diberikan sebuah matriks jarak antar kota. Jarak A-B = 11 km, B-C = 18 km, dan C-D = 8 km. Jika sebuah algoritma menelusuri array 2D untuk menghitung rute A -> B -> C -> D -> B, berapakah total jarak yang ditempuh?
+A. 68 km
+B. 63 km
+C. 53 km
+D. 73 km
+E. 37 km
+ANS: B
+
+42. Diberikan sebuah matriks jarak antar kota. Jarak A-B = 12 km, B-C = 19 km, dan C-D = 12 km. Jika sebuah algoritma menelusuri array 2D untuk menghitung rute A -> B -> C -> D -> B, berapakah total jarak yang ditempuh?
+A. 79 km
+B. 84 km
+C. 74 km
+D. 64 km
+E. 43 km
+ANS: C
+
+43. Diberikan sebuah matriks jarak antar kota. Jarak A-B = 10 km, B-C = 25 km, dan C-D = 13 km. Jika sebuah algoritma menelusuri array 2D untuk menghitung rute A -> B -> C -> D -> B, berapakah total jarak yang ditempuh?
+A. 48 km
+B. 91 km
+C. 96 km
+D. 86 km
+E. 76 km
+ANS: D
+
+44. Diberikan sebuah matriks jarak antar kota. Jarak A-B = 16 km, B-C = 22 km, dan C-D = 12 km. Jika sebuah algoritma menelusuri array 2D untuk menghitung rute A -> B -> C -> D -> B, berapakah total jarak yang ditempuh?
+A. 84 km
+B. 89 km
+C. 74 km
+D. 94 km
+E. 50 km
+ANS: A
+
+45. Diberikan sebuah matriks jarak antar kota. Jarak A-B = 16 km, B-C = 15 km, dan C-D = 11 km. Jika sebuah algoritma menelusuri array 2D untuk menghitung rute A -> B -> C -> D -> B, berapakah total jarak yang ditempuh?
+A. 58 km
+B. 68 km
+C. 42 km
+D. 78 km
+E. 73 km
+ANS: B
+
+46. Diberikan sebuah matriks jarak antar kota. Jarak A-B = 18 km, B-C = 25 km, dan C-D = 12 km. Jika sebuah algoritma menelusuri array 2D untuk menghitung rute A -> B -> C -> D -> B, berapakah total jarak yang ditempuh?
+A. 97 km
+B. 82 km
+C. 102 km
+D. 92 km
+E. 55 km
+ANS: D
+
+47. Diberikan sebuah matriks jarak antar kota. Jarak A-B = 10 km, B-C = 24 km, dan C-D = 13 km. Jika sebuah algoritma menelusuri array 2D untuk menghitung rute A -> B -> C -> D -> B, berapakah total jarak yang ditempuh?
+A. 47 km
+B. 94 km
+C. 84 km
+D. 89 km
+E. 74 km
+ANS: C
+
+48. Diberikan sebuah matriks jarak antar kota. Jarak A-B = 19 km, B-C = 22 km, dan C-D = 13 km. Jika sebuah algoritma menelusuri array 2D untuk menghitung rute A -> B -> C -> D -> B, berapakah total jarak yang ditempuh?
+A. 99 km
+B. 94 km
+C. 79 km
+D. 54 km
+E. 89 km
+ANS: E
+
+49. Diberikan sebuah matriks jarak antar kota. Jarak A-B = 12 km, B-C = 16 km, dan C-D = 14 km. Jika sebuah algoritma menelusuri array 2D untuk menghitung rute A -> B -> C -> D -> B, berapakah total jarak yang ditempuh?
+A. 77 km
+B. 72 km
+C. 82 km
+D. 42 km
+E. 62 km
+ANS: B
+
+50. Diberikan sebuah matriks jarak antar kota. Jarak A-B = 19 km, B-C = 18 km, dan C-D = 14 km. Jika sebuah algoritma menelusuri array 2D untuk menghitung rute A -> B -> C -> D -> B, berapakah total jarak yang ditempuh?
+A. 51 km
+B. 93 km
+C. 88 km
+D. 73 km
+E. 83 km
+ANS: E
+
+51. Sebuah program membaca string 'HALO' dan menggeser setiap karakter sebanyak 4 langkah ke depan dalam urutan alfabet. Menganalisis algoritma pemrosesan string tersebut, apa output akhirnya?
+A. GZKN
+B. SPEL
+C. leps
+D. IBMP
+E. LEPS
+ANS: E
+
+52. Sebuah program membaca string 'HALO' dan menggeser setiap karakter sebanyak 3 langkah ke depan dalam urutan alfabet. Menganalisis algoritma pemrosesan string tersebut, apa output akhirnya?
+A. GZKN
+B. RODK
+C. KDOR
+D. IBMP
+E. kdor
+ANS: C
+
+53. Sebuah program membaca string 'HALO' dan menggeser setiap karakter sebanyak 3 langkah ke depan dalam urutan alfabet. Menganalisis algoritma pemrosesan string tersebut, apa output akhirnya?
+A. kdor
+B. KDOR
+C. RODK
+D. IBMP
+E. GZKN
+ANS: B
+
+54. Sebuah program membaca string 'HALO' dan menggeser setiap karakter sebanyak 4 langkah ke depan dalam urutan alfabet. Menganalisis algoritma pemrosesan string tersebut, apa output akhirnya?
+A. leps
+B. IBMP
+C. GZKN
+D. SPEL
+E. LEPS
+ANS: E
+
+55. Sebuah program membaca string 'HALO' dan menggeser setiap karakter sebanyak 5 langkah ke depan dalam urutan alfabet. Menganalisis algoritma pemrosesan string tersebut, apa output akhirnya?
+A. MFQT
+B. TQFM
+C. GZKN
+D. mfqt
+E. IBMP
+ANS: A
+
+56. Sebuah program membaca string 'HALO' dan menggeser setiap karakter sebanyak 2 langkah ke depan dalam urutan alfabet. Menganalisis algoritma pemrosesan string tersebut, apa output akhirnya?
+A. GZKN
+B. jcnq
+C. QNCJ
+D. JCNQ
+E. IBMP
+ANS: D
+
+57. Sebuah program membaca string 'HALO' dan menggeser setiap karakter sebanyak 5 langkah ke depan dalam urutan alfabet. Menganalisis algoritma pemrosesan string tersebut, apa output akhirnya?
+A. GZKN
+B. mfqt
+C. MFQT
+D. TQFM
+E. IBMP
+ANS: C
+
+58. Sebuah program membaca string 'HALO' dan menggeser setiap karakter sebanyak 1 langkah ke depan dalam urutan alfabet. Menganalisis algoritma pemrosesan string tersebut, apa output akhirnya?
+A. IBMP
+B. GZKN
+C. PMBI
+D. IBMP
+E. ibmp
+ANS: A
+
+59. Sebuah program membaca string 'HALO' dan menggeser setiap karakter sebanyak 5 langkah ke depan dalam urutan alfabet. Menganalisis algoritma pemrosesan string tersebut, apa output akhirnya?
+A. GZKN
+B. TQFM
+C. MFQT
+D. IBMP
+E. mfqt
+ANS: C
+
+60. Sebuah program membaca string 'HALO' dan menggeser setiap karakter sebanyak 3 langkah ke depan dalam urutan alfabet. Menganalisis algoritma pemrosesan string tersebut, apa output akhirnya?
+A. RODK
+B. KDOR
+C. GZKN
+D. IBMP
+E. kdor
+ANS: B
+
+61. Boro meluncur dengan ketapel pada kecepatan awal 18 m/s dengan sudut peluncuran 45 derajat. Asumsikan g = 10 m/s^2. Algoritma menghitung jarak horizontal terjauh (R = V^2 * sin(2S) / g). Berapakah hasil keluaran program tersebut?
+A. 27.4 m
+B. 1.8 m
+C. 42.4 m
+D. 32.4 m
+E. 64.8 m
+ANS: D
+
+62. Boro meluncur dengan ketapel pada kecepatan awal 18 m/s dengan sudut peluncuran 45 derajat. Asumsikan g = 10 m/s^2. Algoritma menghitung jarak horizontal terjauh (R = V^2 * sin(2S) / g). Berapakah hasil keluaran program tersebut?
+A. 42.4 m
+B. 27.4 m
+C. 1.8 m
+D. 32.4 m
+E. 64.8 m
+ANS: D
+
+63. Boro meluncur dengan ketapel pada kecepatan awal 30 m/s dengan sudut peluncuran 45 derajat. Asumsikan g = 10 m/s^2. Algoritma menghitung jarak horizontal terjauh (R = V^2 * sin(2S) / g). Berapakah hasil keluaran program tersebut?
+A. 180.0 m
+B. 85.0 m
+C. 90.0 m
+D. 3.0 m
+E. 100.0 m
+ANS: C
+
+64. Boro meluncur dengan ketapel pada kecepatan awal 27 m/s dengan sudut peluncuran 45 derajat. Asumsikan g = 10 m/s^2. Algoritma menghitung jarak horizontal terjauh (R = V^2 * sin(2S) / g). Berapakah hasil keluaran program tersebut?
+A. 2.7 m
+B. 82.9 m
+C. 72.9 m
+D. 145.8 m
+E. 67.9 m
+ANS: C
+
+65. Boro meluncur dengan ketapel pada kecepatan awal 14 m/s dengan sudut peluncuran 45 derajat. Asumsikan g = 10 m/s^2. Algoritma menghitung jarak horizontal terjauh (R = V^2 * sin(2S) / g). Berapakah hasil keluaran program tersebut?
+A. 29.6 m
+B. 14.6 m
+C. 1.4 m
+D. 39.2 m
+E. 19.6 m
+ANS: E
+
+66. Boro meluncur dengan ketapel pada kecepatan awal 23 m/s dengan sudut peluncuran 45 derajat. Asumsikan g = 10 m/s^2. Algoritma menghitung jarak horizontal terjauh (R = V^2 * sin(2S) / g). Berapakah hasil keluaran program tersebut?
+A. 47.9 m
+B. 62.9 m
+C. 52.9 m
+D. 105.8 m
+E. 2.3 m
+ANS: C
+
+67. Boro meluncur dengan ketapel pada kecepatan awal 11 m/s dengan sudut peluncuran 45 derajat. Asumsikan g = 10 m/s^2. Algoritma menghitung jarak horizontal terjauh (R = V^2 * sin(2S) / g). Berapakah hasil keluaran program tersebut?
+A. 7.1 m
+B. 24.2 m
+C. 12.1 m
+D. 1.1 m
+E. 22.1 m
+ANS: C
+
+68. Boro meluncur dengan ketapel pada kecepatan awal 13 m/s dengan sudut peluncuran 45 derajat. Asumsikan g = 10 m/s^2. Algoritma menghitung jarak horizontal terjauh (R = V^2 * sin(2S) / g). Berapakah hasil keluaran program tersebut?
+A. 1.3 m
+B. 33.8 m
+C. 16.9 m
+D. 11.9 m
+E. 26.9 m
+ANS: C
+
+69. Boro meluncur dengan ketapel pada kecepatan awal 17 m/s dengan sudut peluncuran 45 derajat. Asumsikan g = 10 m/s^2. Algoritma menghitung jarak horizontal terjauh (R = V^2 * sin(2S) / g). Berapakah hasil keluaran program tersebut?
+A. 38.9 m
+B. 57.8 m
+C. 23.9 m
+D. 28.9 m
+E. 1.7 m
+ANS: D
+
+70. Boro meluncur dengan ketapel pada kecepatan awal 15 m/s dengan sudut peluncuran 45 derajat. Asumsikan g = 10 m/s^2. Algoritma menghitung jarak horizontal terjauh (R = V^2 * sin(2S) / g). Berapakah hasil keluaran program tersebut?
+A. 1.5 m
+B. 45.0 m
+C. 22.5 m
+D. 17.5 m
+E. 32.5 m
+ANS: C
+
+71. Rumah sakit membutuhkan darah golongan A sebanyak 368 ml. Desa X memiliki 120 ml dan Desa Y memiliki 350 ml. Algoritma optimasi mengevaluasi ketersediaan. Apa keputusan akhir yang dicetak program?
+A. Kebutuhan dipenuhi tanpa surplus
+B. Kebutuhan masih kurang 18 ml
+C. Kebutuhan dipenuhi dengan surplus 102 ml
+D. Kebutuhan masih kurang 102 ml
+E. Kebutuhan dipenuhi dengan surplus 152 ml
+ANS: C
+
+72. Rumah sakit membutuhkan darah golongan A sebanyak 356 ml. Desa X memiliki 125 ml dan Desa Y memiliki 308 ml. Algoritma optimasi mengevaluasi ketersediaan. Apa keputusan akhir yang dicetak program?
+A. Kebutuhan masih kurang 48 ml
+B. Kebutuhan masih kurang 77 ml
+C. Kebutuhan dipenuhi dengan surplus 127 ml
+D. Kebutuhan dipenuhi dengan surplus 77 ml
+E. Kebutuhan dipenuhi tanpa surplus
+ANS: D
+
+73. Rumah sakit membutuhkan darah golongan A sebanyak 306 ml. Desa X memiliki 184 ml dan Desa Y memiliki 274 ml. Algoritma optimasi mengevaluasi ketersediaan. Apa keputusan akhir yang dicetak program?
+A. Kebutuhan dipenuhi dengan surplus 152 ml
+B. Kebutuhan dipenuhi dengan surplus 202 ml
+C. Kebutuhan masih kurang 32 ml
+D. Kebutuhan dipenuhi tanpa surplus
+E. Kebutuhan masih kurang 152 ml
+ANS: A
+
+74. Rumah sakit membutuhkan darah golongan A sebanyak 497 ml. Desa X memiliki 135 ml dan Desa Y memiliki 294 ml. Algoritma optimasi mengevaluasi ketersediaan. Apa keputusan akhir yang dicetak program?
+A. Kebutuhan dipenuhi dengan surplus 68 ml
+B. Kebutuhan darah masih kurang 78 ml
+C. Kebutuhan dipenuhi tanpa surplus
+D. Desa X dan Y mencukupi
+E. Kebutuhan darah masih kurang 68 ml
+ANS: E
+
+75. Rumah sakit membutuhkan darah golongan A sebanyak 307 ml. Desa X memiliki 114 ml dan Desa Y memiliki 283 ml. Algoritma optimasi mengevaluasi ketersediaan. Apa keputusan akhir yang dicetak program?
+A. Kebutuhan dipenuhi dengan surplus 90 ml
+B. Kebutuhan masih kurang 90 ml
+C. Kebutuhan dipenuhi dengan surplus 140 ml
+D. Kebutuhan dipenuhi tanpa surplus
+E. Kebutuhan masih kurang 24 ml
+ANS: A
+
+76. Rumah sakit membutuhkan darah golongan A sebanyak 452 ml. Desa X memiliki 155 ml dan Desa Y memiliki 294 ml. Algoritma optimasi mengevaluasi ketersediaan. Apa keputusan akhir yang dicetak program?
+A. Kebutuhan darah masih kurang 13 ml
+B. Kebutuhan dipenuhi dengan surplus 3 ml
+C. Kebutuhan darah masih kurang 3 ml
+D. Desa X dan Y mencukupi
+E. Kebutuhan dipenuhi tanpa surplus
+ANS: C
+
+77. Rumah sakit membutuhkan darah golongan A sebanyak 398 ml. Desa X memiliki 173 ml dan Desa Y memiliki 274 ml. Algoritma optimasi mengevaluasi ketersediaan. Apa keputusan akhir yang dicetak program?
+A. Kebutuhan masih kurang 49 ml
+B. Kebutuhan masih kurang 124 ml
+C. Kebutuhan dipenuhi dengan surplus 49 ml
+D. Kebutuhan dipenuhi dengan surplus 99 ml
+E. Kebutuhan dipenuhi tanpa surplus
+ANS: C
+
+78. Rumah sakit membutuhkan darah golongan A sebanyak 300 ml. Desa X memiliki 166 ml dan Desa Y memiliki 318 ml. Algoritma optimasi mengevaluasi ketersediaan. Apa keputusan akhir yang dicetak program?
+A. Kebutuhan masih kurang 184 ml
+B. Kebutuhan dipenuhi dengan surplus 234 ml
+C. Kebutuhan dipenuhi dengan surplus 184 ml
+D. Kebutuhan dipenuhi tanpa surplus
+E. Kebutuhan masih kurang 18 ml
+ANS: C
+
+79. Rumah sakit membutuhkan darah golongan A sebanyak 470 ml. Desa X memiliki 142 ml dan Desa Y memiliki 329 ml. Algoritma optimasi mengevaluasi ketersediaan. Apa keputusan akhir yang dicetak program?
+A. Kebutuhan masih kurang 1 ml
+B. Kebutuhan masih kurang 141 ml
+C. Kebutuhan dipenuhi dengan surplus 1 ml
+D. Kebutuhan dipenuhi dengan surplus 51 ml
+E. Kebutuhan dipenuhi tanpa surplus
+ANS: C
+
+80. Rumah sakit membutuhkan darah golongan A sebanyak 429 ml. Desa X memiliki 139 ml dan Desa Y memiliki 335 ml. Algoritma optimasi mengevaluasi ketersediaan. Apa keputusan akhir yang dicetak program?
+A. Kebutuhan dipenuhi dengan surplus 95 ml
+B. Kebutuhan dipenuhi dengan surplus 45 ml
+C. Kebutuhan masih kurang 94 ml
+D. Kebutuhan dipenuhi tanpa surplus
+E. Kebutuhan masih kurang 45 ml
+ANS: B
+
+81. Program menghitung rasio F1 dari persilangan genotipe TtAa x TtAa. Algoritma menghitung probabilitas munculnya fenotipe Tinggi (T_) dan Banyak Anakan (A_). Berapakah output persentase yang dihasilkan program berdasarkan Hukum Mendel?
+A. 75.00%
+B. 6.25%
+C. 18.75%
+D. 25.00%
+E. 56.25%
+ANS: E
+
+82. Program menghitung rasio F1 dari persilangan genotipe TtAa x TtAa. Algoritma menghitung probabilitas munculnya fenotipe Tinggi (T_) dan Banyak Anakan (A_). Berapakah output persentase yang dihasilkan program berdasarkan Hukum Mendel?
+A. 18.75%
+B. 56.25%
+C. 75.00%
+D. 25.00%
+E. 6.25%
+ANS: B
+
+83. Program menghitung rasio F1 dari persilangan genotipe TtAa x TtAa. Algoritma menghitung probabilitas munculnya fenotipe Tinggi (T_) dan Banyak Anakan (A_). Berapakah output persentase yang dihasilkan program berdasarkan Hukum Mendel?
+A. 56.25%
+B. 75.00%
+C. 25.00%
+D. 18.75%
+E. 6.25%
+ANS: A
+
+84. Program menghitung rasio F1 dari persilangan genotipe TtAa x TtAa. Algoritma menghitung probabilitas munculnya fenotipe Tinggi (T_) dan Banyak Anakan (A_). Berapakah output persentase yang dihasilkan program berdasarkan Hukum Mendel?
+A. 18.75%
+B. 56.25%
+C. 75.00%
+D. 6.25%
+E. 25.00%
+ANS: B
+
+85. Program menghitung rasio F1 dari persilangan genotipe TtAa x TtAa. Algoritma menghitung probabilitas munculnya fenotipe Tinggi (T_) dan Banyak Anakan (A_). Berapakah output persentase yang dihasilkan program berdasarkan Hukum Mendel?
+A. 75.00%
+B. 18.75%
+C. 25.00%
+D. 56.25%
+E. 6.25%
+ANS: D
+
+86. Program menghitung rasio F1 dari persilangan genotipe TtAa x TtAa. Algoritma menghitung probabilitas munculnya fenotipe Tinggi (T_) dan Banyak Anakan (A_). Berapakah output persentase yang dihasilkan program berdasarkan Hukum Mendel?
+A. 25.00%
+B. 18.75%
+C. 75.00%
+D. 6.25%
+E. 56.25%
+ANS: E
+
+87. Program menghitung rasio F1 dari persilangan genotipe TtAa x TtAa. Algoritma menghitung probabilitas munculnya fenotipe Tinggi (T_) dan Banyak Anakan (A_). Berapakah output persentase yang dihasilkan program berdasarkan Hukum Mendel?
+A. 56.25%
+B. 25.00%
+C. 6.25%
+D. 75.00%
+E. 18.75%
+ANS: A
+
+88. Program menghitung rasio F1 dari persilangan genotipe TtAa x TtAa. Algoritma menghitung probabilitas munculnya fenotipe Tinggi (T_) dan Banyak Anakan (A_). Berapakah output persentase yang dihasilkan program berdasarkan Hukum Mendel?
+A. 56.25%
+B. 6.25%
+C. 75.00%
+D. 25.00%
+E. 18.75%
+ANS: A
+
+89. Program menghitung rasio F1 dari persilangan genotipe TtAa x TtAa. Algoritma menghitung probabilitas munculnya fenotipe Tinggi (T_) dan Banyak Anakan (A_). Berapakah output persentase yang dihasilkan program berdasarkan Hukum Mendel?
+A. 6.25%
+B. 75.00%
+C. 18.75%
+D. 56.25%
+E. 25.00%
+ANS: D
+
+90. Program menghitung rasio F1 dari persilangan genotipe TtAa x TtAa. Algoritma menghitung probabilitas munculnya fenotipe Tinggi (T_) dan Banyak Anakan (A_). Berapakah output persentase yang dihasilkan program berdasarkan Hukum Mendel?
+A. 75.00%
+B. 56.25%
+C. 6.25%
+D. 25.00%
+E. 18.75%
+ANS: B
+
+91. Program keseimbangan reaksi memproses input: a C3H8 + b O2 -> c CO2 + d H2O. Algoritma mencari nilai koefisien terkecil (a, b, c, d). Nilai apakah yang dicetak oleh program?
+A. a=1, b=3, c=3, d=4
+B. a=2, b=10, c=6, d=8
+C. a=1, b=5, c=4, d=3
+D. a=1, b=5, c=3, d=4
+E. a=3, b=5, c=1, d=4
+ANS: D
+
+92. Program keseimbangan reaksi memproses input: a C3H8 + b O2 -> c CO2 + d H2O. Algoritma mencari nilai koefisien terkecil (a, b, c, d). Nilai apakah yang dicetak oleh program?
+A. a=1, b=5, c=4, d=3
+B. a=2, b=10, c=6, d=8
+C. a=1, b=3, c=3, d=4
+D. a=1, b=5, c=3, d=4
+E. a=3, b=5, c=1, d=4
+ANS: D
+
+93. Program keseimbangan reaksi memproses input: a C3H8 + b O2 -> c CO2 + d H2O. Algoritma mencari nilai koefisien terkecil (a, b, c, d). Nilai apakah yang dicetak oleh program?
+A. a=1, b=5, c=4, d=3
+B. a=1, b=5, c=3, d=4
+C. a=3, b=5, c=1, d=4
+D. a=2, b=10, c=6, d=8
+E. a=1, b=3, c=3, d=4
+ANS: B
+
+94. Program keseimbangan reaksi memproses input: a C3H8 + b O2 -> c CO2 + d H2O. Algoritma mencari nilai koefisien terkecil (a, b, c, d). Nilai apakah yang dicetak oleh program?
+A. a=2, b=10, c=6, d=8
+B. a=3, b=5, c=1, d=4
+C. a=1, b=5, c=4, d=3
+D. a=1, b=5, c=3, d=4
+E. a=1, b=3, c=3, d=4
+ANS: D
+
+95. Program keseimbangan reaksi memproses input: a C3H8 + b O2 -> c CO2 + d H2O. Algoritma mencari nilai koefisien terkecil (a, b, c, d). Nilai apakah yang dicetak oleh program?
+A. a=1, b=5, c=4, d=3
+B. a=3, b=5, c=1, d=4
+C. a=1, b=5, c=3, d=4
+D. a=1, b=3, c=3, d=4
+E. a=2, b=10, c=6, d=8
+ANS: C
+
+96. Program keseimbangan reaksi memproses input: a C3H8 + b O2 -> c CO2 + d H2O. Algoritma mencari nilai koefisien terkecil (a, b, c, d). Nilai apakah yang dicetak oleh program?
+A. a=2, b=10, c=6, d=8
+B. a=1, b=5, c=3, d=4
+C. a=1, b=5, c=4, d=3
+D. a=3, b=5, c=1, d=4
+E. a=1, b=3, c=3, d=4
+ANS: B
+
+97. Program keseimbangan reaksi memproses input: a C3H8 + b O2 -> c CO2 + d H2O. Algoritma mencari nilai koefisien terkecil (a, b, c, d). Nilai apakah yang dicetak oleh program?
+A. a=2, b=10, c=6, d=8
+B. a=1, b=3, c=3, d=4
+C. a=1, b=5, c=4, d=3
+D. a=1, b=5, c=3, d=4
+E. a=3, b=5, c=1, d=4
+ANS: D
+
+98. Program keseimbangan reaksi memproses input: a C3H8 + b O2 -> c CO2 + d H2O. Algoritma mencari nilai koefisien terkecil (a, b, c, d). Nilai apakah yang dicetak oleh program?
+A. a=2, b=10, c=6, d=8
+B. a=1, b=5, c=4, d=3
+C. a=1, b=5, c=3, d=4
+D. a=3, b=5, c=1, d=4
+E. a=1, b=3, c=3, d=4
+ANS: C
+
+99. Program keseimbangan reaksi memproses input: a C3H8 + b O2 -> c CO2 + d H2O. Algoritma mencari nilai koefisien terkecil (a, b, c, d). Nilai apakah yang dicetak oleh program?
+A. a=2, b=10, c=6, d=8
+B. a=1, b=5, c=3, d=4
+C. a=3, b=5, c=1, d=4
+D. a=1, b=5, c=4, d=3
+E. a=1, b=3, c=3, d=4
+ANS: B
+
+100. Program keseimbangan reaksi memproses input: a C3H8 + b O2 -> c CO2 + d H2O. Algoritma mencari nilai koefisien terkecil (a, b, c, d). Nilai apakah yang dicetak oleh program?
+A. a=3, b=5, c=1, d=4
+B. a=2, b=10, c=6, d=8
+C. a=1, b=5, c=3, d=4
+D. a=1, b=5, c=4, d=3
+E. a=1, b=3, c=3, d=4
+ANS: C
+
+101. Pengguna menginginkan sebuah aksi terjadi tepat saat jari menyentuh layar pada sebuah Button di App Inventor, bahkan sebelum jari diangkat. Event handler manakah yang secara logis harus diimplementasikan oleh pemrogram?
+A. Click()
+B. TouchDown()
+C. Initialize()
+D. LongClick()
+E. GotFocus()
+ANS: B
+
+102. Pengguna menginginkan sebuah aksi terjadi tepat saat jari menyentuh layar pada sebuah Button di App Inventor, bahkan sebelum jari diangkat. Event handler manakah yang secara logis harus diimplementasikan oleh pemrogram?
+A. LongClick()
+B. TouchDown()
+C. Initialize()
+D. Click()
+E. GotFocus()
+ANS: B
+
+103. Pengguna menginginkan sebuah aksi terjadi tepat saat jari menyentuh layar pada sebuah Button di App Inventor, bahkan sebelum jari diangkat. Event handler manakah yang secara logis harus diimplementasikan oleh pemrogram?
+A. TouchDown()
+B. Click()
+C. GotFocus()
+D. Initialize()
+E. LongClick()
+ANS: A
+
+104. Pengguna menginginkan sebuah aksi terjadi tepat saat jari menyentuh layar pada sebuah Button di App Inventor, bahkan sebelum jari diangkat. Event handler manakah yang secara logis harus diimplementasikan oleh pemrogram?
+A. Initialize()
+B. GotFocus()
+C. TouchDown()
+D. Click()
+E. LongClick()
+ANS: C
+
+105. Pengguna menginginkan sebuah aksi terjadi tepat saat jari menyentuh layar pada sebuah Button di App Inventor, bahkan sebelum jari diangkat. Event handler manakah yang secara logis harus diimplementasikan oleh pemrogram?
+A. TouchDown()
+B. Click()
+C. LongClick()
+D. Initialize()
+E. GotFocus()
+ANS: A
+
+106. Pengguna menginginkan sebuah aksi terjadi tepat saat jari menyentuh layar pada sebuah Button di App Inventor, bahkan sebelum jari diangkat. Event handler manakah yang secara logis harus diimplementasikan oleh pemrogram?
+A. GotFocus()
+B. Click()
+C. TouchDown()
+D. Initialize()
+E. LongClick()
+ANS: C
+
+107. Pengguna menginginkan sebuah aksi terjadi tepat saat jari menyentuh layar pada sebuah Button di App Inventor, bahkan sebelum jari diangkat. Event handler manakah yang secara logis harus diimplementasikan oleh pemrogram?
+A. GotFocus()
+B. Click()
+C. LongClick()
+D. Initialize()
+E. TouchDown()
+ANS: E
+
+108. Pengguna menginginkan sebuah aksi terjadi tepat saat jari menyentuh layar pada sebuah Button di App Inventor, bahkan sebelum jari diangkat. Event handler manakah yang secara logis harus diimplementasikan oleh pemrogram?
+A. Click()
+B. Initialize()
+C. LongClick()
+D. TouchDown()
+E. GotFocus()
+ANS: D
+
+109. Pengguna menginginkan sebuah aksi terjadi tepat saat jari menyentuh layar pada sebuah Button di App Inventor, bahkan sebelum jari diangkat. Event handler manakah yang secara logis harus diimplementasikan oleh pemrogram?
+A. GotFocus()
+B. Click()
+C. Initialize()
+D. LongClick()
+E. TouchDown()
+ANS: E
+
+110. Pengguna menginginkan sebuah aksi terjadi tepat saat jari menyentuh layar pada sebuah Button di App Inventor, bahkan sebelum jari diangkat. Event handler manakah yang secara logis harus diimplementasikan oleh pemrogram?
+A. TouchDown()
+B. Click()
+C. LongClick()
+D. Initialize()
+E. GotFocus()
+ANS: A
+
+111. Sebuah model AI klasifikasi gambar dilatih dengan 10 gambar kucing dan 100 gambar anjing. Saat diuji dengan gambar kucing baru, model sering keliru mengklasifikasikannya sebagai anjing. Evaluasi fenomena ini: apa penyebab utama dan solusinya?
+A. Resolusi gambar terlalu tinggi; perkecil ukuran gambar.
+B. Model terlalu kompleks; gunakan algoritma sederhana.
+C. Dataset imbalanced; tambahkan lebih banyak gambar kucing pada data latih.
+D. Aplikasi kekurangan memori; hapus data anjing seluruhnya.
+E. Waktu komputasi kurang; tambahkan delay pada aplikasi.
+ANS: C
+
+112. Sebuah model AI klasifikasi gambar dilatih dengan 10 gambar kucing dan 100 gambar anjing. Saat diuji dengan gambar kucing baru, model sering keliru mengklasifikasikannya sebagai anjing. Evaluasi fenomena ini: apa penyebab utama dan solusinya?
+A. Dataset imbalanced; tambahkan lebih banyak gambar kucing pada data latih.
+B. Aplikasi kekurangan memori; hapus data anjing seluruhnya.
+C. Resolusi gambar terlalu tinggi; perkecil ukuran gambar.
+D. Waktu komputasi kurang; tambahkan delay pada aplikasi.
+E. Model terlalu kompleks; gunakan algoritma sederhana.
+ANS: A
+
+113. Sebuah model AI klasifikasi gambar dilatih dengan 10 gambar kucing dan 100 gambar anjing. Saat diuji dengan gambar kucing baru, model sering keliru mengklasifikasikannya sebagai anjing. Evaluasi fenomena ini: apa penyebab utama dan solusinya?
+A. Aplikasi kekurangan memori; hapus data anjing seluruhnya.
+B. Model terlalu kompleks; gunakan algoritma sederhana.
+C. Dataset imbalanced; tambahkan lebih banyak gambar kucing pada data latih.
+D. Resolusi gambar terlalu tinggi; perkecil ukuran gambar.
+E. Waktu komputasi kurang; tambahkan delay pada aplikasi.
+ANS: C
+
+114. Sebuah model AI klasifikasi gambar dilatih dengan 10 gambar kucing dan 100 gambar anjing. Saat diuji dengan gambar kucing baru, model sering keliru mengklasifikasikannya sebagai anjing. Evaluasi fenomena ini: apa penyebab utama dan solusinya?
+A. Dataset imbalanced; tambahkan lebih banyak gambar kucing pada data latih.
+B. Aplikasi kekurangan memori; hapus data anjing seluruhnya.
+C. Resolusi gambar terlalu tinggi; perkecil ukuran gambar.
+D. Waktu komputasi kurang; tambahkan delay pada aplikasi.
+E. Model terlalu kompleks; gunakan algoritma sederhana.
+ANS: A
+
+115. Sebuah model AI klasifikasi gambar dilatih dengan 10 gambar kucing dan 100 gambar anjing. Saat diuji dengan gambar kucing baru, model sering keliru mengklasifikasikannya sebagai anjing. Evaluasi fenomena ini: apa penyebab utama dan solusinya?
+A. Dataset imbalanced; tambahkan lebih banyak gambar kucing pada data latih.
+B. Resolusi gambar terlalu tinggi; perkecil ukuran gambar.
+C. Model terlalu kompleks; gunakan algoritma sederhana.
+D. Waktu komputasi kurang; tambahkan delay pada aplikasi.
+E. Aplikasi kekurangan memori; hapus data anjing seluruhnya.
+ANS: A
+
+116. Sebuah model AI klasifikasi gambar dilatih dengan 10 gambar kucing dan 100 gambar anjing. Saat diuji dengan gambar kucing baru, model sering keliru mengklasifikasikannya sebagai anjing. Evaluasi fenomena ini: apa penyebab utama dan solusinya?
+A. Resolusi gambar terlalu tinggi; perkecil ukuran gambar.
+B. Dataset imbalanced; tambahkan lebih banyak gambar kucing pada data latih.
+C. Model terlalu kompleks; gunakan algoritma sederhana.
+D. Aplikasi kekurangan memori; hapus data anjing seluruhnya.
+E. Waktu komputasi kurang; tambahkan delay pada aplikasi.
+ANS: B
+
+117. Sebuah model AI klasifikasi gambar dilatih dengan 10 gambar kucing dan 100 gambar anjing. Saat diuji dengan gambar kucing baru, model sering keliru mengklasifikasikannya sebagai anjing. Evaluasi fenomena ini: apa penyebab utama dan solusinya?
+A. Dataset imbalanced; tambahkan lebih banyak gambar kucing pada data latih.
+B. Resolusi gambar terlalu tinggi; perkecil ukuran gambar.
+C. Model terlalu kompleks; gunakan algoritma sederhana.
+D. Waktu komputasi kurang; tambahkan delay pada aplikasi.
+E. Aplikasi kekurangan memori; hapus data anjing seluruhnya.
+ANS: A
+
+118. Sebuah model AI klasifikasi gambar dilatih dengan 10 gambar kucing dan 100 gambar anjing. Saat diuji dengan gambar kucing baru, model sering keliru mengklasifikasikannya sebagai anjing. Evaluasi fenomena ini: apa penyebab utama dan solusinya?
+A. Model terlalu kompleks; gunakan algoritma sederhana.
+B. Dataset imbalanced; tambahkan lebih banyak gambar kucing pada data latih.
+C. Aplikasi kekurangan memori; hapus data anjing seluruhnya.
+D. Resolusi gambar terlalu tinggi; perkecil ukuran gambar.
+E. Waktu komputasi kurang; tambahkan delay pada aplikasi.
+ANS: B
+
+119. Sebuah model AI klasifikasi gambar dilatih dengan 10 gambar kucing dan 100 gambar anjing. Saat diuji dengan gambar kucing baru, model sering keliru mengklasifikasikannya sebagai anjing. Evaluasi fenomena ini: apa penyebab utama dan solusinya?
+A. Waktu komputasi kurang; tambahkan delay pada aplikasi.
+B. Resolusi gambar terlalu tinggi; perkecil ukuran gambar.
+C. Dataset imbalanced; tambahkan lebih banyak gambar kucing pada data latih.
+D. Model terlalu kompleks; gunakan algoritma sederhana.
+E. Aplikasi kekurangan memori; hapus data anjing seluruhnya.
+ANS: C
+
+120. Sebuah model AI klasifikasi gambar dilatih dengan 10 gambar kucing dan 100 gambar anjing. Saat diuji dengan gambar kucing baru, model sering keliru mengklasifikasikannya sebagai anjing. Evaluasi fenomena ini: apa penyebab utama dan solusinya?
+A. Model terlalu kompleks; gunakan algoritma sederhana.
+B. Aplikasi kekurangan memori; hapus data anjing seluruhnya.
+C. Waktu komputasi kurang; tambahkan delay pada aplikasi.
+D. Dataset imbalanced; tambahkan lebih banyak gambar kucing pada data latih.
+E. Resolusi gambar terlalu tinggi; perkecil ukuran gambar.
+ANS: D
+    </script>
+
+    <!-- Quiz Logic -->
+    <script>
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let timerInterval;
+        let secondsElapsed = 0;
+
+        // --- Data Parser Logic ---
+        function parseRawData() {
+            const rawText = document.getElementById('raw-data').textContent;
+            const lines = rawText.split('\n');
+            
+            let currentQ = null;
+            let currentOpt = null;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const trimmed = line.trim();
+                if (!trimmed) continue;
+
+                if (trimmed.startsWith('Bab ') || trimmed.startsWith('Soal HOTS')) continue;
+
+                const qMatch = line.match(/^(\d+)\.\s+(.*)/);
+                if (qMatch) {
+                    if (currentQ) questions.push(currentQ);
+                    currentQ = {
+                        num: qMatch[1],
+                        text: qMatch[2],
+                        options: {},
+                        ans: ''
+                    };
+                    currentOpt = null;
+                } else if (line.match(/^[A-E]\.\s+/)) {
+                    const opt = trimmed.substring(0, 1);
+                    const optText = trimmed.substring(2).trim().replace(/^\./, '').trim();
+                    if (currentQ) {
+                        currentQ.options[opt] = optText;
+                        currentOpt = opt;
+                    }
+                } else if (trimmed.startsWith('ANS:')) {
+                    if (currentQ) {
+                        currentQ.ans = trimmed.replace('ANS:', '').trim();
+                    }
+                    currentOpt = null;
+                } else {
+                    if (currentQ) {
+                        if (currentOpt) {
+                            currentQ.options[currentOpt] += '\n' + line;
+                        } else {
+                            currentQ.text += '\n' + line;
+                        }
+                    }
+                }
+            }
+            if (currentQ) questions.push(currentQ);
+        }
+
+        // --- UI Interactions ---
+        const setupScreen = document.getElementById('setup-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const questionContainer = document.getElementById('question-container');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationTitle = document.getElementById('explanation-title');
+        const explanationText = document.getElementById('explanation-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const questionTracker = document.getElementById('question-tracker');
+
+        document.getElementById('start-btn').addEventListener('click', startQuiz);
+        prevBtn.addEventListener('click', () => navigate(-1));
+        nextBtn.addEventListener('click', () => navigate(1));
+        submitBtn.addEventListener('click', finishQuiz);
+        document.getElementById('restart-btn').addEventListener('click', resetQuiz);
+        document.getElementById('view-discussion-btn').addEventListener('click', () => {
+            const container = document.getElementById('discussion-container');
+            container.classList.toggle('hidden');
+            if(!container.classList.contains('hidden')) {
+                container.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function startQuiz() {
+            parseRawData();
+            if (questions.length === 0) {
+                alert("Data soal gagal dimuat!");
+                return;
+            }
+            setupScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            secondsElapsed = 0;
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                document.getElementById('timer').innerText = formatTime(secondsElapsed);
+            }, 1000);
+
+            loadQuestion(0);
+        }
+
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = questions[index];
+            
+            // Update Tracker & Progress
+            questionTracker.innerText = `Soal ${index + 1} / ${questions.length}`;
+            progressBar.style.width = `${((index + 1) / questions.length) * 100}%`;
+
+            // Reset explanation visibility
+            explanationContainer.classList.add('hidden');
+            explanationContainer.classList.remove('animate-slide-down');
+            
+            const ansObj = userAnswers[index];
+            const hasChecked = ansObj && ansObj.checked;
+            const userVal = ansObj ? ansObj.val : null;
+
+            // Set Question Text
+            questionContainer.innerHTML = `
+                <h3 class="text-xl font-semibold text-gray-800 flex items-start">
+                    <span class="mr-3 text-indigo-600 bg-white shadow-sm w-8 h-8 rounded-full flex items-center justify-center shrink-0 border border-indigo-100">${q.num}</span>
+                    <span class="question-text font-medium leading-relaxed pt-1">${escapeHtml(q.text)}</span>
+                </h3>
+            `;
+
+            // Set Options
+            optionsContainer.innerHTML = '';
+            for (const [key, val] of Object.entries(q.options)) {
+                const isSelected = userVal === key ? 'checked' : '';
+                const disabled = hasChecked ? 'disabled' : '';
+                const optionHtml = `
+                    <label class="option-label flex items-start p-4 border-2 border-gray-100 bg-white rounded-xl w-full ${disabled ? 'disabled cursor-not-allowed opacity-75' : ''}">
+                        <input type="radio" name="question${index}" value="${key}" ${isSelected} ${disabled} class="hidden" onchange="selectOption('${key}')">
+                        <div class="option-box flex-shrink-0 w-6 h-6 border-2 border-gray-300 rounded-full flex justify-center items-center mr-4 mt-0.5 transition-colors bg-white">
+                            <div class="w-3 h-3 bg-indigo-600 rounded-full opacity-0 transition-opacity"></div>
+                        </div>
+                        <div class="flex-grow flex items-start">
+                            <span class="font-bold mr-2 text-indigo-600">${key}.</span>
+                            <span class="text-gray-700 question-text mt-0">${escapeHtml(val)}</span>
+                        </div>
+                    </label>
+                `;
+                optionsContainer.insertAdjacentHTML('beforeend', optionHtml);
+            }
+            
+            // Update UI if already checked
+            if (hasChecked) {
+                updateSelectedUI();
+                showExplanation();
+                if (index === questions.length - 1) {
+                    nextBtn.classList.add('hidden');
+                    submitBtn.classList.remove('hidden');
+                } else {
+                    nextBtn.classList.remove('hidden');
+                    submitBtn.classList.add('hidden');
+                }
+            } else {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.add('hidden');
+            }
+
+            prevBtn.disabled = index === 0;
+        }
+
+        // Function dipanggil otomatis SAAT KLIK (menggantikan tombol cek)
+        function selectOption(key) {
+            // Jika sudah terjawab dan dicek, abaikan klik lanjutan
+            if (userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].checked) return;
+            
+            // Simpan jawaban & tandai sudah dicek
+            userAnswers[currentQuestionIndex] = { val: key, checked: true };
+            
+            // Update tampilan opsi yang dipilih dan benar/salah
+            updateSelectedUI();
+            
+            // Langsung tampilkan penjelasan!
+            showExplanation();
+            
+            // Tampilkan tombol selanjutnya
+            if (currentQuestionIndex === questions.length - 1) {
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+            }
+            
+            // Nonaktifkan klik opsi lain
+            const radios = optionsContainer.querySelectorAll('input[type="radio"]');
+            radios.forEach(r => r.disabled = true);
+            const labels = optionsContainer.querySelectorAll('.option-label');
+            labels.forEach(l => l.classList.add('disabled', 'cursor-not-allowed', 'opacity-75'));
+        }
+        
+        function showExplanation() {
+            const q = questions[currentQuestionIndex];
+            const userAns = userAnswers[currentQuestionIndex]?.val;
+            const isCorrect = userAns === q.ans;
+            
+            explanationContainer.classList.remove('hidden');
+            
+            // Force reflow to trigger animation
+            void explanationContainer.offsetWidth;
+            explanationContainer.classList.add('animate-slide-down');
+
+            if (isCorrect) {
+                explanationContainer.className = 'mb-8 p-5 bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl shadow-sm animate-slide-down';
+                explanationTitle.innerHTML = `<div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3"><i class="fas fa-check"></i></div> <span class="text-green-800 text-xl">Tepat Sekali!</span>`;
+                explanationText.innerHTML = `
+                    <div class="mb-2"><span class="font-bold text-gray-600">Jawaban Benar:</span> <span class="font-black text-green-600">${q.ans}</span></div>
+                    <div class="text-gray-700 question-text font-medium">${escapeHtml(q.options[q.ans])}</div>
+                `;
+            } else {
+                explanationContainer.className = 'mb-8 p-5 bg-gradient-to-br from-red-50 to-red-100 border border-red-200 rounded-xl shadow-sm animate-slide-down';
+                explanationTitle.innerHTML = `<div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3"><i class="fas fa-times"></i></div> <span class="text-red-800 text-xl">Kurang Tepat</span>`;
+                explanationText.innerHTML = `
+                    <div class="mb-2"><span class="font-bold text-gray-600">Jawaban Anda:</span> <span class="font-bold text-red-500">${userAns || '-'}</span></div>
+                    <div class="mb-2"><span class="font-bold text-gray-600">Kunci Jawaban yang Benar:</span> <span class="font-black text-green-600">${q.ans}</span></div>
+                    <div class="text-gray-700 question-text font-medium pt-2 border-t border-red-100 mt-2">${escapeHtml(q.options[q.ans])}</div>
+                `;
+            }
+            
+            // Highlight options
+            const labels = optionsContainer.querySelectorAll('.option-label');
+            labels.forEach(label => {
+                const radio = label.querySelector('input');
+                if (radio.value === q.ans) {
+                    label.classList.add('bg-green-50', 'border-green-400');
+                    label.classList.remove('border-gray-100', 'bg-white');
+                    label.querySelector('.option-box').classList.add('border-green-500');
+                } else if (radio.checked && !isCorrect) {
+                    label.classList.add('bg-red-50', 'border-red-400');
+                    label.classList.remove('border-gray-100', 'bg-white');
+                    label.querySelector('.option-box').classList.add('border-red-500', 'bg-red-100');
+                }
+            });
+        }
+
+        function updateSelectedUI() {
+            const labels = optionsContainer.querySelectorAll('.option-label');
+            
+            labels.forEach(label => {
+                const radio = label.querySelector('input');
+                const box = label.querySelector('.option-box');
+                const dot = label.querySelector('.option-box div');
+                
+                // Reset basic styles
+                box.classList.remove('border-indigo-600', 'border-green-500', 'border-red-500', 'bg-red-100');
+                dot.classList.add('opacity-0');
+
+                if (radio.checked) {
+                    box.classList.add('border-indigo-600');
+                    dot.classList.remove('opacity-0');
+                }
+            });
+        }
+
+        function navigate(dir) {
+            const newIndex = currentQuestionIndex + dir;
+            if (newIndex >= 0 && newIndex < questions.length) {
+                loadQuestion(newIndex);
+            }
+        }
+
+        function finishQuiz() {
+            const answeredCount = Object.keys(userAnswers).filter(k => userAnswers[k].checked).length;
+            if (answeredCount < questions.length) {
+                if(!confirm(`Anda baru menjawab ${answeredCount} dari ${questions.length} soal. Yakin ingin mengakhiri kuis dan melihat hasil akhir?`)) {
+                    return;
+                }
+            }
+
+            clearInterval(timerInterval);
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            window.scrollTo(0, 0);
+
+            calculateResult();
+        }
+
+        function calculateResult() {
+            let correct = 0;
+            let discussionHtml = '';
+
+            questions.forEach((q, index) => {
+                const userAnsObj = userAnswers[index];
+                const userAns = userAnsObj ? userAnsObj.val : null;
+                const isCorrect = userAns === q.ans;
+                if (isCorrect) correct++;
+
+                let userAnsText = userAns ? `${userAns}. ${escapeHtml(q.options[userAns])}` : 'Tidak dijawab';
+                let correctAnsText = `${q.ans}. ${escapeHtml(q.options[q.ans])}`;
+
+                discussionHtml += `
+                    <div class="bg-white p-6 rounded-xl border-l-4 shadow-sm mb-4 ${isCorrect ? 'border-l-green-500' : 'border-l-red-500'} relative">
+                        <div class="absolute top-4 right-4 text-3xl opacity-20">
+                            ${isCorrect ? '<i class="fas fa-check-circle text-green-600"></i>' : '<i class="fas fa-times-circle text-red-600"></i>'}
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-3 bg-gray-100 inline-block px-3 py-1 rounded-md text-sm">Soal ${q.num}</h4>
+                        <p class="mb-5 text-gray-700 question-text font-medium">${escapeHtml(q.text)}</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                                <span class="text-xs font-bold text-gray-400 block mb-1 uppercase tracking-wide">Jawaban Anda</span>
+                                <span class="${isCorrect ? 'text-green-700' : 'text-red-600'} font-semibold question-text">${userAnsText}</span>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg border border-green-100">
+                                <span class="text-xs font-bold text-green-500 block mb-1 uppercase tracking-wide">Kunci Jawaban</span>
+                                <span class="text-green-700 font-semibold question-text">${correctAnsText}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const incorrect = questions.length - correct;
+            const score = Math.round((correct / questions.length) * 100);
+
+            // Animate numbers
+            animateValue("correct-count", 0, correct, 1000);
+            animateValue("incorrect-count", 0, incorrect, 1000);
+            animateValue("final-score", 0, score, 1500);
+            
+            document.getElementById('discussion-container').innerHTML += discussionHtml;
+        }
+
+        function animateValue(id, start, end, duration) {
+            if (start === end) {
+                document.getElementById(id).innerText = end;
+                return;
+            }
+            let range = end - start;
+            let current = start;
+            let increment = end > start ? 1 : -1;
+            let stepTime = Math.abs(Math.floor(duration / range));
+            let obj = document.getElementById(id);
+            let timer = setInterval(function() {
+                current += increment;
+                obj.innerText = current;
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        function resetQuiz() {
+            userAnswers = {};
+            currentQuestionIndex = 0;
+            resultScreen.classList.add('hidden');
+            
+            // Clean up discussions to prevent duplication
+            const discussionContainer = document.getElementById('discussion-container');
+            discussionContainer.classList.add('hidden');
+            discussionContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                    <i class="fas fa-tasks text-indigo-500 mr-3"></i> Detail Jawaban Anda
+                </h3>
+            `;
+            startQuiz();
+        }
+
+        function escapeHtml(unsafe) {
+            return (unsafe || "").replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>

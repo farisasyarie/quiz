@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz HOTS Informatika Kelas XII</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0fdfa; }
+        .question-text { white-space: pre-wrap; word-wrap: break-word; }
+        .option-label { cursor: pointer; transition: all 0.3s ease; }
+        .option-label:hover:not(.disabled) { background-color: #ccfbf1; transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        input[type="radio"]:checked + .option-box { border-color: #0d9488; background-color: #ccfbf1; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #99f6e4; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #5eead4; }
+
+        /* Animation for explanation */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-down { animation: slideDown 0.4s ease forwards; }
+    </style>
+</head>
+<body class="text-gray-800 h-screen flex flex-col">
+
+    <!-- Header & Illustration -->
+    <header class="bg-gradient-to-r from-teal-600 to-emerald-700 text-white p-6 shadow-lg shrink-0 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between relative z-10">
+            <div class="mb-4 md:mb-0">
+                <div class="inline-block bg-white text-teal-700 text-xs font-bold px-3 py-1 rounded-full mb-3 shadow">
+                    SOAL INF-XII HOTS
+                </div>
+                <h1 class="text-3xl font-extrabold mb-2 tracking-tight">Quiz Interaktif Informatika</h1>
+                <p class="text-teal-100 text-lg">120 Pertanyaan Pilihan Ganda</p>
+            </div>
+            <!-- Illustration SVG -->
+            <div class="hidden md:block w-40 h-40">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-teal-200 w-full h-full opacity-90 drop-shadow-md">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                    <path d="M22 10H2"></path>
+                    <path d="M7 14h.01"></path>
+                    <path d="M12 14h.01"></path>
+                    <path d="M17 14h.01"></path>
+                </svg>
+            </div>
+        </div>
+        <!-- Decorative background shapes -->
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-48 h-48 bg-emerald-400 opacity-20 rounded-full blur-2xl"></div>
+    </header>
+
+    <!-- Main Quiz Area -->
+    <main class="flex-grow overflow-y-auto p-4 md:p-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-10 relative border border-gray-100">
+            
+            <!-- Setup Screen -->
+            <div id="setup-screen" class="text-center py-12">
+                <div class="bg-teal-50 w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6 shadow-inner">
+                    <i class="fas fa-database text-5xl text-teal-600"></i>
+                </div>
+                <h2 class="text-3xl font-bold mb-4 text-gray-800">Uji Pengetahuan Informatika Anda!</h2>
+                <p class="text-gray-600 mb-8 max-w-lg mx-auto text-lg">
+                    Kuis ini mencakup 120 soal materi Informatika Kelas XII terkait Data, Algoritma, dan Struktur Data.
+                    <strong>Jawaban yang benar dan penjelasannya akan langsung muncul saat kamu memilih opsi.</strong>
+                </p>
+                <button id="start-btn" class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-teal-300/50">
+                    <i class="fas fa-play mr-2"></i> Mulai Quiz Sekarang
+                </button>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center space-x-2 text-sm font-bold text-gray-600 bg-gray-100 px-4 py-2 rounded-lg border border-gray-200">
+                        <i class="fas fa-flag-checkered text-teal-600"></i>
+                        <span id="question-tracker">Soal 1 / 120</span>
+                    </div>
+                    <div class="text-sm font-bold text-teal-700 bg-teal-50 px-4 py-2 rounded-lg border border-teal-100 shadow-sm">
+                        <i class="fas fa-stopwatch mr-1"></i> <span id="timer">00:00</span>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 rounded-full h-3 mb-8 shadow-inner overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-teal-500 to-emerald-500 h-full transition-all duration-500 rounded-full" style="width: 0%"></div>
+                </div>
+
+                <div id="question-container" class="mb-8 p-6 bg-teal-50/50 rounded-xl border border-teal-100">
+                    <!-- Question will be injected here -->
+                </div>
+
+                <div id="options-container" class="space-y-4 mb-8">
+                    <!-- Options will be injected here -->
+                </div>
+
+                <!-- Explanation Area (Hidden by default) -->
+                <div id="explanation-container" class="hidden mb-8 p-5 rounded-xl shadow-sm border animate-slide-down">
+                    <h4 class="font-bold mb-3 flex items-center text-lg" id="explanation-title">
+                        <!-- Icon and Title injected dynamically -->
+                    </h4>
+                    <div id="explanation-text" class="text-gray-700 leading-relaxed text-md bg-white p-4 rounded-lg border border-white/50 shadow-inner">
+                        <!-- Explanation injected dynamically -->
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-center pt-6 border-t border-gray-200 mt-4">
+                    <button id="prev-btn" class="w-full sm:w-auto mb-3 sm:mb-0 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm">
+                        <i class="fas fa-arrow-left mr-2"></i> Sebelumnya
+                    </button>
+
+                    <button id="next-btn" class="hidden w-full sm:w-auto px-8 py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    
+                    <button id="submit-btn" class="hidden w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg">
+                        Selesaikan & Lihat Hasil <i class="fas fa-trophy ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result Screen -->
+            <div id="result-screen" class="hidden py-10">
+                <div class="text-center mb-10">
+                    <div class="relative inline-block">
+                        <i class="fas fa-award text-8xl text-yellow-400 mb-4 drop-shadow-lg"></i>
+                        <i class="fas fa-star absolute top-0 right-0 text-3xl text-orange-400 animate-pulse"></i>
+                    </div>
+                    <h2 class="text-4xl font-extrabold mb-3 text-gray-800">Luar Biasa!</h2>
+                    <p class="text-gray-600 text-lg">Kamu telah menyelesaikan kuis ini.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-center">
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl border border-green-200 shadow-sm transform transition hover:scale-105">
+                        <div class="text-green-600 font-bold text-lg mb-2 uppercase tracking-wide">Jawaban Benar</div>
+                        <div id="correct-count" class="text-5xl font-black text-green-700">0</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-2xl border border-red-200 shadow-sm transform transition hover:scale-105">
+                        <div class="text-red-600 font-bold text-lg mb-2 uppercase tracking-wide">Jawaban Salah</div>
+                        <div id="incorrect-count" class="text-5xl font-black text-red-700">0</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-2xl border border-teal-200 shadow-sm transform transition hover:scale-105">
+                        <div class="text-teal-600 font-bold text-lg mb-2 uppercase tracking-wide">Skor Akurasi</div>
+                        <div class="flex justify-center items-baseline">
+                            <span id="final-score" class="text-5xl font-black text-teal-700">0</span>
+                            <span class="text-2xl font-bold text-teal-500 ml-1">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                    <button id="view-discussion-btn" class="bg-white border-2 border-teal-600 text-teal-700 font-bold py-3 px-8 rounded-xl transition-colors hover:bg-teal-50 shadow-sm">
+                        <i class="fas fa-book-open mr-2"></i> Rekap Pembahasan
+                    </button>
+                    <button id="restart-btn" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-md">
+                        <i class="fas fa-redo mr-2"></i> Ulangi Kuis
+                    </button>
+                </div>
+
+                <div id="discussion-container" class="hidden space-y-6 mt-12 border-t border-gray-200 pt-10">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                        <i class="fas fa-tasks text-teal-600 mr-3"></i> Detail Jawaban Anda
+                    </h3>
+                    <!-- Discussion will be injected here -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Raw Data Injection -->
+    <script id="raw-data" type="text/template">
+1. Seorang analis menemukan dataset medis di forum terbuka tanpa lisensi jelas. Berdasarkan etika dan hukum privasi, apa tindakan paling logis sebelum melatih AI dengan data ini?
+A. Langsung digunakan karena data terbuka di internet
+B. Menghapus nama kolom agar terlihat anonim
+C. Mencari sumber asli untuk memverifikasi lisensi dan persetujuan privasi
+D. Menjual data tersebut ke perusahaan farmasi
+E. Mengunduh dan menyimpan di server lokal tanpa diproses
+ANS: C
+
+2. Pemerintah merilis data kemiskinan dengan format PDF. Budi menggunakan teknik scraping untuk mengekstraknya. Mengapa tindakan Budi ini kurang optimal secara komputasional dibandingkan menggunakan API?
+A. PDF lebih rentan virus daripada API
+B. Scraping melanggar hak cipta pemerintah
+C. API memberikan data terstruktur (JSON/CSV) yang siap diolah
+D. API membutuhkan biaya langganan yang mahal
+E. Scraping membuat komputer cepat rusak
+ANS: C
+
+3. Sebuah situs web e-commerce memiliki file robots.txt yang diatur 'Disallow: /harga'. Jika seorang kompetitor tetap melakukan web scraping pada halaman harga, pelanggaran apa yang terjadi?
+A. Pelanggaran privasi UU PDP
+B. Pelanggaran etika akses data otomatis (web scraping)
+C. Pelanggaran hak cipta desain web
+D. Pelanggaran lisensi Creative Commons
+E. Tidak ada pelanggaran, internet adalah ruang publik
+ANS: B
+
+4. Lisensi CC-BY-NC-SA pada sebuah dataset gambar berarti...
+A. Bebas digunakan untuk komersial asalkan menyebutkan sumber
+B. Hanya boleh digunakan untuk proyek non-komersial, wajib atribusi, dan turunan dilisensikan sama
+C. Data sepenuhnya milik publik (Public Domain)
+D. Harus membayar royalti sebelum digunakan
+E. Hanya boleh dilihat, tidak boleh diunduh
+ANS: B
+
+5. Saat melakukan Data Cleaning pada data sensus, ditemukan 15% data umur bernilai 'null'. Jika data yang bernilai null langsung dihapus, dampak analitis terburuknya adalah...
+A. Ukuran file menjadi lebih kecil
+B. Mempercepat proses komputasi komputer
+C. Terjadi bias demografi jika yang tidak mengisi umur berasal dari kelompok tertentu
+D. Menghasilkan model regresi yang lebih akurat
+E. Tidak ada dampak yang signifikan
+ANS: C
+
+6. Anda menemukan dataset dengan format tanggal yang bervariasi (DD/MM/YY dan MM/DD/YY). Langkah pertama yang paling krusial sebelum melakukan analisis deret waktu adalah...
+A. Menghapus semua baris yang memuat tanggal
+B. Melakukan standarisasi format menggunakan script otomatis
+C. Mengubah tanggal menjadi teks biasa (String)
+D. Mencetak data ke kertas untuk diverifikasi manual
+E. Menyimpan data di Cloud
+ANS: B
+
+7. Kredibilitas suatu sumber data terbuka (Open Data) paling baik dievaluasi melalui...
+A. Jumlah ukuran file yang diunduh (MB/GB)
+B. Desain grafis situs web penyedianya
+C. Adanya dokumentasi asal-usul (provenance) dan metodologi pengumpulan
+D. Banyaknya iklan pada portal tersebut
+E. Jumlah baris data (rows) dalam tabel
+ANS: C
+
+8. Dalam konsep Big Data, kecepatan perubahan data dari waktu ke waktu disebut sebagai...
+A. Volume
+B. Variety
+C. Velocity
+D. Veracity
+E. Value
+ANS: C
+
+9. Satu Data Indonesia merupakan inisiatif pemerintah untuk...
+A. Membatasi akses masyarakat terhadap internet
+B. Menjual data penduduk ke luar negeri
+C. Menyatukan dan menstandarisasi tata kelola data pemerintah agar terpadu dan terbuka
+D. Membuat media sosial lokal
+E. Menghapus data-data lama di kementerian
+ANS: C
+
+10. Penggunaan Application Programming Interface (API) publik secara legal biasanya dibatasi oleh 'Rate Limit'. Tujuan utama pembatasan ini secara teknis adalah...
+A. Mencegah pengguna membagikan data ke orang lain
+B. Menghemat kapasitas penyimpanan di hardisk pengguna
+C. Mencegah beban berlebih pada server penyedia data (DDoS/Overload)
+D. Memaksa pengguna untuk membayar lebih mahal
+E. Mengenkripsi data secara acak
+ANS: C
+
+11. Manakah dari berikut ini yang BUKAN merupakan contoh format file Open Data yang baik untuk diolah komputer (machine-readable)?
+A. CSV
+B. JSON
+C. XML
+D. PDF hasil scan gambar
+E. XLSX
+ANS: D
+
+12. Jika sebuah portal berita mempublikasikan data hasil polling Twitter sebagai representasi opini seluruh rakyat Indonesia, mengapa data ini bias secara metodologi?
+A. Twitter mudah di-hack
+B. Hanya mewakili demografi pengguna Twitter yang mengikuti polling tersebut
+C. Format data Twitter tidak bisa diekspor ke Excel
+D. Jumlah karakternya dibatasi 280 huruf
+E. Tidak memiliki lisensi Creative Commons
+ANS: B
+
+13. Apa perbedaan mendasar antara Data Terbuka (Open Data) dan Data Pribadi (Personal Data)?
+A. Data terbuka berbayar, data pribadi gratis
+B. Data terbuka boleh diakses, dimodifikasi, dan dibagikan siapa saja; data pribadi dilindungi hukum privasi
+C. Data terbuka selalu berformat CSV, data pribadi PDF
+D. Data terbuka hanya milik pemerintah, data pribadi milik swasta
+E. Tidak ada perbedaan
+ANS: B
+
+14. Seorang siswa mempublikasikan dataset curah hujan hasil pengukuran alat pribadinya dengan lisensi CC0 (Public Domain). Ini berarti...
+A. Siswa tetap menuntut royalti jika digunakan
+B. Data tidak boleh diubah oleh siapapun
+C. Siapa saja bebas menggunakan, mengubah, dan membagikan tanpa perlu izin atau atribusi
+D. Siswa berhak mencabut akses sewaktu-waktu
+E. Data tersebut ilegal
+ANS: C
+
+15. Proses 'Data Provenance' sangat penting dalam pengambilan keputusan bisnis karena...
+A. Membuat tampilan grafik lebih menarik
+B. Memastikan data berasal dari sumber yang terpercaya dan tidak dimanipulasi di tengah jalan
+C. Mengurangi ukuran file database
+D. Mengubah data menjadi kode biner
+E. Mempercepat proses download di internet
+ANS: B
+
+16. Mengapa membersihkan data (Data Cleaning) memakan waktu paling lama dalam siklus analisis data?
+A. Karena komputer lambat membaca teks
+B. Karena analis sering lupa menyimpan file
+C. Karena data dunia nyata sering kotor, inkonsisten, duplikat, dan memiliki nilai kosong yang harus ditangani hati-hati
+D. Karena harus menunggu persetujuan pemerintah
+E. Karena butuh koneksi internet yang super cepat
+ANS: C
+
+17. Berikut ini yang termasuk praktik Web Scraping yang etis adalah...
+A. Melakukan request ribuan kali per detik hingga server lambat
+B. Mengabaikan file robots.txt
+C. Menjual kembali data yang memiliki lisensi CC-NC
+D. Memberikan jeda (delay) antar request dan menghormati robots.txt
+E. Mengambil data kartu kredit dari situs yang tidak aman
+ANS: D
+
+18. Kaggle adalah salah satu repositori publik terpopuler. Fungsi utama platform seperti Kaggle bagi ilmuwan data adalah...
+A. Membeli hardware komputer
+B. Bermain game online
+C. Mencari dataset, berbagi kode, dan berkolaborasi dalam proyek pemodelan
+D. Menyimpan foto pribadi
+E. Menulis dokumen Word
+ANS: C
+
+19. Dalam UU Perlindungan Data Pribadi, yang dimaksud dengan 'Persetujuan Eksplisit' (Explicit Consent) saat mengumpulkan data pengguna adalah...
+A. Pengguna tidak membaca tapi mencentang kotak secara otomatis
+B. Data diambil diam-diam saat pengguna membuka aplikasi
+C. Pengguna diberikan informasi jelas tentang tujuan penggunaan data dan secara sadar menyetujuinya
+D. Pengguna harus membayar untuk melindungi datanya
+E. Data diambil dari perangkat teman pengguna
+ANS: C
+
+20. Jika sebuah aplikasi meminta akses ke lokasi GPS Anda secara real-time untuk fitur kalkulator biasa, prinsip tata kelola data apa yang dilanggar?
+A. Data Minimization (pengumpulan data seperlunya sesuai fungsi)
+B. Data Visualization
+C. Data Provenance
+D. Data Velocity
+E. Data Scraping
+ANS: A
+
+21. Saat menangani outlier (pencilan) ekstrem pada dataset pendapatan penduduk, pendekatan statistik yang paling tepat agar rata-rata tidak terdistorsi adalah...
+A. Menggunakan nilai Mean (Rata-rata)
+B. Menggunakan nilai Median (Nilai Tengah)
+C. Menghapus semua data yang di bawah rata-rata
+D. Menduplikasi data yang nilainya kecil
+E. Mengubah semua data menjadi angka 0
+ANS: B
+
+22. Penggunaan lisensi CC-BY-ND melarang pengguna untuk...
+A. Menjual dataset
+B. Menyebutkan nama pembuat
+C. Mendistribusikan dataset
+D. Membuat turunan atau modifikasi dari dataset tersebut
+E. Membagikan untuk keperluan pendidikan
+ANS: D
+
+23. Dalam proses akuisisi data otomatis, jika server penyedia data tidak memiliki API, solusi pemrograman komputasional yang bisa dilakukan adalah...
+A. Memasukkan data manual satu per satu
+B. Mengirim surat fisik ke penyedia data
+C. Membangun program Web Scraper untuk mengekstrak elemen HTML
+D. Menghapus proyek analisis data
+E. Meretas database penyedia
+ANS: C
+
+24. Manakah karakteristik utama dari data berformat JSON yang membuatnya populer untuk API?
+A. Berisi gambar resolusi tinggi
+B. Terstruktur menggunakan format key-value yang ringan dan mudah dibaca manusia serta mesin
+C. Hanya bisa dibuka di Microsoft Excel
+D. Mampu menyimpan virus komputer secara otomatis
+E. Dienskripsi dengan sandi tingkat militer
+ANS: B
+
+25. Sebuah portal Open Data pemerintah tidak pernah diperbarui selama 5 tahun terakhir. Kriteria kredibilitas apa yang gagal dipenuhi?
+A. Format data
+B. Aksesibilitas
+C. Kebaruan waktu (Timeliness / Currency)
+D. Desain antarmuka
+E. Harga data
+ANS: C
+
+26. Apa risiko utama menggunakan dataset yang tidak seimbang (imbalanced data) untuk prediksi, misalnya 99% data sehat dan 1% data sakit?
+A. Komputer akan hang
+B. Model akan cenderung selalu memprediksi 'sehat' sehingga gagal mendeteksi yang 'sakit'
+C. Ukuran file menjadi tidak stabil
+D. Data tidak bisa divisualisasikan
+E. Model akan memprediksi 100% sakit
+ANS: B
+
+27. Dalam pengenalan ekosistem digital, yang dimaksud dengan jejak digital pasif adalah...
+A. Status yang sengaja diposting pengguna
+B. Komentar di blog
+C. Data lokasi dan alamat IP yang terekam sistem tanpa interaksi sadar pengguna
+D. Email yang dikirim
+E. Video yang diunggah
+ANS: C
+
+28. Ketika mengunduh dataset secara manual, penting untuk menyimpan 'metadata'. Apa itu metadata?
+A. Data tentang virus dalam file
+B. Data yang menjelaskan informasi tentang data tersebut (seperti sumber, tanggal, deskripsi kolom)
+C. Data gambar dari penulis
+D. Program untuk membaca data
+E. Password untuk membuka file
+ANS: B
+
+29. Mendeteksi bias pada dataset evaluasi kinerja karyawan yang hanya berisi data karyawan pria akan menyebabkan AI menjadi...
+A. Sangat akurat untuk semua gender
+B. Mampu memperbaiki kelemahannya sendiri
+C. Diskriminatif karena tidak mengenali pola kinerja karyawan wanita (Bias Keterwakilan)
+D. Berjalan lebih lambat
+E. Memiliki nilai visualisasi yang tinggi
+ANS: C
+
+30. Proyek kurasi katalog data mengharuskan validasi lisensi. Mengapa mencampur data CC-BY-NC dan data Proprietary untuk dijual sebagai satu produk adalah pelanggaran?
+A. Karena data CC-BY-NC bebas dijual
+B. Karena data Proprietary (Berhak Cipta Penuh) tidak boleh digabung dengan apapun
+C. Karena lisensi CC-BY-NC secara tegas melarang penggunaan komersial (dijual)
+D. Karena format file pasti berbeda
+E. Karena kurasi data tidak diizinkan hukum
+ANS: C
+
+31. Aktivitas 'Unplugged' (tanpa komputer) dalam analisis data sering menggunakan kartu klasifikasi. Tujuannya adalah...
+A. Menghemat biaya listrik sekolah
+B. Melatih nalar logika penyaringan dan pengelompokan data sebelum diterapkan di perangkat lunak
+C. Menghindari radiasi layar monitor
+D. Menggantikan fungsi RAM
+E. Agar bisa dibawa pulang
+ANS: B
+
+32. Dalam spreadsheet, terdapat fungsi agregasi. Fungsi apa yang paling tepat untuk menghitung jumlah transaksi unik (bukan nilai transaksinya) pada kolom nama pelanggan?
+A. SUM
+B. AVERAGE
+C. COUNT / COUNTA
+D. MEDIAN
+E. MIN
+ANS: C
+
+33. Anda memiliki data pergerakan harga saham harian selama 1 tahun. Visualisasi terbaik untuk menunjukkan tren naik-turun seiring waktu adalah...
+A. Pie Chart
+B. Bar Chart
+C. Line Chart (Grafik Garis)
+D. Scatter Plot
+E. Tree Map
+ANS: C
+
+34. Pada sebuah grafik batang yang dimuat di koran, sumbu Y (jumlah) dimulai dari angka 50, bukan 0, sehingga perbedaan antar batang terlihat sangat ekstrem. Ini adalah contoh...
+A. Exploratory Data Analysis
+B. Penyesatan visual (Misleading Visualization)
+C. Standarisasi grafik internasional
+D. Visualisasi paling efektif
+E. Data Cleaning
+ANS: B
+
+35. Exploratory Data Analysis (EDA) dilakukan sebelum membuat model prediksi. Tujuan utama langkah ini adalah...
+A. Membuat desain antarmuka aplikasi
+B. Menemukan pola, anomali, tren, dan menguji hipotesis secara awal pada data
+C. Mengenkripsi data pelanggan
+D. Menghapus semua file lama
+E. Mengubah data teks menjadi gambar
+ANS: B
+
+36. Dalam matriks keputusan pembelian laptop, Bobot CPU adalah 5, RAM 4, dan Baterai 3. Laptop X mendapat nilai CPU 8, RAM 7, Baterai 9. Total skor tertimbangnya adalah...
+A. 24
+B. 95 (40 + 28 + 27)
+C. 40
+D. 27
+E. 84
+ANS: B
+
+37. Regresi linier sederhana berusaha menarik 'trendline' di antara titik-titik data (Scatter Plot). Garis tersebut merepresentasikan...
+A. Jarak terjauh antar titik
+B. Garis yang meminimalkan total error (jarak) dari semua titik ke garis tersebut
+C. Garis acak yang menghubungkan awal dan akhir data
+D. Garis melingkar yang mengelilingi data
+E. Batas bawah data
+ANS: B
+
+38. Jika Anda melihat Scatter Plot (Diagram Pencar) yang titik-titiknya membentuk garis lurus miring dari kiri bawah ke kanan atas, ini menunjukkan...
+A. Korelasi negatif kuat
+B. Tidak ada korelasi
+C. Korelasi positif kuat
+D. Terjadi error pada dataset
+E. Data bersifat kategorial
+ANS: C
+
+39. Penggunaan algoritma Decision Tree (Pohon Keputusan) pada klasifikasi sangat populer karena...
+A. Sangat rumit dan susah dibaca
+B. Meniru cara komputer memproses biner
+C. Alur keputusannya sangat transparan dan mudah dipahami manusia (If-Then rules)
+D. Selalu memberikan akurasi 100%
+E. Tidak memerlukan data historis
+ANS: C
+
+40. Dalam mengevaluasi prediksi spam email, 'False Positive' terjadi ketika...
+A. Email spam masuk ke folder inbox
+B. Email spam masuk ke folder spam (benar)
+C. Email penting/valid salah ditandai sebagai spam
+D. Sistem gagal memuat email
+E. Email tidak memiliki lampiran
+ANS: C
+
+41. Mana yang lebih berisiko bagi sistem deteksi kanker otomatis: False Positive atau False Negative?
+A. False Positive, karena pasien panik
+B. False Negative, karena pasien sakit dibilang sehat sehingga tidak dirawat dan bisa fatal
+C. Keduanya sama sekali tidak berisiko
+D. False Positive, karena biayanya mahal
+E. Tergantung ukuran komputer yang dipakai
+ANS: B
+
+42. Anda melakukan prediksi (forecasting) menggunakan Regresi Linier. Data historis suhu ruangan dari jam 6 pagi hingga 12 siang naik secara linier. Memprediksi bahwa jam 12 malam suhu akan mencapai 100 derajat celcius merupakan kesalahan yang disebut...
+A. Interpolasi yang baik
+B. Ekstrapolasi buta tanpa mempertimbangkan konteks dunia nyata
+C. Korelasi negatif
+D. Data Cleaning
+E. Underfitting
+ANS: B
+
+43. Metrik yang paling sering digunakan untuk mengukur kesalahan pada regresi (jarak prediksi dengan nilai asli) adalah...
+A. Akurasi (Accuracy)
+B. F1-Score
+C. Mean Squared Error (MSE) / Root Mean Squared Error (RMSE)
+D. Confusion Matrix
+E. Precision
+ANS: C
+
+44. K-Nearest Neighbors (KNN) mengklasifikasikan data baru dengan cara...
+A. Menarik garis lurus di tengah
+B. Memeriksa mayoritas kategori dari sejumlah 'K' tetangga terdekatnya berdasarkan jarak fitur
+C. Membangun pohon keputusan
+D. Memisahkan data menjadi file PDF
+E. Menjumlahkan semua nilainya
+ANS: B
+
+45. Dalam 'Data Storytelling', elemen visual (grafik) dipadukan dengan narasi untuk...
+A. Membuat file presentasi menjadi lebih besar
+B. Menyembunyikan data yang salah
+C. Mengomunikasikan wawasan dan rekomendasi agar audiens mudah memahami konteks bisnis
+D. Membuat program komputer baru
+E. Menghapus outlier
+ANS: C
+
+46. Pengambilan keputusan berdasar intuisi semata seringkali bias. Pendekatan Data-Driven Decision Making (DDDM) mengurangi bias dengan cara...
+A. Menggunakan nilai acak
+B. Mendasarkan keputusan pada bukti historis dan probabilitas kuantitatif matematis
+C. Mengikuti pendapat orang paling tua
+D. Hanya menggunakan data dari media sosial
+E. Menunggu instruksi pemerintah
+ANS: B
+
+47. Box Plot (Diagram Kotak Garis) sangat efektif digunakan khusus untuk visualisasi...
+A. Koneksi jaringan komputer
+B. Penyebaran data, letak median, kuartil, dan mendeteksi outlier (pencilan)
+C. Lokasi geografis jalan raya
+D. Perbandingan total penjualan per bulan
+E. Pergerakan persentase secara melingkar
+ANS: B
+
+48. Ketika melakukan EDA, diketahui variabel A (jumlah penjaga pantai) berbanding lurus dengan variabel B (jumlah orang tenggelam). Menyimpulkan penjaga pantai menyebabkan orang tenggelam adalah kesalahan...
+A. Menyamakan Korelasi dengan Kausalitas (Sebab-Akibat)
+B. Overfitting model
+C. Kesalahan visualisasi Bar Chart
+D. Menghapus missing value
+E. Mengabaikan lisensi data
+ANS: A
+
+49. Dalam sebuah proyek klasifikasi bunga, komputer menganalisis ciri kelopak dan benang sari. Ciri-ciri tersebut dalam machine learning disebut...
+A. Label
+B. Target
+C. Fitur (Features / Atribut)
+D. Class
+E. Output
+ANS: C
+
+50. Apa fungsi dari 'Weight' (Bobot) dalam Matriks Keputusan?
+A. Menentukan warna tabel
+B. Menentukan parameter mana yang prioritasnya lebih krusial/penting dalam perhitungan akhir
+C. Menghapus parameter yang jelek
+D. Mengukur berat file komputer
+E. Tidak memiliki fungsi spesifik
+ANS: B
+
+51. Pie Chart paling ideal digunakan saat...
+A. Melihat perubahan harga saham dari waktu ke waktu
+B. Menunjukkan komposisi atau proporsi bagian dari suatu keseluruhan (100%)
+C. Menunjukkan korelasi antara dua variabel independen
+D. Mendeteksi pencilan ekstrim
+E. Menggambar pohon struktur data
+ANS: B
+
+52. Seorang siswa memprediksi penjualan kantin akan melonjak tajam saat libur sekolah karena grafiknya menanjak terus sebelum libur. Asumsi ini salah karena mengabaikan...
+A. Algoritma sorting
+B. Konteks domain masalah (tidak ada siswa di sekolah saat libur)
+C. Kapasitas server komputer
+D. Format file CSV
+E. Lisensi Creative Commons
+ANS: B
+
+53. Sebuah algoritma memisahkan pelanggan menjadi segmen 'Premium' dan 'Reguler' tanpa pernah diberi contoh label sebelumnya. Metode pengelompokan ini disebut...
+A. Supervised Learning
+B. Unsupervised Learning (Clustering)
+C. Regresi
+D. Data Cleaning
+E. Data Scraping
+ANS: B
+
+54. Mengapa penting memisahkan data menjadi 'Data Latih' (Training Data) dan 'Data Uji' (Testing Data)?
+A. Agar komputernya tidak terlalu panas
+B. Untuk mencegah Overfitting; menguji apakah model mengenali pola atau sekadar menghafal data latih
+C. Agar file-nya bisa dikirim lewat email
+D. Karena aturan UU PDP
+E. Agar grafiknya lebih berwarna
+ANS: B
+
+55. Anda melihat kolom 'Gaji' memiliki rentang 3 juta hingga 1 Miliar. Menggunakan rata-rata (Mean) untuk mewakili gaji mayoritas adalah kesalahan karena...
+A. Gaji tidak boleh dihitung komputer
+B. Mean sangat sensitif (tertarik) oleh nilai outlier ekstrem (1 Miliar), sehingga gagal merepresentasikan nilai umum
+C. Mean hanya bisa menghitung angka negatif
+D. Median akan memberikan hasil yang lebih tinggi
+E. Spreadsheet tidak bisa menghitung angka triliunan
+ANS: B
+
+56. Bentuk evaluasi 'Confusion Matrix' digunakan dalam klasifikasi untuk melihat...
+A. Matriks transformasi gambar
+B. Rincian deteksi True Positive, True Negative, False Positive, False Negative
+C. Kecepatan loading program
+D. Total baris dan kolom database
+E. Kesalahan pengetikan program
+ANS: B
+
+57. Seorang analis memvisualisasikan data sensus pada peta interaktif. Ini adalah aplikasi dari...
+A. Geospatial Data Visualization
+B. Algoritma Greedy
+C. Linked List
+D. Creative Commons
+E. Web Scraping
+ANS: A
+
+58. Dalam analisis prediksi, 'Noise' merujuk pada...
+A. Suara kipas komputer yang berisik
+B. Data yang mengandung pola utama
+C. Variabilitas acak atau data kotor yang mengganggu deteksi pola asli
+D. Speaker komputer yang error
+E. Kecepatan download data
+ANS: C
+
+59. Proyek Mini 'Data Storytelling' paling dinilai kesuksesannya dari...
+A. Seberapa rumit algoritma yang dipakai
+B. Tingkat pemahaman audiens terhadap wawasan dan keputusan akhir dari narasi data yang disajikan
+C. Jumlah baris kode yang diketik
+D. Harga dataset yang dibeli
+E. Kecepatan mengetik presentasi
+ANS: B
+
+60. Pernyataan manakah yang paling akurat tentang pengolahan data untuk prediksi?
+A. Prediksi selalu benar 100% jika datanya banyak
+B. Prediksi berbasis data adalah peramalan probabilistik, memiliki margin error, dan bukan ramalan mutlak
+C. Prediksi hanya berlaku untuk perusahaan teknologi
+D. Komputer lebih tahu masa depan daripada hukum fisika
+E. Data selalu menghasilkan keputusan tunggal
+ANS: B
+
+61. Struktur data Array bersifat statis, artinya...
+A. Hanya bisa diisi angka ganjil
+B. Ukurannya tetap (fixed) setelah dideklarasikan di memori, tidak bisa memanjang/menyusut otomatis
+C. Data yang disimpan tidak boleh dihapus selamanya
+D. Mampu menyortir data otomatis
+E. Strukturnya menyerupai pohon
+ANS: B
+
+62. Fitur 'Undo' pada perangkat lunak pengolah kata menyimpan riwayat ketikan secara LIFO (Last In, First Out). Struktur data yang memodelkan ini adalah...
+A. Queue
+B. Tree
+C. Graph
+D. Stack
+E. Linked List
+ANS: D
+
+63. Pada antrean loket stasiun, orang yang pertama datang akan dilayani pertama (FIFO). Struktur data untuk kasus ini adalah...
+A. Stack
+B. Queue
+C. Binary Tree
+D. Heap
+E. Graph
+ANS: B
+
+64. Kelemahan utama dari Array dibandingkan Linked List adalah...
+A. Array butuh alamat memori yang bersebelahan (contiguous), sedangkan Linked List fleksibel menunjuk elemen di mana saja via pointer
+B. Array lebih lambat dalam membaca elemen pada indeks tertentu (random access)
+C. Array hanya menyimpan teks
+D. Linked list menghemat memori
+E. Array mudah disusupi virus
+ANS: A
+
+65. Dalam Linked List (Senarai Berantai), setiap elemen/node berisi data dan...
+A. Password
+B. Gambar visual
+C. Pointer (referensi) yang menunjuk alamat memori node berikutnya
+D. Kapasitas maksimum
+E. Nilai Root
+ANS: C
+
+66. Sistem IGD di rumah sakit memanggil pasien bukan berdasarkan kedatangan, tetapi berdasarkan tingkat keparahan penyakit. Struktur data yang paling ideal memodelkan ini adalah...
+A. Stack
+B. Circular Queue
+C. Priority Queue
+D. Linked List
+E. Array Multidimensi
+ANS: C
+
+67. Struktur folder di sistem operasi Windows/Linux paling tepat direpresentasikan menggunakan struktur data...
+A. Stack
+B. Queue
+C. Graph Berarah
+D. Tree (Pohon)
+E. Matriks
+ANS: D
+
+68. Dalam anatomi 'Tree', elemen yang paling atas dan tidak memiliki Parent (Induk) disebut...
+A. Leaf (Daun)
+B. Edge
+C. Root (Akar)
+D. Branch
+E. Child
+ANS: C
+
+69. Kelebihan utama dari Binary Search Tree (BST) dibandingkan Linked List adalah...
+A. Tampilannya lebih bagus
+B. Waktu pencarian data menjadi logaritmik O(log n) karena mengeliminasi setengah opsi tiap langkah (bila pohon seimbang)
+C. Tidak memakan memori komputer
+D. Menyimpan data suara lebih jernih
+E. Lebih mudah diprogram secara linear
+ANS: B
+
+70. Cara penelusuran (traversal) Tree di mana node dievaluasi dengan urutan: Kiri - Akar - Kanan (Left - Root - Right) disebut...
+A. Pre-order
+B. In-order
+C. Post-order
+D. Level-order
+E. Reverse-order
+ANS: B
+
+71. Jika Anda ingin menghitung total ukuran file dalam sebuah direktori beserta seluruh subdirektorinya dari bawah ke atas, traversal Tree yang paling cocok adalah...
+A. Pre-order
+B. In-order
+C. Post-order
+D. Linear Search
+E. Breadth-First
+ANS: C
+
+72. Sebuah jaringan pertemanan di Facebook dapat direpresentasikan sebagai graf tak-berarah (undirected graph), artinya...
+A. Arah koneksi hanya sepihak
+B. Jika A berteman dengan B, maka B pasti berteman dengan A
+C. Teman tidak bisa dihapus
+D. Jaringan tidak bisa meluas
+E. Semua user saling berteman
+ANS: B
+
+73. Jika aplikasi Google Maps mencari rute terpendek antar kota, struktur data spasial yang digunakan adalah...
+A. Stack Terbalik
+B. Graph Berbobot (Weighted Graph), di mana bobotnya adalah jarak/waktu antar simpul
+C. Linked list dua arah
+D. Binary Tree
+E. Queue berprioritas
+ANS: B
+
+74. Representasi graf menggunakan Adjacency Matrix (Matriks Ketetanggaan) kurang efisien dalam penggunaan memori jika...
+A. Graf sangat padat (Dense)
+B. Graf memiliki banyak sisi (Edge)
+C. Graf sangat jarang (Sparse), sehingga matriks didominasi oleh angka 0 (kosong)
+D. Simpulnya kurang dari 10
+E. Matriksnya berukuran kecil
+ANS: C
+
+75. Pada penelusuran Graf, strategi mencari tahu tetangga terdekat secara melebar lapis demi lapis sebelum masuk ke kedalaman disebut...
+A. Depth-First Search (DFS)
+B. Breadth-First Search (BFS)
+C. Binary Search
+D. Linear Search
+E. Interpolation Search
+ANS: B
+
+76. Algoritma DFS (Depth-First Search) dalam implementasinya paling sering dibantu oleh struktur data dasar berupa...
+A. Queue
+B. Linked List
+C. Stack (Bisa rekursif yang menggunakan Call Stack)
+D. Hash Table
+E. Binary Search Tree
+ANS: C
+
+77. Di sebuah Graph berarah (Directed Graph) pengikut Twitter, simpul A menunjuk ke B. Ini berarti...
+A. B mengikuti A
+B. A dan B saling mengikuti
+C. A mengikuti B
+D. A memblokir B
+E. Keduanya bukan teman
+ANS: C
+
+78. Anda merancang aplikasi riwayat web browser. Ketika tombol Back ditekan, halaman sebelumnya muncul. Ketika tombol Forward ditekan, halaman selanjutnya muncul (jika ada). Desain optimal menggunakan...
+A. Satu Queue
+B. Dua Stack (Satu untuk Back, Satu untuk Forward)
+C. Graph Lengkap
+D. Priority Queue
+E. Hash Map
+ANS: B
+
+79. Menemukan 'sesuatu' yang bisa berupa benda, angka, atau konsep dalam suatu ruang pencarian terstruktur disebut...
+A. Sorting
+B. Searching
+C. Traversing
+D. Mapping
+E. Hashing
+ANS: B
+
+80. Dalam struktur ADT (Abstract Data Type), fokus utamanya adalah pada...
+A. Bahasa pemrograman spesifik yang dipakai
+B. Bagaimana memori perangkat keras disolder
+C. Spesifikasi operasi dan perilaku logika data tanpa mempedulikan detail teknis implementasinya di memori
+D. Warna antarmuka program
+E. Sistem operasi komputer
+ANS: C
+
+81. Jika Anda memasukkan urutan angka terurut (1, 2, 3, 4, 5) ke dalam Binary Search Tree kosong tanpa sistem penyeimbang, bentuk pohonnya akan menjadi...
+A. Pohon seimbang sempurna
+B. Pohon yang hanya tumbuh ke satu sisi (menyerupai Linked List)
+C. Akar berada di tengah (angka 3)
+D. Pohon bercabang tiga
+E. Tidak bisa terbentuk
+ANS: B
+
+82. Apa dampak bentuk pohon tak seimbang (menyerupai garis lurus) pada performa pencarian di BST?
+A. Sangat cepat, kompleksitas O(1)
+B. Kecepatan menurun menjadi O(n) seperti mencari di Array biasa
+C. Komputer mengalami crash
+D. Data otomatis terhapus
+E. Tidak ada pengaruh
+ANS: B
+
+83. Anda merancang sistem Undo-Redo untuk aplikasi grafis 3D yang sangat memakan memori. Tantangan dari implementasi Stack murni untuk hal ini adalah...
+A. Stack akan meluap (Memory Leak / Stack Overflow) jika riwayat aksi tidak dibatasi kapasitasnya
+B. Stack menolak menyimpan gambar 3D
+C. Aksi Redo akan terhapus otomatis
+D. Stack mengubah gambar menjadi teks
+E. Stack bergerak terlalu cepat
+ANS: A
+
+84. Sebuah web crawler berpindah dari satu tautan web ke tautan lain. Struktur data mendasar dari arsitektur tautan internet World Wide Web adalah...
+A. Binary Tree
+B. Stack
+C. Queue
+D. Directed Graph (Graf Berarah)
+E. Undirected Graph
+ANS: D
+
+85. Di graf jaringan komputer berbobot, jika sebuah kabel optik putus, sistem akan meng-update struktur logis dengan cara...
+A. Menghapus simpul komputer tersebut
+B. Menghapus sisi (edge) yang bersangkutan dan menghitung ulang rute di graf
+C. Menutup paksa semua aplikasi pengguna
+D. Mengubah graf menjadi tree
+E. Memindahkan akar ke cabang baru
+ANS: B
+
+86. Struktur pohon (Tree) didefinisikan sebagai graf terhubung tanpa...
+A. Simpul (Vertex)
+B. Sisi (Edge)
+C. Siklus (Cycle/Looping yang tertutup)
+D. Akar
+E. Cabang
+ANS: C
+
+87. Pada Adjacency List (Daftar Ketetanggaan), setiap simpul graf menyimpan...
+A. Matriks 2D seluruh graf
+B. Alamat IP root server
+C. Sebuah daftar/senarai berisi simpul-simpul yang terhubung langsung dengannya
+D. Kata sandi graf
+E. Nilai kedalaman pohon
+ANS: C
+
+88. Anda diminta mendesain struktur untuk Game Catur. Status papan dan seluruh kemungkinan langkah ke depan divisualisasikan dalam pikiran komputer sebagai...
+A. Stack
+B. Queue
+C. Game Tree (Pohon Keadaan Permainan)
+D. Linked List Sederhana
+E. Circular Array
+ANS: C
+
+89. Dalam antrean printer kantor, lima dokumen dikirim. Dokumen direktur harus selalu dicetak pertama meski dikirim terakhir. Implementasi ini menggunakan...
+A. Stack
+B. Priority Queue berdasarkan atribut jabatan pengirim
+C. Adjacency Matrix
+D. Binary Search Tree
+E. Linked list dua arah
+ANS: B
+
+90. Menentukan struktur data yang tepat sebelum menulis kode (Proyek TP 3) krusial karena...
+A. Memenuhi syarat lulus ujian
+B. Struktur data yang salah akan membuat algoritma berjalan lambat dan memori boros, seberapapun canggih algoritmanya
+C. Komputer hanya bisa menerima satu jenis data
+D. Mencegah serangan hacker otomatis
+E. Semua bahasa pemrograman tidak memiliki struktur bawaan
+ANS: B
+
+91. Notasi Big-O (O-Besar) dalam analisis algoritma digunakan untuk menyatakan...
+A. Seberapa banyak baris kode yang ditulis
+B. Batas atas pertumbuhan waktu eksekusi (atau memori) algoritma seiring bertambah besarnya jumlah input (n)
+C. Harga software di pasaran
+D. Berapa lama waktu kompilasi dalam detik pasti
+E. Ukuran resolusi layar program
+ANS: B
+
+92. Sebuah algoritma memeriksa elemen dalam array satu per satu dari awal sampai akhir. Kompleksitas waktunya adalah...
+A. O(1)
+B. O(log n)
+C. O(n)
+D. O(n^2)
+E. O(n!)
+ANS: C
+
+93. Algoritma pencarian Binary Search membelah ruang pencarian menjadi setengah di tiap langkah. Kompleksitas waktunya direpresentasikan dengan...
+A. O(1)
+B. O(log n)
+C. O(n)
+D. O(n log n)
+E. O(n^2)
+ANS: B
+
+94. Algoritma bersarang (nested loop ganda), di mana loop dalam berjalan n kali untuk tiap iterasi loop luar n kali, memiliki kompleksitas waktu...
+A. O(1)
+B. O(log n)
+C. O(n)
+D. O(n log n)
+E. O(n^2)
+ANS: E
+
+95. Strategi algoritma 'Brute Force' (Exhaustive Search) berarti...
+A. Mengubah kode mesin menjadi biner
+B. Mencoba dan mengevaluasi seluruh kemungkinan solusi secara naif sampai jawaban ditemukan
+C. Memecah masalah menjadi dua
+D. Menyimpan nilai di cache
+E. Hanya menebak satu kali
+ANS: B
+
+96. Mengapa Brute Force tidak digunakan untuk meretas password sepanjang 20 karakter acak?
+A. Karena ilegal
+B. Karena waktu eksekusinya akan bertumbuh secara eksponensial dan memakan jutaan tahun bagi superkomputer sekalipun
+C. Karena karakter acak tidak bisa dibaca komputer
+D. Karena komputer akan meledak
+E. Karena algoritma Greedy lebih baik untuk password
+ANS: B
+
+97. Algoritma Greedy (Serakah) bekerja dengan prinsip...
+A. Mengambil pilihan paling optimal secara global (seluruhnya)
+B. Mengambil pilihan terbaik/maksimal pada momen tersebut (local optimum) dengan harapan menghasilkan solusi total terbaik
+C. Membagi masalah menjadi kecil-kecil
+D. Menyimpan hasil ke dalam memori matriks
+E. Mundur ke langkah sebelumnya jika gagal
+ANS: B
+
+98. Dalam masalah penukaran koin koin 1, 3, 4, sistem diminta menukar nilai 6 dengan koin sesedikit mungkin. Jika algoritma Greedy yang dipakai, koin apa yang akan dihasilkan?
+A. Tiga koin: 4, 1, 1 (karena Greedy langsung mengambil koin terbesar 4 lebih dulu)
+B. Dua koin: 3, 3
+C. Enam koin: 1, 1, 1, 1, 1, 1
+D. Satu koin 6
+E. Mesin akan error
+ANS: A
+
+99. Melanjutkan soal di atas, solusi paling optimal (sesedikit mungkin koin) untuk nilai 6 adalah 3, 3. Fakta bahwa Greedy menghasilkan solusi 4, 1, 1 membuktikan bahwa...
+A. Greedy selalu menghasilkan error
+B. Greedy sangat lambat
+C. Strategi Greedy tidak selalu menghasilkan solusi global optimal pada kasus tertentu
+D. Koin 4 tidak valid digunakan
+E. Komputer salah menghitung
+ANS: C
+
+100. Merge Sort merupakan algoritma pengurutan yang membelah array hingga ukuran 1, lalu menggabungkannya secara terurut. Paradigma algoritma ini disebut...
+A. Greedy
+B. Backtracking
+C. Dynamic Programming
+D. Divide and Conquer (Pecah dan Taklukkan)
+E. Brute Force
+ANS: D
+
+101. Perbedaan utama Divide and Conquer (D&C) dan Dynamic Programming (DP) adalah pada sifat sub-masalahnya. DP sangat efektif jika...
+A. Sub-masalahnya independen dan tidak tumpang tindih (seperti Merge Sort)
+B. Sub-masalahnya saling tumpang tindih (Overlapping Subproblems) sehingga DP perlu menyimpannya di memori agar tidak dihitung ulang
+C. Masalah tidak bisa dipecah
+D. Masalahnya berupa pencarian gambar
+E. Tidak ada bedanya
+ANS: B
+
+102. Teknik menyimpan hasil sub-masalah yang sudah dihitung pada Dynamic Programming disebut...
+A. Sorting
+B. Searching
+C. Memoization / Tabulation
+D. Pruning
+E. Backtracking
+ANS: C
+
+103. Anda menulis rekursif deret Fibonacci sederhana: F(n) = F(n-1) + F(n-2). Jika dihitung untuk n=50, komputer hang. Ini terjadi karena...
+A. Deret fibonacci tidak memiliki batas
+B. Fungsi memanggil dirinya sendiri terlalu dalam secara eksponensial tanpa menyimpan hitungan yang berulang
+C. Memori RAM rusak fisik
+D. Tidak menggunakan bahasa Python
+E. Pangkatnya selalu negatif
+ANS: B
+
+104. Strategi algoritma Backtracking (Runut Balik) sangat efisien menyelesaikan Labirin (Maze) karena ia memiliki teknik 'Pruning'. Apa itu Pruning?
+A. Memangkas jalur/cabang yang sudah jelas buntu sehingga tidak perlu diteruskan evaluasinya
+B. Menebang pohon
+C. Menghapus hasil perhitungan akhir
+D. Meningkatkan kecepatan prosesor GPU
+E. Membuka seluruh kemungkinan secara serentak
+ANS: A
+
+105. Persoalan N-Queens (menempatkan N ratu di papan catur tanpa saling serang) paling logis diselesaikan dengan algoritma...
+A. Greedy
+B. Backtracking
+C. Divide and Conquer
+D. Hashing
+E. Linear Search
+ANS: B
+
+106. Seorang kurir (Travelling Salesperson) harus mengunjungi 10 kota. Solusi Brute Force membutuhkan 10! (faktorial) perhitungan. Jika kota ditambah 1 menjadi 11 kota, kompleksitas waktunya akan...
+A. Bertambah 1
+B. Bertambah 10
+C. Dikali 11 dari total waktu sebelumnya (pertumbuhan faktorial luar biasa cepat)
+D. Menjadi lebih cepat
+E. Tetap sama
+ANS: C
+
+107. Dalam algoritma 0/1 Knapsack (Masalah Ransel), ada benda yang tidak bisa dipotong. Jika kita menggunakan algoritma Greedy berdasarkan 'nilai tertinggi per kg', solusi tidak optimal. Strategi yang dijamin selalu optimal untuk kasus ini adalah...
+A. Brute Force saja
+B. Dynamic Programming
+C. Divide and Conquer
+D. Linear Search
+E. Bubble Sort
+ANS: B
+
+108. Kompleksitas O(1) atau Waktu Konstan berarti...
+A. Waktu eksekusi butuh 1 detik
+B. Waktu eksekusi bertambah 1 detik setiap data bertambah
+C. Waktu eksekusi algoritma sama sekali tidak terpengaruh oleh seberapa besar ukuran datanya
+D. Hanya bisa memproses 1 data
+E. Error terjadi 1 kali
+ANS: C
+
+109. Menghitung efisiensi (Trade-off) antar algoritma artinya kita mempertimbangkan keseimbangan antara...
+A. Harga komputer dan harga listrik
+B. Waktu eksekusi (Time) dan ruang memori yang terpakai (Space)
+C. Desain grafis dan animasi
+D. Jumlah programmer dan manajer
+E. Besar file asal dan ukuran font
+ANS: B
+
+110. Algoritma A selesai dalam O(n), namun memakan RAM 5GB. Algoritma B selesai dalam O(n^2), namun memakan RAM 1MB. Memilih A atau B disebut sebagai...
+A. Pemborosan
+B. Sistem Crash
+C. Trade-off memori vs kecepatan sesuai limitasi server/lingkungan
+D. Pelanggaran Etika
+E. Overfitting
+ANS: C
+
+111. Fraksional Knapsack Problem adalah masalah ransel di mana benda (misal: tepung, emas pasir) boleh dipotong secara rasional. Strategi mana yang paling efisien dan dijamin optimal untuk jenis masalah rasional ini?
+A. Dynamic Programming
+B. Backtracking
+C. Greedy Algorithm (berdasar rasio nilai per bobot)
+D. Depth-First Search
+E. Brute Force
+ANS: C
+
+112. Sebuah algoritma dijamin akan mengeksekusi iterasi persis sebanyak n*log(n) operasi matematika independen. Ini masuk ke dalam kategori...
+A. Logaritmik Kuadrat
+B. Log-Linear / Quasilinear Time
+C. Eksponensial
+D. Konstan
+E. Faktorial
+ANS: B
+
+113. Studi kasus 'Pemilihan Rute Terpendek Logistik' pada Proyek Akhir (Pertemuan 37) mengharuskan sintesis 4 TP. Struktur data mutlak yang memodelkan jalannya adalah...
+A. Array 1 Dimensi
+B. Linked List
+C. Graf
+D. Stack
+E. Binary Tree Tak Seimbang
+ANS: C
+
+114. Dalam evaluasi algoritma, 'Worst-case Scenario' (Kasus Terburuk) merepresentasikan...
+A. Waktu pencarian saat datanya tidak ada atau berada di elemen paling terakhir/terdalam
+B. Waktu algoritma dijalankan saat mati lampu
+C. Waktu tercepat karena datanya ada di indeks 0
+D. Kondisi CPU yang kepanasan
+E. Program error saat dikompilasi
+ANS: A
+
+115. Mencari sebuah nama dalam buku telepon manual setebal 1000 halaman yang sudah terurut abjad dengan cara membelah dua halaman terus menerus mengaplikasikan paradigma...
+A. Greedy
+B. Dynamic Programming
+C. Divide and Conquer (Binary Search)
+D. Backtracking
+E. Brute Force
+ANS: C
+
+116. Jika Anda diminta men-sortir (mengurutkan) daftar siswa berdasarkan nilai secara acak murni sampai urutannya benar (BogoSort), pendekatan konyol ini merepresentasikan batas ekstrem dari kebodohan...
+A. Divide and Conquer
+B. Brute Force murni dan acak (O(n!))
+C. Greedy optimis
+D. Dynamic Programming
+E. Backtracking terpandu
+ANS: B
+
+117. Pendekatan pemecahan masalah (Problem Solving) komputasional di Kurikulum Merdeka difokuskan agar siswa tidak hanya pandai *coding*, tetapi juga mampu...
+A. Menghafal sintaks bahasa C
+B. Membeli perangkat lunak berbayar
+C. Menganalisis, merancang struktur, membuktikan efisiensi logis solusi, dan menjustifikasi pilihan algoritmanya
+D. Menghindari pelajaran matematika
+E. Mengeksploitasi data pribadi
+ANS: C
+
+118. Justifikasi efisiensi dalam Proyek Akhir TP 4 mengharuskan siswa untuk...
+A. Bicara panjang lebar
+B. Mengklaim program mereka tercepat
+C. Menyajikan argumen matematis berdasarkan notasi Big-O, memori yang dipakai, dan keandalan skenario ekstremnya
+D. Membuat antarmuka web tercantik
+E. Menulis kode paling pendek di dunia
+ANS: C
+
+119. Konsep 'Local Optimum' dalam strategi Greedy dapat dianalogikan dalam kehidupan nyata seperti...
+A. Menghemat uang Rp50.000 hari ini untuk belanja tidak penting, tanpa memikirkan tidak bisa bayar SPP bulan depan
+B. Menabung untuk masa tua
+C. Mengerjakan tugas dari yang termudah secara bersamaan
+D. Menghafal rute jalan raya
+E. Mencatat semua kemungkinan masa depan
+ANS: A
+
+120. Analisis komparatif alternatif solusi algoritma (Pertemuan 36) bertujuan...
+A. Agar program sulit diretas hacker
+B. Membuktikan tidak ada program yang sempurna, masing-masing algoritma unggul dalam skenario struktur data, pola input, atau limit hardware yang berbeda
+C. Menggugurkan program siswa lain
+D. Menyatukan semua struktur data
+E. Menyamarkan ukuran file akhir
+ANS: B
+    </script>
+
+    <!-- Quiz Logic -->
+    <script>
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let timerInterval;
+        let secondsElapsed = 0;
+
+        // --- Data Parser Logic ---
+        function parseRawData() {
+            const rawText = document.getElementById('raw-data').textContent;
+            const lines = rawText.split('\n');
+            
+            let currentQ = null;
+            let currentOpt = null;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const trimmed = line.trim();
+                
+                if (!trimmed) continue;
+                // Ignore lines that look like page headers/footers if any exist
+                if (trimmed.match(/^\[Page \d+\]$/)) continue;
+
+                // Match question number like "1. Text..."
+                const qMatch = line.match(/^(\d+)\.\s+(.*)/);
+                
+                if (qMatch) {
+                    if (currentQ) questions.push(currentQ);
+                    currentQ = {
+                        num: qMatch[1],
+                        text: qMatch[2],
+                        options: {},
+                        ans: ''
+                    };
+                    currentOpt = null;
+                } else if (line.match(/^[A-E]\.\s+/)) {
+                    // Match option like "A. Text..."
+                    const opt = trimmed.substring(0, 1);
+                    const optText = trimmed.substring(2).trim();
+                    if (currentQ) {
+                        currentQ.options[opt] = optText;
+                        currentOpt = opt;
+                    }
+                } else if (trimmed.startsWith('ANS:')) {
+                    // Match answer like "ANS: C"
+                    if (currentQ) {
+                        currentQ.ans = trimmed.replace('ANS:', '').trim();
+                    }
+                    currentOpt = null;
+                } else {
+                    // Multiline support for question text or option text
+                    if (currentQ) {
+                        if (currentOpt) {
+                            currentQ.options[currentOpt] += '\n' + line;
+                        } else {
+                            currentQ.text += '\n' + line;
+                        }
+                    }
+                }
+            }
+            if (currentQ) questions.push(currentQ);
+        }
+
+        // --- UI Interactions ---
+        const setupScreen = document.getElementById('setup-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const questionContainer = document.getElementById('question-container');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationTitle = document.getElementById('explanation-title');
+        const explanationText = document.getElementById('explanation-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const questionTracker = document.getElementById('question-tracker');
+
+        document.getElementById('start-btn').addEventListener('click', startQuiz);
+        prevBtn.addEventListener('click', () => navigate(-1));
+        nextBtn.addEventListener('click', () => navigate(1));
+        submitBtn.addEventListener('click', finishQuiz);
+        document.getElementById('restart-btn').addEventListener('click', resetQuiz);
+        document.getElementById('view-discussion-btn').addEventListener('click', () => {
+            const container = document.getElementById('discussion-container');
+            container.classList.toggle('hidden');
+            if(!container.classList.contains('hidden')) {
+                container.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function startQuiz() {
+            parseRawData();
+            if (questions.length === 0) {
+                alert("Data soal gagal dimuat! Periksa format teks data.");
+                return;
+            }
+            setupScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            secondsElapsed = 0;
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                document.getElementById('timer').innerText = formatTime(secondsElapsed);
+            }, 1000);
+
+            loadQuestion(0);
+        }
+
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = questions[index];
+            
+            // Update Tracker & Progress
+            questionTracker.innerText = `Soal ${index + 1} / ${questions.length}`;
+            progressBar.style.width = `${((index + 1) / questions.length) * 100}%`;
+
+            // Reset explanation visibility
+            explanationContainer.classList.add('hidden');
+            explanationContainer.classList.remove('animate-slide-down');
+            
+            const ansObj = userAnswers[index];
+            const hasChecked = ansObj && ansObj.checked;
+            const userVal = ansObj ? ansObj.val : null;
+
+            // Set Question Text
+            questionContainer.innerHTML = `
+                <h3 class="text-xl font-semibold text-gray-800 flex items-start">
+                    <span class="mr-3 text-teal-600 bg-white shadow-sm w-8 h-8 rounded-full flex items-center justify-center shrink-0 border border-teal-100">${q.num}</span>
+                    <span class="question-text font-medium leading-relaxed pt-1">${escapeHtml(q.text)}</span>
+                </h3>
+            `;
+
+            // Set Options
+            optionsContainer.innerHTML = '';
+            for (const [key, val] of Object.entries(q.options)) {
+                const isSelected = userVal === key ? 'checked' : '';
+                const disabled = hasChecked ? 'disabled' : '';
+                const optionHtml = `
+                    <label class="option-label flex items-start p-4 border-2 border-gray-100 bg-white rounded-xl w-full ${disabled ? 'disabled cursor-not-allowed opacity-75' : ''}">
+                        <input type="radio" name="question${index}" value="${key}" ${isSelected} ${disabled} class="hidden" onchange="selectOption('${key}')">
+                        <div class="option-box flex-shrink-0 w-6 h-6 border-2 border-gray-300 rounded-full flex justify-center items-center mr-4 mt-0.5 transition-colors bg-white">
+                            <div class="w-3 h-3 bg-teal-600 rounded-full opacity-0 transition-opacity"></div>
+                        </div>
+                        <div class="flex-grow flex items-start">
+                            <span class="font-bold mr-2 text-teal-600">${key}.</span>
+                            <span class="text-gray-700 question-text mt-0">${escapeHtml(val)}</span>
+                        </div>
+                    </label>
+                `;
+                optionsContainer.insertAdjacentHTML('beforeend', optionHtml);
+            }
+            
+            // Update UI if already checked
+            if (hasChecked) {
+                updateSelectedUI();
+                showExplanation();
+                if (index === questions.length - 1) {
+                    nextBtn.classList.add('hidden');
+                    submitBtn.classList.remove('hidden');
+                } else {
+                    nextBtn.classList.remove('hidden');
+                    submitBtn.classList.add('hidden');
+                }
+            } else {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.add('hidden');
+            }
+
+            prevBtn.disabled = index === 0;
+        }
+
+        // Logic Instan: Function dipanggil otomatis SAAT KLIK Opsi
+        function selectOption(key) {
+            // Jika sudah terjawab dan dicek, abaikan klik lanjutan
+            if (userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].checked) return;
+            
+            // Simpan jawaban & tandai sudah dicek secara instan
+            userAnswers[currentQuestionIndex] = { val: key, checked: true };
+            
+            // Update tampilan UI pilihan dan tampilkan penjelasan
+            updateSelectedUI();
+            showExplanation();
+            
+            // Tampilkan tombol navigasi yang sesuai
+            if (currentQuestionIndex === questions.length - 1) {
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+            }
+            
+            // Nonaktifkan klik opsi lain
+            const radios = optionsContainer.querySelectorAll('input[type="radio"]');
+            radios.forEach(r => r.disabled = true);
+            const labels = optionsContainer.querySelectorAll('.option-label');
+            labels.forEach(l => l.classList.add('disabled', 'cursor-not-allowed', 'opacity-75'));
+        }
+        
+        function showExplanation() {
+            const q = questions[currentQuestionIndex];
+            const userAns = userAnswers[currentQuestionIndex]?.val;
+            const isCorrect = userAns === q.ans;
+            
+            explanationContainer.classList.remove('hidden');
+            
+            // Force reflow to trigger animation
+            void explanationContainer.offsetWidth;
+            explanationContainer.classList.add('animate-slide-down');
+
+            if (isCorrect) {
+                explanationContainer.className = 'mb-8 p-5 bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl shadow-sm animate-slide-down';
+                explanationTitle.innerHTML = `<div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3"><i class="fas fa-check"></i></div> <span class="text-green-800 text-xl">Tepat Sekali!</span>`;
+                explanationText.innerHTML = `
+                    <div class="mb-2"><span class="font-bold text-gray-600">Jawaban Benar:</span> <span class="font-black text-green-600">${q.ans}</span></div>
+                    <div class="text-gray-700 question-text font-medium">${escapeHtml(q.options[q.ans])}</div>
+                `;
+            } else {
+                explanationContainer.className = 'mb-8 p-5 bg-gradient-to-br from-red-50 to-red-100 border border-red-200 rounded-xl shadow-sm animate-slide-down';
+                explanationTitle.innerHTML = `<div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3"><i class="fas fa-times"></i></div> <span class="text-red-800 text-xl">Kurang Tepat</span>`;
+                explanationText.innerHTML = `
+                    <div class="mb-2"><span class="font-bold text-gray-600">Jawaban Anda:</span> <span class="font-bold text-red-500">${userAns || '-'}</span></div>
+                    <div class="mb-2"><span class="font-bold text-gray-600">Kunci Jawaban yang Benar:</span> <span class="font-black text-green-600">${q.ans}</span></div>
+                    <div class="text-gray-700 question-text font-medium pt-2 border-t border-red-100 mt-2">${escapeHtml(q.options[q.ans])}</div>
+                `;
+            }
+            
+            // Highlight options
+            const labels = optionsContainer.querySelectorAll('.option-label');
+            labels.forEach(label => {
+                const radio = label.querySelector('input');
+                if (radio.value === q.ans) {
+                    label.classList.add('bg-green-50', 'border-green-400');
+                    label.classList.remove('border-gray-100', 'bg-white');
+                    label.querySelector('.option-box').classList.add('border-green-500');
+                } else if (radio.checked && !isCorrect) {
+                    label.classList.add('bg-red-50', 'border-red-400');
+                    label.classList.remove('border-gray-100', 'bg-white');
+                    label.querySelector('.option-box').classList.add('border-red-500', 'bg-red-100');
+                }
+            });
+        }
+
+        function updateSelectedUI() {
+            const labels = optionsContainer.querySelectorAll('.option-label');
+            
+            labels.forEach(label => {
+                const radio = label.querySelector('input');
+                const box = label.querySelector('.option-box');
+                const dot = label.querySelector('.option-box div');
+                
+                // Reset basic styles
+                box.classList.remove('border-teal-600', 'border-green-500', 'border-red-500', 'bg-red-100');
+                dot.classList.add('opacity-0');
+
+                if (radio.checked) {
+                    box.classList.add('border-teal-600');
+                    dot.classList.remove('opacity-0');
+                }
+            });
+        }
+
+        function navigate(dir) {
+            const newIndex = currentQuestionIndex + dir;
+            if (newIndex >= 0 && newIndex < questions.length) {
+                loadQuestion(newIndex);
+            }
+        }
+
+        function finishQuiz() {
+            const answeredCount = Object.keys(userAnswers).filter(k => userAnswers[k].checked).length;
+            if (answeredCount < questions.length) {
+                if(!confirm(`Anda baru menjawab ${answeredCount} dari ${questions.length} soal. Yakin ingin mengakhiri kuis dan melihat hasil akhir?`)) {
+                    return;
+                }
+            }
+
+            clearInterval(timerInterval);
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            window.scrollTo(0, 0);
+
+            calculateResult();
+        }
+
+        function calculateResult() {
+            let correct = 0;
+            let discussionHtml = '';
+
+            questions.forEach((q, index) => {
+                const userAnsObj = userAnswers[index];
+                const userAns = userAnsObj ? userAnsObj.val : null;
+                const isCorrect = userAns === q.ans;
+                if (isCorrect) correct++;
+
+                let userAnsText = userAns ? `${userAns}. ${escapeHtml(q.options[userAns])}` : 'Tidak dijawab';
+                let correctAnsText = `${q.ans}. ${escapeHtml(q.options[q.ans])}`;
+
+                discussionHtml += `
+                    <div class="bg-white p-6 rounded-xl border-l-4 shadow-sm mb-4 ${isCorrect ? 'border-l-green-500' : 'border-l-red-500'} relative">
+                        <div class="absolute top-4 right-4 text-3xl opacity-20">
+                            ${isCorrect ? '<i class="fas fa-check-circle text-green-600"></i>' : '<i class="fas fa-times-circle text-red-600"></i>'}
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-3 bg-gray-100 inline-block px-3 py-1 rounded-md text-sm">Soal ${q.num}</h4>
+                        <p class="mb-5 text-gray-700 question-text font-medium">${escapeHtml(q.text)}</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                                <span class="text-xs font-bold text-gray-400 block mb-1 uppercase tracking-wide">Jawaban Anda</span>
+                                <span class="${isCorrect ? 'text-green-700' : 'text-red-600'} font-semibold question-text">${userAnsText}</span>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg border border-green-100">
+                                <span class="text-xs font-bold text-green-500 block mb-1 uppercase tracking-wide">Kunci Jawaban</span>
+                                <span class="text-green-700 font-semibold question-text">${correctAnsText}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const incorrect = questions.length - correct;
+            const score = Math.round((correct / questions.length) * 100);
+
+            // Animate numbers
+            animateValue("correct-count", 0, correct, 1000);
+            animateValue("incorrect-count", 0, incorrect, 1000);
+            animateValue("final-score", 0, score, 1500);
+            
+            document.getElementById('discussion-container').innerHTML += discussionHtml;
+        }
+
+        function animateValue(id, start, end, duration) {
+            if (start === end) {
+                document.getElementById(id).innerText = end;
+                return;
+            }
+            let range = end - start;
+            let current = start;
+            let increment = end > start ? 1 : -1;
+            let stepTime = Math.abs(Math.floor(duration / range));
+            let obj = document.getElementById(id);
+            let timer = setInterval(function() {
+                current += increment;
+                obj.innerText = current;
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        function resetQuiz() {
+            userAnswers = {};
+            currentQuestionIndex = 0;
+            resultScreen.classList.add('hidden');
+            
+            // Clean up discussions to prevent duplication
+            const discussionContainer = document.getElementById('discussion-container');
+            discussionContainer.classList.add('hidden');
+            discussionContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                    <i class="fas fa-tasks text-teal-500 mr-3"></i> Detail Jawaban Anda
+                </h3>
+            `;
+            startQuiz();
+        }
+
+        function escapeHtml(unsafe) {
+            return (unsafe || "").replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>

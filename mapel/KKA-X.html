@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz HOTS Koding & Kecerdasan Artifisial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; }
+        .question-text { white-space: pre-wrap; word-wrap: break-word; }
+        .option-label { cursor: pointer; transition: all 0.3s ease; }
+        .option-label:hover:not(.disabled) { background-color: #e0e7ff; transform: translateY(-2px); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        input[type="radio"]:checked + .option-box { border-color: #4f46e5; background-color: #e0e7ff; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c7c7cc; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a0a0a5; }
+
+        /* Animation for explanation */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-down { animation: slideDown 0.4s ease forwards; }
+    </style>
+</head>
+<body class="text-gray-800 h-screen flex flex-col">
+
+    <!-- Header & Illustration -->
+    <header class="bg-gradient-to-r from-indigo-600 to-purple-700 text-white p-6 shadow-lg shrink-0 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between relative z-10">
+            <div class="mb-4 md:mb-0">
+                <div class="inline-block bg-white text-indigo-700 text-xs font-bold px-3 py-1 rounded-full mb-3 shadow">
+                    SOAL KKA-X HOTS BAB 1 & 2
+                </div>
+                <h1 class="text-3xl font-extrabold mb-2 tracking-tight">Quiz Interaktif Koding & AI</h1>
+                <p class="text-indigo-100 text-lg">120 Pilihan Ganda</p>
+            </div>
+            <!-- Illustration SVG -->
+            <div class="hidden md:block w-40 h-40">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-200 w-full h-full opacity-90 drop-shadow-md">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                    <path d="M2 17l10 5 10-5"></path>
+                    <path d="M2 12l10 5 10-5"></path>
+                </svg>
+            </div>
+        </div>
+        <!-- Decorative background shapes -->
+        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 -mb-10 -ml-10 w-48 h-48 bg-purple-400 opacity-10 rounded-full blur-2xl"></div>
+    </header>
+
+    <!-- Main Quiz Area -->
+    <main class="flex-grow overflow-y-auto p-4 md:p-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-6 md:p-10 relative border border-gray-100">
+            
+            <!-- Setup Screen -->
+            <div id="setup-screen" class="text-center py-12">
+                <div class="bg-indigo-50 w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6 shadow-inner">
+                    <i class="fas fa-brain text-5xl text-indigo-600"></i>
+                </div>
+                <h2 class="text-3xl font-bold mb-4 text-gray-800">Siap Menguji Pengetahuanmu?</h2>
+                <p class="text-gray-600 mb-8 max-w-lg mx-auto text-lg">
+                    Kuis ini mencakup materi Berpikir Komputasional dan Algoritma Pemrograman Lanjut.
+                    <strong>Jawaban yang benar dan penjelasannya akan langsung muncul saat kamu memilih opsi.</strong>
+                </p>
+                <button id="start-btn" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-10 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-indigo-300/50">
+                    <i class="fas fa-play mr-2"></i> Mulai Quiz Sekarang
+                </button>
+            </div>
+
+            <!-- Quiz Screen -->
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <div class="flex items-center space-x-2 text-sm font-bold text-gray-600 bg-gray-100 px-4 py-2 rounded-lg border border-gray-200">
+                        <i class="fas fa-flag-checkered text-indigo-500"></i>
+                        <span id="question-tracker">Soal 1 / 120</span>
+                    </div>
+                    <div class="text-sm font-bold text-indigo-700 bg-indigo-50 px-4 py-2 rounded-lg border border-indigo-100 shadow-sm">
+                        <i class="fas fa-stopwatch mr-1"></i> <span id="timer">00:00</span>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 rounded-full h-3 mb-8 shadow-inner overflow-hidden">
+                    <div id="progress-bar" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-full transition-all duration-500 rounded-full" style="width: 0%"></div>
+                </div>
+
+                <div id="question-container" class="mb-8 p-6 bg-blue-50/50 rounded-xl border border-blue-100">
+                    <!-- Question will be injected here -->
+                </div>
+
+                <div id="options-container" class="space-y-4 mb-8">
+                    <!-- Options will be injected here -->
+                </div>
+
+                <!-- Explanation Area (Hidden by default) -->
+                <div id="explanation-container" class="hidden mb-8 p-5 rounded-xl shadow-sm border animate-slide-down">
+                    <h4 class="font-bold mb-3 flex items-center text-lg" id="explanation-title">
+                        <!-- Icon and Title injected dynamically -->
+                    </h4>
+                    <div id="explanation-text" class="text-gray-700 leading-relaxed text-md bg-white p-4 rounded-lg border border-white/50 shadow-inner">
+                        <!-- Explanation injected dynamically -->
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-center pt-6 border-t border-gray-200 mt-4">
+                    <button id="prev-btn" class="w-full sm:w-auto mb-3 sm:mb-0 px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-sm">
+                        <i class="fas fa-arrow-left mr-2"></i> Sebelumnya
+                    </button>
+
+                    <button id="next-btn" class="hidden w-full sm:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    
+                    <button id="submit-btn" class="hidden w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg">
+                        Selesaikan & Lihat Hasil <i class="fas fa-trophy ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result Screen -->
+            <div id="result-screen" class="hidden py-10">
+                <div class="text-center mb-10">
+                    <div class="relative inline-block">
+                        <i class="fas fa-award text-8xl text-yellow-400 mb-4 drop-shadow-lg"></i>
+                        <i class="fas fa-star absolute top-0 right-0 text-3xl text-orange-400 animate-pulse"></i>
+                    </div>
+                    <h2 class="text-4xl font-extrabold mb-3 text-gray-800">Luar Biasa!</h2>
+                    <p class="text-gray-600 text-lg">Kamu telah menyelesaikan seluruh 120 soal kuis.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10 text-center">
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-2xl border border-green-200 shadow-sm transform transition hover:scale-105">
+                        <div class="text-green-600 font-bold text-lg mb-2 uppercase tracking-wide">Jawaban Benar</div>
+                        <div id="correct-count" class="text-5xl font-black text-green-700">0</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-2xl border border-red-200 shadow-sm transform transition hover:scale-105">
+                        <div class="text-red-600 font-bold text-lg mb-2 uppercase tracking-wide">Jawaban Salah</div>
+                        <div id="incorrect-count" class="text-5xl font-black text-red-700">0</div>
+                    </div>
+                    <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 p-6 rounded-2xl border border-indigo-200 shadow-sm transform transition hover:scale-105">
+                        <div class="text-indigo-600 font-bold text-lg mb-2 uppercase tracking-wide">Skor Akurasi</div>
+                        <div class="flex justify-center items-baseline">
+                            <span id="final-score" class="text-5xl font-black text-indigo-700">0</span>
+                            <span class="text-2xl font-bold text-indigo-500 ml-1">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                    <button id="view-discussion-btn" class="bg-white border-2 border-indigo-600 text-indigo-700 font-bold py-3 px-8 rounded-xl transition-colors hover:bg-indigo-50 shadow-sm">
+                        <i class="fas fa-book-open mr-2"></i> Rekap Pembahasan
+                    </button>
+                    <button id="restart-btn" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded-xl transition-colors shadow-md">
+                        <i class="fas fa-redo mr-2"></i> Ulangi Kuis
+                    </button>
+                </div>
+
+                <div id="discussion-container" class="hidden space-y-6 mt-12 border-t border-gray-200 pt-10">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                        <i class="fas fa-tasks text-indigo-500 mr-3"></i> Detail Jawaban Anda
+                    </h3>
+                    <!-- Discussion will be injected here -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Raw Data Injection -->
+    <script id="raw-data" type="text/template">
+Soal HOTS Koding dan Kecerdasan Artifisial Kelas X
+Bab 1 Berpikir Komputasional
+1. Sebuah sekolah menghadapi lima situasi berikut. Manakah yang paling tepat dikategorikan sebagai masalah kompleks?
+A. Proyektor kelas tidak menyala karena kabel daya belum dicolokkan.
+B. Sistem pencatatan kehadiran peserta didik tidak efektif karena melibatkan banyak pihak, banyak langkah, dan penyebab yang saling berkaitan.
+C. Lampu ruang UKS mati karena bohlam putus.
+D. Spidol papan tulis kehabisan tinta sehingga harus diganti.
+E. Printer ruang guru tidak aktif karena tombol power belum ditekan.
+ANS: B
+2. Rina mencatat waktu tempuh dari rumah ke sekolah selama sebulan. Dari catatannya, ia menemukan bahwa setiap Senin pukul 06.30–07.15 waktu tempuh selalu paling lama. Ia lalu menyusun langkah: jika hari Senin berangkat pukul 06.00, selain itu berangkat pukul 06.30. Tahapan berpikir komputasional yang dilakukan Rina secara berurutan adalah ...
+A. dekomposisi, lalu abstraksi
+B. abstraksi, lalu dekomposisi
+C. algoritma, lalu pengenalan pola
+D. dekomposisi, lalu algoritma
+E. pengenalan pola, lalu algoritma
+ANS: E
+3. Tim kebersihan sekolah melakukan empat hal: (1) membagi masalah menjadi jenis sampah, proses pengelolaan, dan pihak yang terlibat; (2) menemukan bahwa sebagian besar sampah plastik berasal dari kantin saat istirahat; (3) memfokuskan upaya pada pengurangan plastik kemasan dan mengabaikan merek kemasan; (4) menyusun lima langkah tindakan yang berurutan. Urutan pilar berpikir komputasional yang tepat untuk keempat hal tersebut adalah ...
+A. abstraksi, dekomposisi, pengenalan pola, algoritma
+B. dekomposisi, abstraksi, pengenalan pola, algoritma
+C. dekomposisi, pengenalan pola, abstraksi, algoritma
+D. pengenalan pola, dekomposisi, algoritma, abstraksi
+E. dekomposisi, pengenalan pola, algoritma, abstraksi
+ANS: C
+4. Kelompok Dimas membuat model graf untuk mencari rute tercepat ke sekolah dan mendaftar beberapa informasi. Informasi manakah yang paling tepat diabaikan melalui abstraksi?
+A. Warna cat pagar rumah yang dilewati di sepanjang jalan
+B. Waktu tempuh setiap ruas jalan
+C. Jumlah persimpangan pada setiap rute
+D. Ruas jalan yang tergenang saat hujan
+E. Jam keberangkatan
+ANS: A
+5. Hasil penelusuran 5 Whys pada masalah antrean kantin: pelayanan lambat → hanya satu petugas yang melayani → petugas lain menyiapkan makanan → belum ada pembagian tugas yang jelas → belum ada SOP karena pengelola belum mendapat pelatihan manajemen pelayanan. Jika sekolah hanya menambah satu petugas kasir, kelemahan solusi tersebut adalah ...
+A. menambah biaya operasional yang tidak dapat dihitung
+B. tidak mempertimbangkan pola antrean pada jam istirahat
+C. menghilangkan peran petugas yang menyiapkan makanan
+D. hanya menangani gejala, sedangkan akar masalah berupa belum adanya SOP dan pelatihan tetap ada
+E. memperlambat pelayanan karena jumlah petugas bertambah
+ANS: D
+6. Dela mengalami penurunan nilai matematika dan bahasa Inggris. Ia menduga gurunya terlalu ketat menilai. Padahal ia baru mengikuti ekstrakurikuler yang menyita waktu, sering tidur larut karena ponsel, dan melewatkan latihan soal. Sikap berpikir kritis yang paling tepat bagi Dela adalah ...
+A. menerima dugaan awalnya karena sesuai dengan perasaannya
+B. berhenti mengikuti ekstrakurikuler tanpa menguji penyebab lain
+C. meminta guru menurunkan tingkat kesulitan soal
+D. menguji dugaannya dengan data (waktu tidur, jadwal belajar, latihan soal) dan membedakan gejala dari penyebab utama
+E. menyimpulkan bahwa ponsel penyebab utamanya karena paling mudah dibatasi
+ANS: D
+7. Rute dari rumah (R) ke sekolah (S) dimodelkan sebagai graf berbobot dengan bobot berupa menit: R–A = 5, R–B = 3, A–C = 1, A–S = 8, B–C = 4, dan C–S = 5. Rute tercepat beserta total waktu tempuhnya adalah ...
+A. R → A → C → S, 11 menit
+B. R → B → C → S, 12 menit
+C. R → A → S, 13 menit
+D. R → B → C → A → S, 16 menit
+E. R → A → C → S, 12 menit
+ANS: A
+8. Pada graf yang sama dengan soal sebelumnya (R–A = 5, R–B = 3, A–C = 1, A–S = 8, B–C = 4, C–S = 5), ruas A–C tergenang saat hujan sehingga tidak dapat dilewati. Rute tercepat dan total waktu tempuhnya menjadi ...
+A. R → A → C → S, 11 menit
+B. R → A → S, 13 menit
+C. R → B → C → S, 13 menit
+D. R → A → S, 12 menit
+E. R → B → C → S, 12 menit
+ANS: E
+9. Sebuah aplikasi peta memproses jaringan jalan berisi jutaan persimpangan dan harus menampilkan rute dalam hitungan detik. Pengembang memilih algoritma A-Star dibanding Dijkstra. Alasan yang paling tepat adalah ...
+A. A-Star tidak memerlukan graf berbobot sehingga datanya lebih sederhana
+B. A-Star menghitung semua rute sehingga hasilnya selalu lebih lengkap
+C. A-Star memperkirakan arah menuju tujuan sehingga lebih sedikit simpul yang perlu diperiksa
+D. A-Star hanya dapat dipakai untuk jarak, sedangkan Dijkstra untuk waktu
+E. A-Star mengabaikan kondisi lalu lintas sehingga perhitungannya lebih singkat
+ANS: C
+10. Sistem KA menyusun kecepatan rata-rata kendaraan setiap 5 menit pada rentang pukul 06.00–08.00 WIB menjadi deret waktu (time series) agar perubahan kepadatan lalu lintas dapat dianalisis. Aspek yang paling tepat menggambarkan tindakan tersebut adalah ...
+A. perception, karena data dikumpulkan dari lingkungan
+B. data representation, karena data diorganisasikan ke format yang siap dianalisis
+C. reasoning, karena sistem memutuskan rute
+D. learning, karena sistem memperbaiki prediksi
+E. abstraksi, karena detail rute dihilangkan
+ANS: B
+11. Aplikasi navigasi membandingkan estimasi waktu tiba dengan waktu tempuh aktual pengguna setiap hari, lalu memakai selisihnya untuk memperbaiki prediksi pada perjalanan berikutnya. Aspek yang paling dominan adalah ...
+A. perception, karena menerima data posisi pengguna
+B. data representation, karena menyimpan data dalam bentuk graf
+C. learning, karena kinerja membaik berdasarkan data historis dan umpan balik
+D. reasoning, karena memilih rute dengan A-Star
+E. dekomposisi, karena membagi rute menjadi ruas-ruas
+ANS: C
+12. Sistem navigasi menerapkan aturan: JIKA hujan deras DAN ruas jalan rawan banjir MAKA ruas tersebut dihindari. Menurut kategori berpikir komputasional dengan KA, aturan tersebut termasuk ...
+A. perception, karena mendeteksi cuaca
+B. reasoning, karena aturan (rule-based reasoning) dipakai untuk mengambil keputusan dari data yang tersedia
+C. learning, karena aturan diperbarui otomatis dari pengalaman
+D. data representation, karena aturan berbentuk graf
+E. perception, karena aturan ditulis dari data BMKG
+ANS: B
+13. Perhatikan empat komponen berpikir komputasional berbasis KA: (1) Perception, (2) Data representation, (3) Reasoning, (4) Learning. Contoh implementasinya: P. memprediksi pola kemacetan dengan LSTM dari data time series historis; Q. membuat graf berbobot dinamis dari data lalu lintas; R. memakai A-Star pada graf berbobot untuk memilih rute; S. mengambil data kepadatan kendaraan dari API lalu lintas dan sensor CCTV. Pasangan yang tepat adalah ...
+A. 1–S, 2–Q, 3–R, 4–P
+B. 1–Q, 2–S, 3–R, 4–P
+C. 1–S, 2–R, 3–Q, 4–P
+D. 1–P, 2–Q, 3–R, 4–S
+E. 1–S, 2–Q, 3–P, 4–R
+ANS: A
+14. Mengapa bobot pada graf rute diperbarui secara dinamis (misalnya setiap 5 menit) dan tidak memakai bobot tetap?
+A. Agar graf memiliki lebih banyak simpul
+B. Agar algoritma Dijkstra dapat diganti dengan A-Star
+C. Karena bobot tetap tidak dapat dihitung oleh komputer
+D. Karena kondisi lalu lintas berubah sehingga rute terbaik dapat berubah, dan bobot tetap menghasilkan rekomendasi yang usang
+E. Karena bobot dinamis menghilangkan kebutuhan data cuaca
+ANS: D
+15. Kepala sekolah meminta jadwal pelajaran seluruh sekolah disusun dengan berpikir komputasional. Dekomposisi yang paling tepat adalah ...
+A. menulis jadwal langsung untuk semua kelas sekaligus lalu memperbaikinya jika bentrok
+B. menghapus data guru agar jadwal lebih sederhana
+C. mencari satu pola jadwal yang sama untuk semua kelas
+D. menentukan warna jadwal untuk tiap kelas
+E. memecah masalah menjadi data guru, kelas, mata pelajaran, ruang, dan jam, lalu menyusun aturan agar tidak ada bentrok
+ANS: E
+16. Urutan algoritma pengelolaan sampah sekolah yang paling logis dan lengkap adalah ...
+A. Pantau dan evaluasi → siapkan tiga tempat sampah → edukasi → kumpulkan dan pilah
+B. Edukasi memilah → serahkan sampah berbahaya → siapkan tempat sampah → evaluasi
+C. Siapkan tempat sampah → kumpulkan sampah organik → edukasi → evaluasi → serahkan sampah berbahaya
+D. Kumpulkan semua sampah → siapkan tempat sampah → evaluasi → edukasi
+E. Siapkan tiga tempat sampah → edukasi pemilahan → kumpulkan organik (kompos) dan anorganik (daur ulang) → serahkan sampah berbahaya ke pengolahan khusus → pantau dan evaluasi tiap pekan
+ANS: E
+17. Hasil pengamatan: (i) sampah plastik terbanyak berasal dari kemasan makanan, (ii) sampah organik menumpuk di dapur, (iii) baterai bekas jarang dipisahkan dengan benar. Solusi yang paling selaras dengan pola tersebut adalah ...
+A. menyediakan satu tempat sampah besar untuk semua jenis agar mudah
+B. melarang peserta didik membawa makanan
+C. mengganti warna tempat sampah setiap bulan
+D. menyediakan tempat terpisah untuk plastik, organik, dan limbah berbahaya (baterai) disertai edukasi pemilahan
+E. menambah petugas kebersihan tanpa mengubah cara pemilahan
+ANS: D
+18. Manakah pernyataan berikut yang BUKAN merupakan penerapan abstraksi pada masalah sampah sekolah?
+A. Berfokus pada pengurangan plastik kemasan dan mengabaikan merek kemasan
+B. Mencatat jumlah sampah setiap hari selama sebulan untuk menemukan hari dan jam sampah paling banyak
+C. Mengabaikan warna tempat sampah selama fungsinya jelas
+D. Menyederhanakan masalah menjadi satu kalimat: “sampah plastik kantin belum terpilah”
+E. Memilih tiga masalah utama dan membuang informasi yang tidak relevan
+ANS: B
+19. Dua masalah dibandingkan: (P) printer ruang guru tidak aktif, dan (Q) mengurangi kemacetan di sekitar sekolah. Pernyataan yang paling tepat membandingkan keduanya adalah ...
+A. P umumnya dapat diselesaikan dengan langkah langsung, sedangkan Q memerlukan analisis, strategi, uji coba, dan evaluasi
+B. P dan Q sama-sama selalu memerlukan banyak pihak
+C. P lebih kompleks karena melibatkan perangkat keras
+D. Q dapat diselesaikan dengan satu langkah jika dana tersedia
+E. P dan Q sama-sama memiliki penyebab yang banyak dan saling terkait
+ANS: A
+20. Tiga alternatif rute ke sekolah: Jalur 1 (12 menit, 2 persimpangan), Jalur 2 (13 menit, 4 persimpangan), dan Jalur 3 (12 menit, 6 persimpangan). Persimpangan sering menjadi titik rawan keterlambatan. Rute yang paling layak direkomendasikan dan alasannya adalah ...
+A. Jalur 2, karena persimpangannya lebih banyak sehingga lebih banyak pilihan
+B. Jalur 3, karena waktunya sama dengan Jalur 1 dan jaraknya pasti terpendek
+C. Jalur 1, karena waktunya terpendek dan persimpangannya paling sedikit sehingga lebih stabil
+D. Jalur 2, karena waktunya paling lama sehingga paling aman
+E. Jalur 1 dan Jalur 3 sama baiknya karena hanya waktu tempuh yang boleh dipertimbangkan
+ANS: C
+21. Pada jam sibuk pukul 06.30, estimasi waktu Jalur 1 naik menjadi 19 menit karena kemacetan di satu persimpangan, sedangkan Jalur 3 tetap 12 menit. Sistem navigasi yang menerapkan berpikir komputasional seharusnya ...
+A. memperbarui bobot ruas, membandingkan ulang total waktu, lalu merekomendasikan Jalur 3
+B. tetap merekomendasikan Jalur 1 karena paling sering dipilih
+C. membatalkan perhitungan rute
+D. menambah bobot Jalur 3 agar seimbang dengan Jalur 1
+E. memilih rute secara acak
+ANS: A
+22. Perpustakaan sekolah membangun sistem rekomendasi buku. Sistem mencatat riwayat peminjaman, menemukan bahwa peminjam novel fantasi sering meminjam novel petualangan, lalu menyarankan novel petualangan kepada peminjam baru novel fantasi. Saran tersebut kemudian diperbaiki berdasarkan buku yang akhirnya benar-benar dipinjam. Aspek yang paling dominan pada bagian “memperbaiki saran berdasarkan buku yang akhirnya dipinjam” adalah ...
+A. perception
+B. data representation
+C. learning
+D. dekomposisi
+E. abstraksi
+ANS: C
+23. Seorang perawat di klinik memisahkan gejala pasien menjadi suhu, batuk, dan nyeri; mengenali bahwa gejala tertentu sering muncul bersama; berfokus pada gejala yang paling relevan; lalu mengikuti alur pemeriksaan baku. Pernyataan yang paling tepat adalah ...
+A. perawat tersebut tidak menerapkan berpikir komputasional karena tidak memakai komputer
+B. berpikir komputasional hanya dapat dilakukan oleh programer
+C. hanya langkah terakhir yang termasuk berpikir komputasional
+D. perawat tersebut menerapkan empat pilar berpikir komputasional meskipun tanpa komputer, sehingga keterampilan ini relevan di berbagai bidang
+E. berpikir komputasional hanya berlaku jika hasilnya dijalankan oleh mesin
+ANS: D
+24. Hasil pengamatan kantin: antrean panjang hanya terjadi pukul 09.30–10.00; area bersih; sampah terpilah; tempat duduk cukup; warna meja kusam. Rumusan masalah utama setelah abstraksi dan rancangan solusi yang paling tepat adalah ...
+A. kebersihan kantin kurang; mengganti cat meja
+B. tempat duduk kurang; menambah meja
+C. pengelolaan sampah buruk; menambah tempat sampah
+D. warna meja kusam; mengganti seluruh meja
+E. antrean saat jam istirahat; menambah loket atau mengatur pemesanan pada waktu puncak
+ANS: E
+25. Seorang pengembang memodelkan jaringan jalan: rumah, sekolah, dan setiap perempatan sebagai titik; jalan penghubung sebagai garis; lalu menambahkan tingkat kemacetan pada setiap jalan. Elemen graf yang tepat untuk ketiganya secara berurutan adalah ...
+A. edge, node, weight
+B. node, edge, weight
+C. node, weight, edge
+D. weight, edge, node
+E. edge, weight, node
+ANS: B
+26. Berdasarkan pola historis hari kerja, sistem memperkirakan peluang kemacetan di jalan arteri pukul 06.30 sebesar 80%, lalu memutuskan menghindarinya. Bagian “memperkirakan peluang” termasuk ...
+A. perception, karena mengambil data real-time
+B. reasoning, karena probabilistic reasoning dipakai sebagai dasar keputusan
+C. data representation, karena peluang disimpan di dalam graf
+D. learning, karena sistem berhenti belajar setelah menghitung peluang
+E. dekomposisi, karena jalan dibagi menjadi ruas-ruas
+ANS: B
+27. Manakah berikut yang BUKAN merupakan data pada tahap perception dalam sistem rute berbasis KA?
+A. Lokasi GPS perangkat pengguna
+B. Kepadatan kendaraan dari sensor IoT pada lampu lalu lintas
+C. Prakiraan cuaca dari BMKG
+D. Rute terpilih hasil perhitungan algoritma A-Star
+E. Kecepatan kendaraan dari API lalu lintas
+ANS: D
+28. Pada sistem navigasi sekolah, API lalu lintas mendadak gagal sehingga data real-time tidak masuk selama satu jam. Aspek yang paling langsung terganggu dan dampaknya adalah ...
+A. perception; bobot graf tidak diperbarui sehingga rute yang direkomendasikan dapat tidak akurat
+B. learning; model berhenti belajar secara permanen
+C. reasoning; algoritma A-Star tidak dapat dijalankan sama sekali
+D. data representation; graf jalan hilang dari sistem
+E. dekomposisi; masalah tidak dapat dibagi lagi
+ANS: A
+29. Kelompokmu ditugaskan menghemat air di sekolah. Pengamatan: terjadi lonjakan pemakaian air pukul 09.30–10.00, dua kran bocor, dan kran sering lupa ditutup. Rancangan yang paling sesuai dengan pendekatan berpikir komputasional adalah ...
+A. menutup toilet selama jam istirahat
+B. mengganti seluruh kran tanpa data pemakaian
+C. memecah masalah (kebocoran, kebiasaan, jam puncak), memprioritaskan perbaikan kran bocor dan kampanye menutup kran, lalu mengevaluasi pemakaian setiap pekan
+D. menghitung biaya air bulanan saja tanpa mencari penyebab
+E. menunggu keluhan warga sekolah tanpa pengamatan
+ANS: C
+30. Berpikir komputasional disebut sebagai keterampilan literasi baru abad ke-21. Alasan yang paling logis adalah ...
+A. semua orang pada akhirnya akan menjadi programer
+B. komputer akan menyelesaikan semua masalah tanpa campur tangan manusia
+C. berpikir komputasional menggantikan kegiatan membaca, menulis, dan berhitung
+D. berpikir komputasional hanya menghafal langkah-langkah baku
+E. di dunia yang penuh data dan teknologi, setiap orang perlu mengurai masalah kompleks, mengenali pola, memilah informasi penting, dan menyusun solusi sistematis
+ANS: E
+31. Penelusuran 5 Whys pada antrean kantin: (1) Kenapa pelayanan lambat? Karena hanya satu petugas yang melayani. (2) Kenapa hanya satu petugas yang melayani? Karena petugas lain menyiapkan makanan di dapur. Pertanyaan “kenapa” berikutnya yang paling tepat untuk mendekati akar masalah adalah ...
+A. Kenapa peserta didik membeli makanan pada jam istirahat?
+B. Kenapa makanan harus dimasak?
+C. Kenapa kantin memiliki dapur?
+D. Kenapa seragam petugas kantin berbeda warna?
+E. Kenapa tidak ada pembagian tugas yang jelas antara petugas pelayanan dan petugas penyiapan makanan?
+ANS: E
+32. Saat menganalisis penyebab banyaknya sampah plastik, Edo langsung menyimpulkan bahwa penyebabnya adalah penjual kantin karena ia tidak menyukai penjual tersebut. Sikap berpikir kritis yang seharusnya dilakukan Edo adalah ...
+A. mengenali adanya bias, mengumpulkan data jumlah dan sumber sampah, lalu menyimpulkan berdasarkan bukti
+B. mempertahankan kesimpulannya agar konsisten
+C. menunggu guru mengambil keputusan tanpa melakukan analisis
+D. menanyakan pendapat mayoritas teman tanpa data
+E. menghentikan analisis karena penyebabnya tidak mungkin dibuktikan
+ANS: A
+33. Dinas perhubungan menerapkan sistem seperti navigasi sekolah untuk seluruh kota: data CCTV dan GPS angkutan, graf jalan kota, algoritma pencarian rute, dan model yang belajar dari data historis. Manfaat paling tepat dari penerapan skala kota adalah ...
+A. kemacetan hilang sepenuhnya tanpa kebijakan lain
+B. data lalu lintas tidak diperlukan lagi
+C. pengaturan lalu lintas dapat dilakukan secara dinamis berdasarkan data real-time dan pola historis sehingga waktu tempuh keseluruhan berkurang
+D. seluruh kendaraan otomatis dialihkan ke satu rute yang sama
+E. algoritma pencarian rute tidak lagi dibutuhkan
+ANS: C
+34. Sebuah tim lima peserta didik harus membuat aplikasi jadwal piket sekolah dalam satu pekan. Alasan dekomposisi membuat masalah tersebut lebih mudah diselesaikan adalah ...
+A. masalahnya hilang setelah dibagi menjadi bagian-bagian
+B. setiap bagian lebih kecil sehingga dapat dianalisis dan dikerjakan terpisah (bahkan dibagi ke anggota tim), lalu hasilnya digabungkan
+C. bagian-bagian kecil tidak perlu saling berhubungan
+D. dekomposisi menggantikan kebutuhan algoritma
+E. dekomposisi menghapus semua informasi yang tidak penting
+ANS: B
+35. Dalam model rute ke sekolah, sebuah tim membuang faktor “jam keberangkatan” karena dianggap tidak penting. Dampak yang paling mungkin adalah ...
+A. graf kehilangan simpul sekolah
+B. algoritma A-Star tidak dapat berjalan
+C. rute terpendek menjadi selalu salah pada semua kondisi
+D. rute yang direkomendasikan dapat keliru pada jam sibuk karena pola kemacetan tidak diperhitungkan
+E. jumlah persimpangan berubah
+ANS: D
+36. Urutan langkah simulasi penentuan rute tercepat yang benar adalah ...
+A. Hitung total waktu → input lokasi → bandingkan rute → kumpulkan data jalan → tentukan alternatif → tampilkan hasil
+B. Input lokasi → bandingkan rute → hitung total waktu → tentukan alternatif → kumpulkan data jalan → tampilkan hasil
+C. Input lokasi → kumpulkan data jalan → tentukan rute alternatif → hitung total waktu tempuh → bandingkan semua rute → tampilkan hasil
+D. Kumpulkan data jalan → tampilkan hasil → input lokasi → hitung waktu → bandingkan → tentukan alternatif
+E. Tentukan rute alternatif → input lokasi → tampilkan hasil → kumpulkan data → bandingkan → hitung waktu
+ANS: C
+37. Hujan deras diperkirakan turun saat berangkat sekolah. Rute X menempuh 15 menit melalui jalan kecil yang sering banjir, sedangkan Rute Y juga 15 menit melalui jalan besar yang tidak pernah banjir. Aturan simulasi: jika dua rute memiliki waktu sama, pilih yang paling stabil atau aman. Keputusan yang tepat adalah ...
+A. Rute X, karena jalan kecil pasti lebih sepi
+B. Rute X, karena jaraknya pasti lebih pendek
+C. memilih salah satu secara acak karena waktunya sama
+D. menunda keberangkatan tanpa membandingkan rute
+E. Rute Y, karena waktunya sama dan lebih stabil serta aman saat hujan
+ANS: E
+38. Sebuah model LSTM untuk memprediksi kemacetan dilatih hanya dengan data hari kerja. Ketika dipakai pada hari Minggu, prediksinya sering meleset. Penyebab dan perbaikan yang paling tepat adalah ...
+A. LSTM tidak dapat dipakai untuk data time series
+B. hari Minggu tidak memiliki lalu lintas sehingga prediksi tidak perlu dilakukan
+C. algoritma A-Star harus diganti dengan Dijkstra
+D. data latih tidak mewakili pola akhir pekan, sehingga model perlu dilatih ulang dengan data historis akhir pekan
+E. graf harus dihapus dan dibuat ulang tanpa bobot
+ANS: D
+39. Data cuaca dan kejadian khusus (misalnya kecelakaan) ditambahkan sebagai fitur tambahan dalam model KA untuk memprediksi waktu tempuh. Tujuan utamanya adalah ...
+A. mengurangi jumlah simpul pada graf
+B. membuat prediksi waktu tempuh memperhitungkan faktor di luar kepadatan lalu lintas
+C. menggantikan seluruh data GPS
+D. menghilangkan kebutuhan algoritma pencarian rute
+E. membuat graf tidak lagi berbobot
+ANS: B
+40. Pernyataan yang paling tepat tentang integrasi berpikir komputasional dengan KA adalah ...
+A. perception mengumpulkan data dari lingkungan, data representation menata data agar dapat diproses, reasoning mengambil keputusan dari data tertata, dan learning memperbaiki kinerja dari data historis serta umpan balik
+B. learning mengumpulkan data sensor, sedangkan perception memperbaiki prediksi dari pengalaman
+C. reasoning hanya bertugas menyimpan data historis dalam basis data
+D. data representation memilih rute tercepat dengan algoritma A-Star
+E. perception dan learning adalah dua istilah untuk proses yang sama
+ANS: A
+Bab 2 Algoritma dan Pemrograman Lanjut
+41. Sebuah “algoritma” membuat teh disusun sebagai berikut: (1) rebus air, (2) tuang air ke gelas, (3) kembali ke langkah 1 tanpa syarat berhenti. Karakteristik algoritma yang dilanggar adalah ...
+A. memiliki output yang relevan
+B. langkahnya jelas dan tidak ambigu
+C. dapat dieksekusi secara efektif
+D. langkahnya harus terbatas dan pada akhirnya berhenti
+E. memiliki input yang jelas
+ANS: D
+42. Wati ingin memperlihatkan alur penentuan kelulusan kepada guru yang belum mengenal kode agar percabangan “ya/tidak” terlihat jelas sebelum diprogram. Bentuk penyajian algoritma yang paling sesuai adalah ...
+A. kode program bahasa C
+B. flowchart
+C. tabel nilai rapor
+D. file executable
+E. source code Java
+ANS: B
+43. Perhatikan pseudocode berikut.
+IF bangun_tepat_waktu THEN
+    sarapan
+    jalan_kaki
+ELSE
+    IF ada_sepeda THEN
+        naik_sepeda
+    ELSE
+        berlari
+    ENDIF
+ENDIF
+Pada suatu pagi Wati bangun terlambat dan sepedanya dipinjam adiknya. Tindakan yang dijalankan adalah ...
+A. sarapan, jalan_kaki
+B. naik_sepeda
+C. sarapan, naik_sepeda
+D. sarapan, berlari
+E. berlari
+ANS: E
+44. Pseudocode rata = a + b + c / 3 digunakan untuk menghitung rata-rata tiga nilai. Jika a = 60, b = 75, dan c = 90, hasil yang diperoleh dan perbaikan yang tepat adalah ...
+A. 165, karena pembagian dikerjakan lebih dahulu; perbaikan: rata = (a + b + c) / 3 sehingga hasilnya 75
+B. 75, sudah benar karena urutan operasi tidak berpengaruh
+C. 225, karena semua nilai dijumlahkan lalu dikalikan 3; perbaikan: rata = a + b + c
+D. 165, karena nilai terbesar diabaikan; perbaikan: hapus variabel c
+E. eror, karena variabel c tidak dapat dibagi; perbaikan: ubah c menjadi string
+ANS: A
+45. Seorang peserta didik menuliskan algoritma rata-rata tiga nilai: (1) Mulai, (2) Jumlahkan ketiga nilai, (3) Terima nilai matematika, bahasa Indonesia, dan bahasa Inggris, (4) Bagi jumlah dengan tiga, (5) Tampilkan rata-rata, (6) Selesai. Perbaikan yang paling tepat agar algoritma logis adalah ...
+A. memindahkan langkah 5 ke sebelum langkah 4
+B. menghapus langkah 1
+C. menukar langkah 2 dan langkah 3 agar nilai diinput sebelum dijumlahkan
+D. menukar langkah 4 dan langkah 6
+E. tidak ada yang perlu diperbaiki
+ANS: C
+46. Flowchart penentuan kelulusan memakai kondisi nilaiSiswa >= 60 untuk keluaran “Lulus”. Jika seorang pengembang mengganti kondisi menjadi nilaiSiswa > 60, peserta didik yang terdampak adalah ...
+A. peserta didik yang bernilai tepat 60, yang semula Lulus menjadi Tidak Lulus
+B. peserta didik yang bernilai 59, yang semula Tidak Lulus menjadi Lulus
+C. semua peserta didik yang bernilai di atas 60
+D. peserta didik yang bernilai 61, yang semula Lulus menjadi Tidak Lulus
+E. tidak ada peserta didik yang terdampak
+ANS: A
+47. Perhatikan algoritma berikut.
+counter = 0
+selama counter < 10 lakukan
+    Output(counter)
+    counter = counter + 2
+Keluaran algoritma tersebut adalah ...
+A. 10 angka, dari 0 sampai 9
+B. 5 angka, dari 2 sampai 10
+C. 10 angka, dari 0 sampai 18
+D. 4 angka, dari 2 sampai 8
+E. 5 angka, dari 0 sampai 8
+ANS: E
+48. Aturan kelulusan: (i) nilai akhir minimal 75 dan kehadiran minimal 80%; (ii) jika nilai 70–74, tetap lulus apabila kehadiran di atas 90%; (iii) selain itu tidak lulus. Data empat peserta didik: P (nilai 80, hadir 79%), Q (nilai 72, hadir 92%), R (nilai 74, hadir 90%), S (nilai 75, hadir 80%). Peserta didik yang dinyatakan lulus adalah ...
+A. P dan Q
+B. Q dan S
+C. P, Q, dan S
+D. R dan S
+E. Q, R, dan S
+ANS: B
+49. Predikat nilai ditentukan: A jika nilai ≥ 90, B jika nilai ≥ 75, C jika nilai ≥ 60, selain itu D. Struktur kontrol dan urutan pemeriksaan yang paling tepat adalah ...
+A. if–else if yang dimulai dari nilai ≥ 60 terlebih dahulu
+B. perulangan for dari nilai 0 sampai 100
+C. satu if tunggal: nilai ≥ 60
+D. if–else if bertingkat yang memeriksa dari ambang tertinggi (≥ 90) lebih dahulu
+E. switch-case tanpa memperhatikan urutan
+ANS: D
+50. Sebuah program menampilkan menu pilihan. Menu harus tampil minimal satu kali, kemudian diulang sampai pengguna memilih “keluar”. Struktur perulangan yang paling tepat adalah ...
+A. while do, karena kondisi diperiksa di awal sehingga menu pasti tampil
+B. for, karena jumlah pengulangan sudah pasti
+C. repeat until, karena kondisi diperiksa setelah blok dijalankan sehingga menu tampil minimal satu kali
+D. if tunggal, karena hanya ada satu keputusan
+E. nested if, karena ada dua kondisi
+ANS: C
+51. Diketahui A = [10, 2, 30, 4] dengan indeks dimulai dari 0. Nilai dari A[1] + A[3] * 2 adalah ...
+A. 12
+B. 6
+C. 10
+D. 8
+E. 20
+ANS: C
+52. Array B berisi 5 elemen (n = 5). Perhatikan potongan algoritma berikut.
+for i = 0 to 5 do
+    Output(B[i])
+endFor
+Pernyataan yang paling tepat adalah ...
+A. algoritma mencetak 5 elemen dengan benar
+B. terjadi syntax error karena for tidak boleh dimulai dari 0
+C. terjadi logic error karena hanya 4 elemen yang tercetak
+D. terjadi kesalahan saat dijalankan pada i = 5 karena indeks terakhir adalah 4; perbaikannya for i = 0 to n − 1
+E. tidak ada output sama sekali sejak iterasi pertama
+ANS: D
+53. Perhatikan algoritma berikut dengan A = [3, 8, 5, 12, 10] dan n = 5.
+max = A[0]
+count = 0
+for i = 1 to n - 1 do
+    if A[i] > max then
+        max = A[i]
+        count = count + 1
+    endIf
+endFor
+Nilai akhir count dan max adalah ...
+A. count = 2, max = 12
+B. count = 3, max = 12
+C. count = 2, max = 10
+D. count = 1, max = 8
+E. count = 4, max = 12
+ANS: A
+54. Diketahui A = [45, 60, 50, 72, 50, 99] dan program berikut.
+count = 0
+for i = 0 to 5 do
+    if A[i] >= 50 then
+        count = count + 1
+    endIf
+endFor
+Seorang peserta didik mengira hasilnya 3. Nilai count yang sebenarnya dan penyebab kekeliruannya adalah ...
+A. 3, karena nilai 50 tidak pernah dihitung
+B. 4, karena hanya satu elemen bernilai 50 yang dihitung
+C. 6, karena semua elemen dihitung
+D. 2, karena hanya nilai di atas 70 yang dihitung
+E. 5, karena dua elemen bernilai tepat 50 ikut terhitung oleh operator >=
+ANS: E
+55. Diketahui A = [1, 2, 3, 4, 5].
+jumlah = 0
+for i = 0 to 4 do
+    if i mod 2 = 0 then
+        jumlah = jumlah + A[i]
+    endIf
+endFor
+Nilai jumlah akhir dan elemen yang dijumlahkan adalah ...
+A. 15, semua elemen dijumlahkan
+B. 9, elemen berindeks 0, 2, dan 4
+C. 6, elemen yang bernilai genap
+D. 5, hanya elemen terakhir
+E. 0, karena i mod 2 tidak pernah bernilai 0
+ANS: B
+56. Berdasarkan algoritma PredikatNilaiAkhir (A jika nilai ≥ 90, B jika nilai ≥ 75, C jika nilai ≥ 60, selain itu D), peserta didik dengan nilai 74, 75, dan 90 berturut-turut memperoleh predikat ...
+A. D, B, A
+B. C, C, A
+C. D, C, B
+D. C, B, B
+E. C, B, A
+ANS: E
+57. Seorang pengembang menulis kode berikut.
+if nilai >= 60 then
+    predikat = 'C'
+else if nilai >= 75 then
+    predikat = 'B'
+else if nilai >= 90 then
+    predikat = 'A'
+else
+    predikat = 'D'
+endIf
+Jika nilai 95 dimasukkan, predikat yang dihasilkan dan jenis kesalahannya adalah ...
+A. A, tidak ada kesalahan
+B. C, kesalahan logika, karena cabang pertama sudah terpenuhi oleh semua nilai ≥ 60 sehingga cabang lain tidak pernah diperiksa
+C. B, kesalahan sintaks
+D. D, kesalahan runtime
+E. C, tidak ada kesalahan karena 95 bukan nilai yang valid
+ANS: B
+58. Perhatikan kode Python berikut.
+for i in range(1, 5):
+    for j in range(i):
+        print('#', end='')
+    print()
+Jumlah seluruh karakter # yang tercetak adalah ...
+A. 4
+B. 6
+C. 10
+D. 12
+E. 16
+ANS: C
+59. Perhatikan algoritma CetakTabelPerkalian: untuk i = 1 sampai 3 dan untuk j = 1 sampai 5, program menghitung Hasil = i * j lalu mencetak Hasil. Output ke-9 yang dicetak adalah ...
+A. 4
+B. 6
+C. 9
+D. 8
+E. 12
+ANS: D
+60. Perhatikan kode Python berikut.
+total = 0
+for i in range(1, 4):
+    j = 1
+    while j <= i * 2:
+        total += 1
+        j += 1
+print(total)
+Nilai yang dicetak adalah ...
+A. 12
+B. 6
+C. 9
+D. 18
+E. 8
+ANS: A
+61. Diketahui A = [1, 5, 10, 7, 15]. Pada algoritma SequentialSearch dengan x = 7, banyaknya pembandingan A[i] = x yang dilakukan dan posisi yang dilaporkan adalah ...
+A. 3 kali, indeks 2
+B. 4 kali, indeks 3
+C. 5 kali, indeks 3
+D. 4 kali, indeks 4
+E. 1 kali, indeks 0
+ANS: B
+62. Diketahui A = [4, 9, 4, 7] dan x = 4. Pada algoritma SequentialSearch, baris break dihapus sedangkan Output tetap berada di dalam if. Output dan nilai akhir posisi adalah ...
+A. satu pesan Ketemu pada indeks 0; posisi akhir 0
+B. satu pesan Ketemu pada indeks 2; posisi akhir 2
+C. dua pesan Ketemu (indeks 0 lalu indeks 2); posisi akhir 2
+D. dua pesan Ketemu (indeks 0 dan indeks 1); posisi akhir 1
+E. pesan Tidak ketemu; posisi akhir −1
+ANS: C
+63. Diketahui A = [1, 5, 10, 7, 15] (belum terurut) dan n = 5. Algoritma binary search bekerja: awal = 0, akhir = n − 1; selama awal ≤ akhir, tengah = (awal + akhir) div 2; jika A[tengah] = x maka ketemu; jika x < A[tengah] maka akhir = tengah − 1; selain itu awal = tengah + 1. Jika x = 7, hasil dan penjelasan yang tepat adalah ...
+A. Ketemu pada indeks 3
+B. Ketemu pada indeks 1
+C. Eror, karena data tidak boleh belum terurut
+D. Tidak ketemu, karena nilai 7 memang tidak ada dalam array
+E. Tidak ketemu, meskipun 7 ada di indeks 3, karena binary search mengandaikan data sudah terurut
+ANS: E
+64. Diketahui A = [2, 5, 8, 12, 16, 23, 38, 56, 72, 91] (n = 10) dan x = 23. Dengan binary search, posisi nilai yang ditemukan dan banyaknya elemen tengah yang diperiksa adalah ...
+A. indeks 5, 3 kali
+B. indeks 5, 6 kali
+C. indeks 4, 2 kali
+D. indeks 6, 3 kali
+E. indeks 5, 1 kali
+ANS: A
+65. Tabel perbandingan menunjukkan bahwa untuk 100 data terurut, binary search paling banyak sekitar 7 kali pengulangan, sedangkan sequential search 100 kali. Untuk 1.000 data terurut, perkiraan pengulangan maksimal binary search dan sequential search berturut-turut adalah ...
+A. 7 dan 100
+B. 500 dan 1.000
+C. 100 dan 1.000
+D. 10 dan 1.000
+E. 10 dan 500
+ANS: D
+66. Sebuah daftar 50.000 nomor induk tiba dalam urutan acak dan hanya akan dicari satu kali. Strategi yang paling masuk akal adalah ...
+A. binary search langsung karena selalu lebih cepat
+B. mengurutkan dengan insertion sort lalu binary search
+C. binary search tanpa mengurutkan
+D. sequential search, karena biaya mengurutkan data untuk satu kali pencarian tidak sebanding
+E. selection sort lalu sequential search
+ANS: D
+67. Katalog 100.000 buku jarang berubah dan dicari ribuan kali setiap hari. Strategi yang paling efisien adalah ...
+A. mengurutkan katalog sekali, lalu memakai binary search untuk setiap pencarian
+B. memakai sequential search pada setiap pencarian
+C. mengurutkan ulang katalog sebelum setiap pencarian
+D. memakai binary search tanpa mengurutkan katalog
+E. memindahkan seluruh katalog ke satu variabel
+ANS: A
+68. Array [29, 10, 14, 37, 13] diurutkan menaik dengan selection sort. Kondisi array setelah tahap kedua (dua elemen terkecil sudah berada di posisinya) adalah ...
+A. [10, 29, 14, 37, 13]
+B. [10, 13, 14, 37, 29]
+C. [10, 13, 14, 29, 37]
+D. [10, 14, 13, 29, 37]
+E. [13, 10, 14, 37, 29]
+ANS: B
+69. Array [7, 3, 5, 1, 9] diurutkan menaik dengan insertion sort. Total pergeseran elemen ke kanan selama seluruh proses adalah ...
+A. 3
+B. 4
+C. 5
+D. 6
+E. 10
+ANS: C
+70. Data [15, 25, 13, 5, 30, 40, 7] diurutkan menaik dengan selection sort. Banyaknya tahap yang benar-benar menukar dua elemen berbeda posisi (bukan menukar elemen dengan dirinya sendiri) adalah ...
+A. 6
+B. 7
+C. 2
+D. 5
+E. 4
+ANS: E
+71. Data [1, 2, 3, 5, 4] diurutkan menaik dengan insertion sort. Banyaknya pergeseran elemen yang dilakukan adalah ...
+A. 1 kali
+B. 0 kali
+C. 2 kali
+D. 4 kali
+E. 5 kali
+ANS: A
+72. Sebuah perangkat penyimpanan memiliki biaya operasi tulis yang sangat tinggi sehingga jumlah pertukaran atau penulisan elemen ingin ditekan. Berdasarkan perbandingan selection sort dan insertion sort, algoritma yang lebih sesuai dan alasannya adalah ...
+A. insertion sort, karena pertukarannya paling sedikit
+B. insertion sort, karena tidak pernah menggeser elemen
+C. selection sort, karena membandingkan elemen ke belakang
+D. selection sort, karena jumlah pertukarannya lebih sedikit dibanding insertion sort yang sering menggeser elemen
+E. keduanya sama persis dalam jumlah pergeseran dan pertukaran
+ANS: D
+73. Nilai [88, 70, 95, 60, 77] akan dicari nilai 88 dengan binary search. Setelah data diurutkan menaik, posisi 88 dan banyaknya elemen tengah yang diperiksa adalah ...
+A. indeks 1, 2 kali
+B. indeks 3, 1 kali
+C. indeks 3, 2 kali
+D. indeks 0, 3 kali
+E. indeks 4, 2 kali
+ANS: C
+74. Perhatikan algoritma DiagnosaKesehatan berikut.
+if suhubadan > 37.5 then
+    if batuk = 'ya' then
+        if sakitkepala = 'ya' then 'Flu atau Infeksi Virus'
+        else 'Demam dan Batuk'
+    else
+        if sakitkepala = 'ya' then 'Demam biasa'
+        else 'Demam ringan'
+else
+    if batuk = 'ya' then
+        if sakitkepala = 'ya' then 'kelelahan'
+        else 'Batuk ringan'
+    else
+        if sakitkepala = 'ya' then 'Sakit kepala ringan'
+        else 'Kondisi sehat'
+Pasien memiliki suhu badan 38, batuk “ya”, dan sakit kepala “tidak”. Diagnosa yang ditampilkan adalah ...
+A. Flu atau Infeksi Virus
+B. Demam dan Batuk
+C. Demam biasa
+D. Demam ringan
+E. Batuk ringan
+ANS: B
+75. Gunakan algoritma DiagnosaKesehatan pada soal nomor 74. Pasien memiliki suhu badan tepat 37,5, batuk “ya”, dan sakit kepala “ya”. Diagnosa yang ditampilkan adalah ...
+A. Flu atau Infeksi Virus
+B. Demam dan Batuk
+C. Batuk ringan
+D. Kondisi sehat
+E. kelelahan
+ANS: E
+76. Chatbot sekolah dibuat dengan aturan if–then: membalas hanya jika pesan memuat kata kunci “istirahat”. Pengguna mengetik “Kapan bel makan siang berbunyi?” dan chatbot tidak menjawab. Penjelasan yang paling tepat adalah ...
+A. chatbot mengalami runtime error saat memproses kata “bel”
+B. chatbot akan belajar dari kesalahan itu dan menjawab secara otomatis di lain waktu
+C. bahasa Python tidak dapat memproses kalimat tanya
+D. chatbot memakai decision tree sehingga selalu dapat menjawab semua pertanyaan
+E. chatbot berbasis aturan hanya mengenali kata kunci yang ditulis manusia dan tidak belajar dari data, sehingga variasi di luar aturan tidak tertangani
+ANS: E
+77. Pada pohon keputusan pengelompokan hewan, pertanyaan “Apakah berkaki empat?” berada paling atas; pertanyaan “Apakah memiliki sayap?” muncul setelah jawaban dari pertanyaan pertama; dan “Burung” adalah hasil akhir. Ketiganya berturut-turut disebut ...
+A. leaf node, decision node, root node
+B. decision node, root node, leaf node
+C. root node, decision node, leaf node
+D. root node, leaf node, decision node
+E. decision node, leaf node, root node
+ANS: C
+78. Sebuah pohon keputusan: root “Apakah berkaki?”. Jika ya → “Apakah bersayap?” (ya → Burung; tidak → Mamalia). Jika tidak → “Apakah hidup di air?” (ya → Ikan; tidak → Reptil). Banyaknya decision node (selain root) dan leaf node berturut-turut adalah ...
+A. 1 dan 2
+B. 2 dan 3
+C. 3 dan 4
+D. 2 dan 4
+E. 4 dan 2
+ANS: D
+79. Pada regresi linear berat badan (Y) terhadap tinggi badan (X) dengan 5 data, diperoleh rata-rata X = 160, rata-rata Y = 52,4, jumlah (x − x̄)(y − ȳ) = 175, dan jumlah (x − x̄)² = 250. Prediksi berat badan untuk tinggi badan 172 cm adalah ...
+A. 60,8 kg
+B. 62,9 kg
+C. 61,4 kg
+D. 60,0 kg
+E. 72,0 kg
+ANS: A
+80. Data jam belajar (X) dan skor kuis (Y): (1, 2), (2, 4), (3, 5), (4, 4), (5, 5). Dengan regresi linear sederhana, prediksi skor untuk 6 jam belajar adalah ...
+A. 5,2
+B. 5,8
+C. 6,0
+D. 4,6
+E. 6,6
+ANS: B
+81. Model regresi linear Y = −59,6 + 0,7X dipakai untuk memprediksi berat badan (kg) dari tinggi badan (cm). Pernyataan yang paling tepat adalah ...
+A. berat badan 0,7 kg ketika tinggi badan 0 cm
+B. setiap kenaikan 1 kg berat badan, tinggi badan naik 0,7 cm
+C. setiap kenaikan 1 cm tinggi badan, prediksi berat badan naik 0,7 kg; intercept −59,6 tidak bermakna fisik pada tinggi 0 cm karena di luar rentang data
+D. model menjamin seseorang setinggi 175 cm pasti berberat 62,9 kg
+E. intercept negatif menunjukkan model salah sehingga harus dibuang
+ANS: C
+82. Empat tugas: (1) memprediksi harga rumah dari luas bangunan; (2) mengelompokkan pelanggan ke dalam segmen tanpa label; (3) mengklasifikasi email sebagai spam atau bukan berdasarkan peluang kata; (4) menjelaskan keputusan melalui rangkaian pertanyaan bercabang. Pasangan algoritma yang paling tepat berturut-turut adalah ...
+A. regresi linear, K-Means, Naive Bayes, decision tree
+B. K-Means, regresi linear, decision tree, Naive Bayes
+C. Naive Bayes, K-Means, regresi linear, decision tree
+D. decision tree, Naive Bayes, K-Means, regresi linear
+E. regresi linear, decision tree, K-Means, Naive Bayes
+ANS: A
+83. Pada K-Means dengan sentroid C1 = (1, 0, 1) dan C2 = (0, 1, 0), muncul data baru G = (1, 1, 1). Klaster untuk G dan jaraknya adalah ...
+A. C2, karena jarak ke C2 = 1 dan jarak ke C1 = 1,41
+B. C2, karena jarak ke C2 = 1,41 dan jarak ke C1 = 1,73
+C. C1, karena jarak ke C1 = 1,41 dan jarak ke C2 = 1
+D. tidak dapat ditentukan karena G bukan bagian dari data awal
+E. C1, karena jarak ke C1 = 1 dan jarak ke C2 = 1,41
+ANS: E
+84. Suatu klaster beranggotakan A = (1, 0, 1), E = (1, 0, 0), F = (0, 0, 1), dan G = (1, 1, 1). Sentroid baru klaster tersebut adalah ...
+A. (0,67; 0; 0,67)
+B. (0,75; 0,25; 0,75)
+C. (0,75; 0,5; 0,75)
+D. (1; 0,25; 0,75)
+E. (0,5; 0,25; 0,5)
+ANS: B
+85. Pada K-Means, setelah suatu iterasi sentroid C1 = (0,67; 0; 0,67) dan C2 = (0,33; 1; 0,33) identik dengan sentroid iterasi sebelumnya, dan keanggotaan klaster tidak berubah. Tindakan algoritma selanjutnya adalah ...
+A. memilih sentroid awal baru secara acak
+B. mengulang dari langkah 3 sampai semua data bernilai 0
+C. menambah jumlah klaster K
+D. menghentikan proses karena sentroid tidak berubah dan klaster sudah stabil
+E. mengubah seluruh data menjadi bilangan negatif
+ANS: D
+86. Data latih buah (ukuran–rasa): Apel (Besar–Manis, Besar–Asam, Kecil–Manis); Jeruk (Besar–Asam, Besar–Asam, Kecil–Asam); Anggur (Kecil–Manis, Kecil–Manis, Besar–Manis). Buah baru berukuran Kecil dan berasa Asam. Dengan Naive Bayes, hasil klasifikasi dan skornya adalah ...
+A. Apel, skor ≈ 0,04
+B. Jeruk, skor ≈ 0,11
+C. Anggur, skor ≈ 0,22
+D. Jeruk, skor ≈ 0,33
+E. tidak dapat diklasifikasi karena skor Apel dan Anggur sama
+ANS: B
+87. Dengan data latih buah yang sama seperti soal nomor 86, buah baru berukuran Besar dan berasa Manis. Hasil klasifikasi Naive Bayes dan skornya adalah ...
+A. Jeruk, skor ≈ 0,33
+B. Anggur, skor ≈ 0,11
+C. Anggur, skor ≈ 0,22
+D. Jeruk dan Apel sama-sama paling tinggi
+E. Apel, skor ≈ 0,15
+ANS: E
+88. Pada klasifikasi buah baru berukuran Kecil dan berasa Manis, skor kelas Jeruk bernilai 0 karena P(Manis | Jeruk) = 0. Pernyataan yang paling tepat adalah ...
+A. karena tidak ada contoh jeruk manis pada data latih, satu faktor bernilai 0 membuat seluruh perkalian menjadi 0, sehingga data latih perlu diperluas agar kemungkinan tersebut terwakili
+B. skor 0 menandakan Jeruk adalah kelas yang paling mungkin
+C. skor 0 terjadi karena prior Jeruk bernilai 0
+D. skor 0 berarti terjadi runtime error pada algoritma
+E. skor 0 dapat diabaikan dan Jeruk tetap dipilih
+ANS: A
+89. Tim 1 membuat sistem diagnosa dengan menulis aturan if–then secara manual. Tim 2 melatih decision tree dari ribuan data pasien. Perbedaan mendasar kedua pendekatan adalah ...
+A. Tim 1 memakai data, sedangkan Tim 2 tidak memakai data
+B. Tim 1 pasti selalu lebih akurat daripada Tim 2
+C. keduanya sama persis karena aturan selalu ditulis manusia
+D. Tim 1 memakai aturan yang ditulis manusia, sedangkan Tim 2 menurunkan struktur keputusan dari pola pada data
+E. Tim 2 tidak membutuhkan data pelatihan sama sekali
+ANS: D
+90. Sebuah program C disimpan dengan satu pernyataan tanpa tanda titik koma. Alur pemrograman tekstual: Source Code → Compiler → Execute → Output. Yang terjadi adalah ...
+A. program tetap dieksekusi dengan hasil kosong
+B. eksekusi berjalan sampai baris yang salah lalu berhenti dengan output sebagian
+C. compiler menolak kode tersebut dan fail executable tidak terbentuk, sehingga tahap Execute dan Output tidak tercapai
+D. compiler memperbaiki kode secara otomatis lalu menjalankannya
+E. hanya tahap Output yang dilewati
+ANS: C
+91. Sebuah tim akan membuat program dengan fitur kompleks yang membutuhkan fleksibilitas tinggi. Pilihan dan alasan yang paling tepat adalah ...
+A. Scratch, karena tidak memiliki keterbatasan fitur
+B. Blockly, karena tidak memerlukan pemahaman logika
+C. Scratch, karena paling fleksibel untuk program kompleks
+D. Python atau Java (pemrograman tekstual), karena sangat fleksibel untuk program kompleks meskipun menuntut pemahaman sintaks
+E. pemrograman visual, karena sintaksnya harus dihafal
+ANS: D
+92. Pernyataan yang paling tepat tentang perbedaan sintaks bahasa C, Python, dan Java adalah ...
+A. C tidak memerlukan fungsi main(), sedangkan Python memerlukannya
+B. Python mewajibkan titik koma di akhir setiap pernyataan, sedangkan C tidak
+C. C memerlukan fungsi main() dan titik koma di akhir pernyataan, Python tidak memerlukan keduanya, dan Java memerlukan kelas serta fungsi main()
+D. Java tidak membedakan huruf kapital dan huruf kecil, sedangkan C membedakannya
+E. ketiganya tidak memerlukan fungsi main()
+ANS: C
+93. Aturan penamaan variabel: tidak boleh mengandung spasi, tidak boleh diawali angka, dan memakai underscore jika terdiri atas dua kata. Nama variabel yang sesuai untuk menyimpan tinggi badan peserta didik adalah ...
+A. tinggi badan
+B. tinggi_badan
+C. 2tinggi
+D. tinggi-badan
+E. #tinggi
+ANS: B
+94. Perhatikan kode Python berikut.
+nama = 'Sari'
+print(Nama)
+Yang terjadi ketika kode dijalankan adalah ...
+A. tercetak Sari, karena huruf kapital tidak berpengaruh
+B. eror sintaks, karena memakai tanda kutip tunggal
+C. tercetak Nama, karena variabel dicetak sebagai teks
+D. tidak ada output dan tidak ada eror
+E. eror saat dijalankan (NameError), karena Python membedakan huruf kapital dan kecil sehingga Nama dan nama adalah dua hal berbeda
+ANS: E
+95. Perhatikan kode Python berikut. Pengguna memasukkan 3 pada input pertama dan 5 pada input kedua.
+a = input('Nilai 1: ')
+b = input('Nilai 2: ')
+print(a + b)
+Output dan penjelasannya adalah ...
+A. 35, karena input() menghasilkan string sehingga a + b menyambung teks; perbaikannya memakai int()
+B. 8, karena Python otomatis mengubah teks menjadi angka
+C. eror TypeError, karena string tidak dapat dijumlahkan
+D. 3 5, karena print memisahkan kedua nilai dengan spasi
+E. 15, karena kedua nilai dikalikan
+ANS: A
+96. Perhatikan kode Python berikut. Pengguna memasukkan nama Sari dan umur 16.
+nama = input('Nama: ')
+umur = int(input('Umur: '))
+tahunlahir = 2025 - umur
+print('Halo,', nama, 'kamu lahir tahun', tahunlahir)
+Output program adalah ...
+A. Halo, Sari kamu lahir tahun 2009
+B. Halo,Sari kamu lahir tahun 2009
+C. Halo, Sari kamu lahir tahun 2041
+D. Halo, nama kamu lahir tahun tahunlahir
+E. eror, karena umur bertipe string
+ANS: A
+97. Perhatikan kode Python berikut. Pengguna mengetik 10 pada Panjang, lalu mengetik 10.5 pada Lebar.
+panjang = int(input('Panjang: '))
+lebar = int(input('Lebar: '))
+if panjang == lebar:
+    print('sama sisi')
+else:
+    print('persegi panjang')
+Yang terjadi dan perbaikannya adalah ...
+A. tercetak persegi panjang, karena 10 tidak sama dengan 10.5
+B. terjadi ValueError saat dijalankan karena int() tidak dapat mengubah teks 10.5 menjadi bilangan bulat; perbaikannya memakai float()
+C. tercetak sama sisi, karena nilainya dibulatkan
+D. terjadi SyntaxError pada baris if
+E. tidak ada output karena kedua kondisi tidak terpenuhi
+ANS: B
+98. Perhatikan kode Python berikut.
+usia = int(input('Masukkan usia anda: '))
+print(f'Usia anda adalah {} tahun', usia)
+Jenis kesalahan dan perbaikan yang tepat adalah ...
+A. kesalahan runtime karena usia bertipe string
+B. kesalahan logika karena usia tercetak dua kali
+C. tidak ada kesalahan; program mencetak kalimat tanpa angka usia
+D. kesalahan sintaks karena kurung kurawal pada f-string kosong; perbaikannya print(f'Usia anda adalah {usia} tahun')
+E. kesalahan sintaks karena print tidak boleh memiliki dua argumen
+ANS: D
+99. Sebuah program C berisi int a = 10; int b = 0; int hasil = a / b; lalu mencetak hasil. Program dapat dikompilasi tetapi berhenti saat dijalankan. Jenis kesalahan dan cara pencegahannya adalah ...
+A. kesalahan sintaks; menambahkan titik koma
+B. kesalahan logika; mengganti operator pembagian
+C. kesalahan runtime (pembagian dengan nol); memeriksa b tidak sama dengan 0 sebelum pembagian
+D. kesalahan runtime; mengganti tipe int dengan string
+E. tidak ada kesalahan; hanya peringatan
+ANS: C
+100. Tiga potongan kode: (1) pint('Halo dunia') pada Python; (2) hasil = a − b padahal yang dimaksud adalah penjumlahan, program berjalan tanpa pesan eror; (3) hasil = a / b dengan b bernilai 0. Jenis kesalahan ketiganya berturut-turut adalah ...
+A. logika, sintaks, runtime
+B. sintaks, runtime, logika
+C. runtime, logika, sintaks
+D. logika, runtime, sintaks
+E. sintaks, logika, runtime
+ANS: E
+101. Perhatikan kode Python berikut.
+nilai = input('Masukkan nilai ujian: ')
+if nilai >= 75:
+    print('Lulus')
+Program menampilkan pesan TypeError: '>=' not supported between instances of 'str' and 'int'. Langkah debugging yang paling tepat adalah ...
+A. menghapus baris if agar eror hilang
+B. mengganti >= dengan ==
+C. menginstal ulang Python
+D. mengubah 75 menjadi '75' agar sama-sama string, meskipun perbandingan teks tidak sesuai urutan angka
+E. membaca pesan eror dan baris yang ditunjuk, menyadari bahwa input() menghasilkan string, lalu mengubah baris pertama menjadi nilai = int(input('Masukkan nilai ujian: '))
+ANS: E
+102. Perhatikan kode Python berikut.
+total = 0
+for n in [80, 90, 100]:
+    total = n
+print(total / 3)
+Output dan jenis kesalahan yang tepat adalah ...
+A. 90.0, program sudah benar
+B. 270.0, karena semua nilai dijumlahkan
+C. sekitar 33,33, kesalahan sintaks pada for
+D. sekitar 33,33, kesalahan logika karena total = n menimpa nilai sebelumnya; seharusnya total += n sehingga hasilnya 90.0
+E. 100.0, kesalahan runtime pada pembagian
+ANS: D
+103. Seorang peserta didik menulis if panjang = lebar: pada Python untuk memeriksa apakah dua nilai sama. Jenis kesalahan dan perbaikannya adalah ...
+A. kesalahan runtime; mengganti panjang dengan string
+B. kesalahan logika; menukar panjang dan lebar
+C. kesalahan sintaks, karena = adalah penugasan; perbandingan memakai ==
+D. tidak ada kesalahan
+E. kesalahan sintaks karena kurang titik koma
+ANS: C
+104. Perhatikan kode Python berikut.
+nilai = 80
+if nilai >= 75:
+print('Lulus')
+Yang terjadi saat kode dijalankan adalah ...
+A. IndentationError (kesalahan sintaks), karena baris setelah if harus menjorok ke dalam
+B. tercetak Lulus
+C. TypeError, karena nilai bertipe integer
+D. kesalahan logika, karena nilai 80 tidak memenuhi syarat
+E. tidak ada output dan tidak ada eror
+ANS: A
+105. Program menghitung diskon menghasilkan angka yang salah tetapi tidak menampilkan pesan eror apa pun. Teknik debugging yang paling tepat adalah ...
+A. membaca pesan eror pada terminal
+B. menambahkan print sementara atau breakpoint untuk mengamati nilai variabel pada setiap langkah perhitungan
+C. menginstal ulang compiler
+D. menghapus seluruh program lalu menulis ulang tanpa menganalisis
+E. mengganti bahasa pemrograman
+ANS: B
+106. Perhatikan kode C berikut.
+#include <stdio.h>
+int main() {
+    int umur;
+    printf("Masukkan umur Anda: ");
+    scanf("%d", umur);
+    printf("Umur Anda adalah: %d", umur);
+    return 0;
+}
+Pernyataan yang paling tepat tentang kesalahan pada kode tersebut adalah ...
+A. kurang tanda titik koma pada baris scanf
+B. fungsi main() harus bertipe void
+C. scanf memerlukan alamat variabel sehingga seharusnya scanf("%d", &umur); tanpa tanda & nilai tidak tersimpan pada variabel dan program dapat gagal saat dijalankan
+D. printf tidak boleh dipakai bersama scanf
+E. tipe int tidak dapat membaca angka
+ANS: C
+107. Perhatikan kode C berikut.
+#include <stdio.h>
+int main() {
+    printf("Halo, dunia!")
+    return 0;
+}
+Jenis kesalahan dan akibatnya adalah ...
+A. kesalahan logika; teks tercetak terbalik
+B. kesalahan sintaks karena tidak ada titik koma di akhir printf; compiler menolak kode sehingga program tidak dapat dijalankan
+C. kesalahan runtime; program berhenti saat mencetak
+D. tidak ada kesalahan; Halo, dunia! tercetak
+E. kesalahan sintaks karena return 0 tidak boleh dipakai
+ANS: B
+108. Kode Java berisi public class Halo dengan fungsi main, tetapi fail disimpan dengan nama Salam.java. Yang terjadi dan perbaikannya adalah ...
+A. terjadi kesalahan kompilasi karena nama fail harus sama dengan nama kelas publik; simpan sebagai Halo.java atau ubah nama kelas
+B. program berjalan normal karena nama fail bebas
+C. terjadi kesalahan runtime pada fungsi main
+D. terjadi kesalahan logika sehingga output salah
+E. terjadi kesalahan karena Java tidak membedakan huruf kapital dan kecil
+ANS: A
+109. Laboratorium sekolah tidak mengizinkan instalasi perangkat lunak, sedangkan peserta didik perlu menulis, menjalankan, dan melakukan debugging program C dan Python. Pilihan yang paling tepat adalah ...
+A. Google Colab, karena otomatis mengubah kode C menjadi Python
+B. Notepad, karena sudah memiliki compiler
+C. Scratch, karena mendukung bahasa C
+D. Command Prompt, karena tidak membutuhkan compiler
+E. OnlineGDB, karena menyediakan compiler dan debugger online untuk berbagai bahasa (C, C++, Java, Python) tanpa instalasi
+ANS: E
+110. Seorang peserta didik menyalin kode C ke Google Colab (Python). Di dalamnya terdapat baris komentar // hitung total. Yang terjadi dan perbaikannya adalah ...
+A. tidak ada masalah karena komentar tidak dijalankan
+B. terjadi kesalahan runtime pada saat program selesai
+C. terjadi kesalahan logika pada hasil perhitungan
+D. terjadi SyntaxError karena Python memakai # untuk komentar satu baris
+E. hanya muncul peringatan, program tetap berjalan
+ANS: D
+111. Perhatikan kode C berikut.
+int sum = 10;
+for (int i = 1; i <= 5; i++) {
+    sum += i;
+}
+printf("%d", sum);
+Nilai yang dicetak adalah ...
+A. 15
+B. 25
+C. 20
+D. 16
+E. 30
+ANS: B
+112. Perhatikan kode Python berikut.
+x = 1
+n = 0
+while x < 20:
+    x = x * 2
+    n += 1
+print(x, n)
+Output program adalah ...
+A. 32 5
+B. 16 4
+C. 32 6
+D. 20 5
+E. 16 5
+ANS: A
+113. Program kategori usia dibuat persis menurut tabel: 0–1 Bayi; 2–5 Balita; 6–12 Anak-Anak; 13–17 Remaja; 18–59 Dewasa; di atas 60 Lansia. Pasien berusia tepat 60 tahun akan ...
+A. masuk kategori Dewasa
+B. masuk kategori Lansia
+C. masuk kategori Remaja
+D. tidak masuk kategori mana pun karena tabel tidak mencakup usia 60; spesifikasi perlu diperbaiki, misalnya Lansia untuk usia ≥ 60
+E. menyebabkan kesalahan runtime pada tahap kompilasi
+ANS: D
+114. Perhatikan kode Python chatbot berikut.
+pesan = 'halo, kapan istirahat?'
+if 'halo' in pesan:
+    print('Halo juga!')
+elif 'istirahat' in pesan:
+    print('Istirahat pukul 09.30')
+Output dan perbaikan yang tepat adalah ...
+A. kedua balasan tercetak
+B. hanya Istirahat pukul 09.30 yang tercetak
+C. hanya Halo juga! yang tercetak, karena elif tidak diperiksa bila if terpenuhi; perbaikannya memakai if terpisah agar kedua kata kunci ditanggapi
+D. terjadi eror karena memakai elif
+E. tidak ada output
+ANS: C
+115. Tim X langsung menulis 500 baris kode dan baru menyadari alur keputusannya keliru setelah program dijalankan. Tim Y menggambar flowchart terlebih dahulu dan menemukan kekeliruan yang sama sebelum menulis kode. Kesimpulan yang paling tepat adalah ...
+A. flowchart tidak berguna karena kode tetap harus ditulis
+B. Tim X lebih efisien karena tidak membuat dokumen tambahan
+C. kesalahan logika hanya dapat ditemukan oleh compiler
+D. flowchart hanya dipakai pada pemrograman visual
+E. flowchart membantu mendeteksi kesalahan logika lebih awal sehingga perbaikan lebih mudah sebelum diubah menjadi kode
+ANS: E
+116. Seorang pengembang ingin mengurutkan array menaik dengan selection sort, tetapi menulis:
+for i = 0 to n - 2 do
+    idx = i
+    for j = i + 1 to n - 1 do
+        if A[j] > A[idx] then idx = j
+    endFor
+    tukar A[i] dengan A[idx]
+endFor
+Jika A = [3, 1, 2], hasil akhir dan penyebabnya adalah ...
+A. [1, 2, 3], program sudah benar
+B. [1, 3, 2], urutan hanya terbentuk sebagian
+C. [2, 1, 3], tahap pertama gagal
+D. [3, 2, 1], kesalahan logika pada pembanding > yang seharusnya < untuk urutan menaik
+E. eror sintaks pada baris for
+ANS: D
+117. Binary search pada A = [2, 5, 8, 12, 16] dengan x = 5. Pengembang keliru menulis bahwa jika x < A[tengah] maka awal = tengah + 1 (seharusnya akhir = tengah − 1). Hasil program adalah ...
+A. Ketemu pada indeks 1
+B. Ketemu pada indeks 1 setelah dua iterasi
+C. eror runtime karena indeks di luar batas
+D. Tidak ketemu, karena nilai 5 memang tidak ada dalam array
+E. Tidak ketemu, akibat kesalahan logika pada penyesuaian batas pencarian; seharusnya akhir = tengah − 1
+ANS: E
+118. Toko memberi diskon 10% untuk pembelian di atas Rp100.000. Total bayar untuk pembelian Rp100.000 dan Rp120.000 berturut-turut adalah ...
+A. Rp90.000 dan Rp108.000
+B. Rp100.000 dan Rp108.000
+C. Rp100.000 dan Rp120.000
+D. Rp90.000 dan Rp120.000
+E. Rp110.000 dan Rp132.000
+ANS: B
+119. Perhatikan kode Python berikut.
+a = '10'
+b = 5
+print(a + b)
+Program berhenti dengan TypeError. Perbaikan agar output yang tercetak adalah 15 adalah ...
+A. print(int(a) + b)
+B. print(a + str(b))
+C. b = '5' lalu print(a + b)
+D. print(a, b)
+E. print(str(a) + b)
+ANS: A
+120. Pernyataan yang paling tepat tentang debugging adalah ...
+A. debugging hanya dilakukan programer pemula karena programer berpengalaman tidak membuat bug
+B. logic error selalu ditunjukkan compiler melalui pesan eror
+C. debugging mencakup mencari, menemukan, dan memperbaiki kesalahan; logic error tidak terdeteksi compiler sehingga perlu penelusuran hasil dan nilai variabel (misalnya print debugging)
+D. pesan eror sebaiknya diabaikan lalu kode ditulis ulang
+E. runtime error terjadi sebelum program dijalankan
+ANS: C
+    </script>
+
+    <!-- Quiz Logic -->
+    <script>
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = {};
+        let timerInterval;
+        let secondsElapsed = 0;
+
+        // --- Data Parser Logic ---
+        function parseRawData() {
+            const rawText = document.getElementById('raw-data').textContent;
+            const lines = rawText.split('\n');
+            
+            let currentQ = null;
+            let currentOpt = null;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const trimmed = line.trim();
+                if (!trimmed) continue;
+
+                if (trimmed.startsWith('Bab ') || trimmed.startsWith('Soal HOTS')) continue;
+
+                const qMatch = line.match(/^(\d+)\.\s+(.*)/);
+                if (qMatch) {
+                    if (currentQ) questions.push(currentQ);
+                    currentQ = {
+                        num: qMatch[1],
+                        text: qMatch[2],
+                        options: {},
+                        ans: ''
+                    };
+                    currentOpt = null;
+                } else if (line.match(/^[A-E]\.\s+/)) {
+                    const opt = trimmed.substring(0, 1);
+                    const optText = trimmed.substring(2).trim().replace(/^\./, '').trim();
+                    if (currentQ) {
+                        currentQ.options[opt] = optText;
+                        currentOpt = opt;
+                    }
+                } else if (trimmed.startsWith('ANS:')) {
+                    if (currentQ) {
+                        currentQ.ans = trimmed.replace('ANS:', '').trim();
+                    }
+                    currentOpt = null;
+                } else {
+                    if (currentQ) {
+                        if (currentOpt) {
+                            currentQ.options[currentOpt] += '\n' + line;
+                        } else {
+                            currentQ.text += '\n' + line;
+                        }
+                    }
+                }
+            }
+            if (currentQ) questions.push(currentQ);
+        }
+
+        // --- UI Interactions ---
+        const setupScreen = document.getElementById('setup-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const questionContainer = document.getElementById('question-container');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationTitle = document.getElementById('explanation-title');
+        const explanationText = document.getElementById('explanation-text');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const questionTracker = document.getElementById('question-tracker');
+
+        document.getElementById('start-btn').addEventListener('click', startQuiz);
+        prevBtn.addEventListener('click', () => navigate(-1));
+        nextBtn.addEventListener('click', () => navigate(1));
+        submitBtn.addEventListener('click', finishQuiz);
+        document.getElementById('restart-btn').addEventListener('click', resetQuiz);
+        document.getElementById('view-discussion-btn').addEventListener('click', () => {
+            const container = document.getElementById('discussion-container');
+            container.classList.toggle('hidden');
+            if(!container.classList.contains('hidden')) {
+                container.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function startQuiz() {
+            parseRawData();
+            if (questions.length === 0) {
+                alert("Data soal gagal dimuat!");
+                return;
+            }
+            setupScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            secondsElapsed = 0;
+            timerInterval = setInterval(() => {
+                secondsElapsed++;
+                document.getElementById('timer').innerText = formatTime(secondsElapsed);
+            }, 1000);
+
+            loadQuestion(0);
+        }
+
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = questions[index];
+            
+            // Update Tracker & Progress
+            questionTracker.innerText = `Soal ${index + 1} / ${questions.length}`;
+            progressBar.style.width = `${((index + 1) / questions.length) * 100}%`;
+
+            // Reset explanation visibility
+            explanationContainer.classList.add('hidden');
+            explanationContainer.classList.remove('animate-slide-down');
+            
+            const ansObj = userAnswers[index];
+            const hasChecked = ansObj && ansObj.checked;
+            const userVal = ansObj ? ansObj.val : null;
+
+            // Set Question Text
+            questionContainer.innerHTML = `
+                <h3 class="text-xl font-semibold text-gray-800 flex items-start">
+                    <span class="mr-3 text-indigo-600 bg-white shadow-sm w-8 h-8 rounded-full flex items-center justify-center shrink-0 border border-indigo-100">${q.num}</span>
+                    <span class="question-text font-medium leading-relaxed pt-1">${escapeHtml(q.text)}</span>
+                </h3>
+            `;
+
+            // Set Options
+            optionsContainer.innerHTML = '';
+            for (const [key, val] of Object.entries(q.options)) {
+                const isSelected = userVal === key ? 'checked' : '';
+                const disabled = hasChecked ? 'disabled' : '';
+                const optionHtml = `
+                    <label class="option-label flex items-start p-4 border-2 border-gray-100 bg-white rounded-xl w-full ${disabled ? 'disabled cursor-not-allowed opacity-75' : ''}">
+                        <input type="radio" name="question${index}" value="${key}" ${isSelected} ${disabled} class="hidden" onchange="selectOption('${key}')">
+                        <div class="option-box flex-shrink-0 w-6 h-6 border-2 border-gray-300 rounded-full flex justify-center items-center mr-4 mt-0.5 transition-colors bg-white">
+                            <div class="w-3 h-3 bg-indigo-600 rounded-full opacity-0 transition-opacity"></div>
+                        </div>
+                        <div class="flex-grow flex items-start">
+                            <span class="font-bold mr-2 text-indigo-600">${key}.</span>
+                            <span class="text-gray-700 question-text mt-0">${escapeHtml(val)}</span>
+                        </div>
+                    </label>
+                `;
+                optionsContainer.insertAdjacentHTML('beforeend', optionHtml);
+            }
+            
+            // Update UI if already checked
+            if (hasChecked) {
+                updateSelectedUI();
+                showExplanation();
+                if (index === questions.length - 1) {
+                    nextBtn.classList.add('hidden');
+                    submitBtn.classList.remove('hidden');
+                } else {
+                    nextBtn.classList.remove('hidden');
+                    submitBtn.classList.add('hidden');
+                }
+            } else {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.add('hidden');
+            }
+
+            prevBtn.disabled = index === 0;
+        }
+
+        // Function dipanggil otomatis SAAT KLIK (menggantikan tombol cek)
+        function selectOption(key) {
+            // Jika sudah terjawab dan dicek, abaikan klik lanjutan
+            if (userAnswers[currentQuestionIndex] && userAnswers[currentQuestionIndex].checked) return;
+            
+            // Simpan jawaban & tandai sudah dicek
+            userAnswers[currentQuestionIndex] = { val: key, checked: true };
+            
+            // Update tampilan opsi yang dipilih dan benar/salah
+            updateSelectedUI();
+            
+            // Langsung tampilkan penjelasan!
+            showExplanation();
+            
+            // Tampilkan tombol selanjutnya
+            if (currentQuestionIndex === questions.length - 1) {
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+            }
+            
+            // Nonaktifkan klik opsi lain
+            const radios = optionsContainer.querySelectorAll('input[type="radio"]');
+            radios.forEach(r => r.disabled = true);
+            const labels = optionsContainer.querySelectorAll('.option-label');
+            labels.forEach(l => l.classList.add('disabled', 'cursor-not-allowed', 'opacity-75'));
+        }
+        
+        function showExplanation() {
+            const q = questions[currentQuestionIndex];
+            const userAns = userAnswers[currentQuestionIndex]?.val;
+            const isCorrect = userAns === q.ans;
+            
+            explanationContainer.classList.remove('hidden');
+            
+            // Force reflow to trigger animation
+            void explanationContainer.offsetWidth;
+            explanationContainer.classList.add('animate-slide-down');
+
+            if (isCorrect) {
+                explanationContainer.className = 'mb-8 p-5 bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-xl shadow-sm animate-slide-down';
+                explanationTitle.innerHTML = `<div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3"><i class="fas fa-check"></i></div> <span class="text-green-800 text-xl">Tepat Sekali!</span>`;
+                explanationText.innerHTML = `
+                    <div class="mb-2"><span class="font-bold text-gray-600">Jawaban Benar:</span> <span class="font-black text-green-600">${q.ans}</span></div>
+                    <div class="text-gray-700 question-text font-medium">${escapeHtml(q.options[q.ans])}</div>
+                `;
+            } else {
+                explanationContainer.className = 'mb-8 p-5 bg-gradient-to-br from-red-50 to-red-100 border border-red-200 rounded-xl shadow-sm animate-slide-down';
+                explanationTitle.innerHTML = `<div class="bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3"><i class="fas fa-times"></i></div> <span class="text-red-800 text-xl">Kurang Tepat</span>`;
+                explanationText.innerHTML = `
+                    <div class="mb-2"><span class="font-bold text-gray-600">Jawaban Anda:</span> <span class="font-bold text-red-500">${userAns || '-'}</span></div>
+                    <div class="mb-2"><span class="font-bold text-gray-600">Kunci Jawaban yang Benar:</span> <span class="font-black text-green-600">${q.ans}</span></div>
+                    <div class="text-gray-700 question-text font-medium pt-2 border-t border-red-100 mt-2">${escapeHtml(q.options[q.ans])}</div>
+                `;
+            }
+            
+            // Highlight options
+            const labels = optionsContainer.querySelectorAll('.option-label');
+            labels.forEach(label => {
+                const radio = label.querySelector('input');
+                if (radio.value === q.ans) {
+                    label.classList.add('bg-green-50', 'border-green-400');
+                    label.classList.remove('border-gray-100', 'bg-white');
+                    label.querySelector('.option-box').classList.add('border-green-500');
+                } else if (radio.checked && !isCorrect) {
+                    label.classList.add('bg-red-50', 'border-red-400');
+                    label.classList.remove('border-gray-100', 'bg-white');
+                    label.querySelector('.option-box').classList.add('border-red-500', 'bg-red-100');
+                }
+            });
+        }
+
+        function updateSelectedUI() {
+            const labels = optionsContainer.querySelectorAll('.option-label');
+            
+            labels.forEach(label => {
+                const radio = label.querySelector('input');
+                const box = label.querySelector('.option-box');
+                const dot = label.querySelector('.option-box div');
+                
+                // Reset basic styles
+                box.classList.remove('border-indigo-600', 'border-green-500', 'border-red-500', 'bg-red-100');
+                dot.classList.add('opacity-0');
+
+                if (radio.checked) {
+                    box.classList.add('border-indigo-600');
+                    dot.classList.remove('opacity-0');
+                }
+            });
+        }
+
+        function navigate(dir) {
+            const newIndex = currentQuestionIndex + dir;
+            if (newIndex >= 0 && newIndex < questions.length) {
+                loadQuestion(newIndex);
+            }
+        }
+
+        function finishQuiz() {
+            const answeredCount = Object.keys(userAnswers).filter(k => userAnswers[k].checked).length;
+            if (answeredCount < questions.length) {
+                if(!confirm(`Anda baru menjawab ${answeredCount} dari ${questions.length} soal. Yakin ingin mengakhiri kuis dan melihat hasil akhir?`)) {
+                    return;
+                }
+            }
+
+            clearInterval(timerInterval);
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            window.scrollTo(0, 0);
+
+            calculateResult();
+        }
+
+        function calculateResult() {
+            let correct = 0;
+            let discussionHtml = '';
+
+            questions.forEach((q, index) => {
+                const userAnsObj = userAnswers[index];
+                const userAns = userAnsObj ? userAnsObj.val : null;
+                const isCorrect = userAns === q.ans;
+                if (isCorrect) correct++;
+
+                let userAnsText = userAns ? `${userAns}. ${escapeHtml(q.options[userAns])}` : 'Tidak dijawab';
+                let correctAnsText = `${q.ans}. ${escapeHtml(q.options[q.ans])}`;
+
+                discussionHtml += `
+                    <div class="bg-white p-6 rounded-xl border-l-4 shadow-sm mb-4 ${isCorrect ? 'border-l-green-500' : 'border-l-red-500'} relative">
+                        <div class="absolute top-4 right-4 text-3xl opacity-20">
+                            ${isCorrect ? '<i class="fas fa-check-circle text-green-600"></i>' : '<i class="fas fa-times-circle text-red-600"></i>'}
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-3 bg-gray-100 inline-block px-3 py-1 rounded-md text-sm">Soal ${q.num}</h4>
+                        <p class="mb-5 text-gray-700 question-text font-medium">${escapeHtml(q.text)}</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
+                                <span class="text-xs font-bold text-gray-400 block mb-1 uppercase tracking-wide">Jawaban Anda</span>
+                                <span class="${isCorrect ? 'text-green-700' : 'text-red-600'} font-semibold question-text">${userAnsText}</span>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg border border-green-100">
+                                <span class="text-xs font-bold text-green-500 block mb-1 uppercase tracking-wide">Kunci Jawaban</span>
+                                <span class="text-green-700 font-semibold question-text">${correctAnsText}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const incorrect = questions.length - correct;
+            const score = Math.round((correct / questions.length) * 100);
+
+            // Animate numbers
+            animateValue("correct-count", 0, correct, 1000);
+            animateValue("incorrect-count", 0, incorrect, 1000);
+            animateValue("final-score", 0, score, 1500);
+            
+            document.getElementById('discussion-container').innerHTML += discussionHtml;
+        }
+
+        function animateValue(id, start, end, duration) {
+            if (start === end) {
+                document.getElementById(id).innerText = end;
+                return;
+            }
+            let range = end - start;
+            let current = start;
+            let increment = end > start ? 1 : -1;
+            let stepTime = Math.abs(Math.floor(duration / range));
+            let obj = document.getElementById(id);
+            let timer = setInterval(function() {
+                current += increment;
+                obj.innerText = current;
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+
+        function resetQuiz() {
+            userAnswers = {};
+            currentQuestionIndex = 0;
+            resultScreen.classList.add('hidden');
+            
+            // Clean up discussions to prevent duplication
+            const discussionContainer = document.getElementById('discussion-container');
+            discussionContainer.classList.add('hidden');
+            discussionContainer.innerHTML = `
+                <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">
+                    <i class="fas fa-tasks text-indigo-500 mr-3"></i> Detail Jawaban Anda
+                </h3>
+            `;
+            startQuiz();
+        }
+
+        function escapeHtml(unsafe) {
+            return (unsafe || "").replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
